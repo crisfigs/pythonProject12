@@ -1,0 +1,58 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{{block styles }}
+<style>
+.center {
+  text-align: center;
+}
+</style><style>
+body {
+    font-family: Arial, sans-serif;
+}
+
+.progress {
+    height: 20px;
+    background-color: #f0f0f0;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}</style>
+{{ endblock }}
+
+{{ block title }} Part 1/4{{ endblock }}
+
+{% block content %}
+
+   <div class="card">
+     <div class="card-body">
+       1. How appropriate do you think it is for a male professor to mentor a <i>female</i> student over a drink in a pub?
+                {{ form.approp_female}}
+         <br>
+       2. How appropriate do you think it is for a male professor to mentor a <i>male</i> student over a drink in a pub?
+                {{ form.approp_male}}
+         <br>
+         3. What do you think other people think if they see an older male in a pub having a drink with a <i>younger female</i>?
+         {{ form.opinion_female_others}}
+         <br>
+         4. What do you think other people think if they see an older male in a pub having a drink with a <i>younger male</i>?
+
+                {{ form.opinion_male_others}}
+         <br>
+
+
+     </div></div>
+
+
+<div class="center">{% next_button %}</div>
+{% endblock %}
+
+
+
