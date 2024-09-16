@@ -147,7 +147,7 @@ SESSION_CONFIGS = [
     # )
 dict(
           name='Survey',
-           app_sequence=['survey0'],
+           app_sequence=['survey_'],
           num_demo_participants=2,
           cc_code="CCCODE",
      error_code="ECODE",

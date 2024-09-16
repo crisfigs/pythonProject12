@@ -1,0 +1,37 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{{block styles }}
+<style>
+.center {
+  text-align: center;
+}
+</style><style>
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+}</style>
+{{ endblock }}
+
+{{ block title }} Part 3/3 {{ endblock }}
+
+{% block content %}
+
+   <div class="card">
+     <div class="card-body">
+         Let us now consider your own preferences. If you got invited to a 1-1 mentoring program which allows a one time meeting in a pub and a voucher for a (non-alcoholic) drink, then:
+     <br>
+      {{formfields}}
+
+     </div></div>
+
+
+<div class="center">{% next_button %}</div>
+{% endblock %}
+
+
+
+
+
