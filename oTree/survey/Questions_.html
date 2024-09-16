@@ -1,0 +1,116 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{{block styles }}
+<style>
+.center {
+  text-align: center;
+}
+.form-container,.chart-container  {margin: 8px; display:inline-block;}
+#myChart { width:1200px; height:1200px;}
+.form-container input {width:30px}
+</style>
+{{ endblock }}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<div>
+
+
+
+                <!---Angry--->
+                <div class="mood">
+                    <input type="number" name="angry" id="angry" value="0" required>
+                    <button class="mood-btn" >Enter</button>
+                </div>
+
+
+
+                </div>
+
+
+        </div>
+{{ formfield_errors "angry"}}
+
+<div class="center">{% next_button %}</div>
+
+<!---Mood Chart--->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="chart-container" style=" float: right; margin-right: 150px;position: relative; height: 42vh; width: 42vw; margin-top: 8px">
+<canvas id="myChart" width="100px" height="100px"></canvas>
+<script>
+let chartData =[]
+const ctx = document.getElementById('myChart');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Good Intentions', 'Bad Intentions'],
+        datasets: [{
+            label: '',
+            data: chartData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+        }
+    }
+});
+
+function removeData(chart) {
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
+
+function addData(chart, data) {
+
+    chart.data.datasets.forEach((dataset) => {
+
+        dataset.data = [...data]
+    });
+    chart.update();
+}
+
+function updateChart(event){
+
+    event.preventDefault()
+    angryValue = Number(document.getElementById('angry').value);
+    sadValue = 100 - Number(document.getElementById('angry').value);
+    document.getElementById("angry").value = `${value}`
+
+    chartData = [
+        angryValue,
+        sadValue
+
+]
+    removeData(myChart)
+    addData(myChart, chartData)
+
+}
+
+var moodBtn = document.querySelectorAll('.mood-btn');
+moodBtn.forEach(btn => {
+    btn.addEventListener('click', updateChart, false)
+})
+</script>
+</div>
+{% endblock %}
+
+
+
