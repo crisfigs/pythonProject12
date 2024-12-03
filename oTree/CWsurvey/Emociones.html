@@ -1,0 +1,60 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{{ block styles }}
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+    .card {
+        font-size: 18px;
+    }
+</style>
+{{ endblock }}
+
+{{ block title }} Encuesta 1/4 {{ endblock }}
+{{ block content }}
+
+ <div class="card">
+     <div class="card-body">
+
+
+         <p>¿Cómo calificaría la intensidad de las emociones que sintió al leer (o después de leer) el texto? </p>
+
+<p>Por favor, evalúe con qué intensidad experimentó cada una de las siguientes emociones, utilizando la escala indicada.</p>
+<br>
+         <br>
+         <div class="parent"> <table class="table table-striped">
+    {{ for field in form }}
+        <tr>
+            <th>{{ field.label }}</th>
+            {{ for choice in field }}
+                <td>{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+    {{ endfor }}
+</table>
+             <div class="child"><div style="position:absolute;left: 410px;top: 100px">Ninguna</div> </div>
+             <div class="child"><div style="position:absolute;left: 410px;top:120px">Emoción</div> </div>
+
+             <div class="child"><div style="position:absolute;left: 520px;top: 120px">Leve</div> </div>
+             <div class="child"><div style="position:absolute;left: 610px;top: 120px">Moderada</div> </div>
+             <div class="child"><div style="position:absolute;left: 730px;top: 120px">Alta</div> </div>
+            <div class="child"><div style="position:absolute;right: 78px;top: 100px">Muy alta</div> </div>
+             <div class="child"><div style="position:absolute;right: 78px;top:120px">Emoción</div> </div>
+
+
+
+         </div>
+
+
+Una vez haya completado estas preguntas, por favor, pulse "Siguiente" para continuar.
+
+     </div></div>
+<br>
+
+<div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
+</div>
+{{ endblock }}

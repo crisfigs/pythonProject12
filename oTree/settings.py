@@ -151,9 +151,23 @@ dict(
           num_demo_participants=2,
           cc_code="CCCODE",
      error_code="ECODE",
+     ),
+dict(
+          name= 'DWK',
+           app_sequence=['Welcome','DWK_baseline', 'DWK_cheap', 'DWK_increasedloss', 'DWK_likelyloss'],
+          num_demo_participants=2,
+          cc_code="CCCODE",
+
+     error_code="ECODE",
+     ),
+dict(
+          name= 'CWsurvey',
+          app_sequence=['CWsurvey'],
+          num_demo_participants=2,
+          cc_code="CCCODE",
+          error_code="ECODE",
      )
 ]
-
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
 # the session config can be accessed from methods in your apps as self.session.config,
@@ -190,4 +204,4 @@ SECRET_KEY = '{{ secret_key }}'
 
 INSTALLED_APPS = ['otree']
 
-DEBUG = False
+DEBUG = True

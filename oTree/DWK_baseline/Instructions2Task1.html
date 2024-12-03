@@ -1,0 +1,248 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% load otree %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+    .nav-tabs {
+        display: none;
+    }
+    .column {
+        flex: 1;
+        padding: 10px; /* Optional: adds space inside each column */
+    }
+
+.column .center {
+    font-size: 18px;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.card {
+    flex: 1;
+    width: 100%;
+    max-width: none; /* Ensure the card doesn’t restrict itself to a maximum width */
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.two-columns {
+    display: flex;
+    gap: 25px;
+    width: 100%;
+}
+
+.card-body {
+    flex: 1; /* Allows card-body to grow and fill the space inside the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    padding: 20px; /* Optional: adjust padding as needed */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px; /* Reduce font size for a more compact look */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 6px 10px; /* Reduce padding to make cells smaller */
+    text-align: center;
+    border-right: 1px solid #e0e0e0;
+        font-size: 18px;
+}
+
+th:last-child, td:last-child {
+    border-right: none;
+}
+
+th {
+    font-weight: 500;
+    background-color: #f5f5f5;
+}
+
+tr {
+    background-color: #fff;
+}
+
+tr:not(:first-child) {
+    border-top: 1px solid #f0f0f0;
+}
+
+th:nth-child(1), td:nth-child(1) {
+    width: 25%; /* Adjust the percentage as needed */
+}
+
+th:nth-child(2), td:nth-child(2) {
+    width: 15%; /* Adjust the percentage as needed */
+}
+
+th:nth-child(3), td:nth-child(3) {
+    width: 15%; /* Adjust the percentage as needed */
+}
+center {
+  display: grid;
+  place-items: center;
+  margin: 0; /* Reset the default margin of <p> */
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+    <!-- Tab navigation -->
+    <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()">Tab 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2" onclick="topFunction()">Tab 2</a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link" id="part3-tab" data-toggle="tab" href="#part3" role="tab" aria-controls="part3" onclick="topFunction()">Tab 3</a>
+        </li>
+    </ul>
+    <br>
+    <br>
+
+    <!-- Tab content -->
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Instructions II</h3>
+            </div>
+
+            <br>
+            <div class="card">
+            <div class="card-body">
+
+                <p>In the actual experiment you will play one of the two games pictured below. The payment of player X is the same in both games. The only thing that distinguishes both games is the income of Player Y, which has been swapped between the games.</p>
+
+                <ul>
+                <li> If Player X chooses "A" he receives the highest payment of 100 points in both games. In the first game, Player Y will then receive a payment of 10 points. In the second game Player Y will receive a payment of 60 points.</li>
+                <li>   If Player X chooses "B" he receives the lowest payment of 60 points in both games. In the first game, Player Y will then receive a payment of 60 points. In the second game Player Y will receive a payment of 10 points.</li>
+                </ul>
+
+
+                <p>The actual game is determined randomly by the computer before the start of the experiment. Both games have an equal probability (50%) of being played.</p>
+
+                <div class="two-columns">
+                    <div class="column">
+                        <p class="center"> Game 1</p>
+                                    {% include '_templates/snippets/TableA.html' %}
+                    </div>
+                    <div class="column">
+                        <p class="center"> Game 2</p>
+                                    {% include '_templates/snippets/TableB.html' %}
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <br><br><br>
+
+            <div style="float: right;">
+                        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+            </div>
+            </div>
+
+
+
+        <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Instructions II</h3>
+            </div>
+            <br>
+            <div class="card">
+            <div class="card-body">
+
+
+                <p>We will not reveal publicly which game you are actually playing. Before choosing A or B, Player X
+                chooses whether to find out which game is being played. Player X can find out by clicking a REVEAL GAME button, or not find out by clicking a DON'T REVEAL button . This choice will be
+                anonymous: Player Y will not know if X knows which game is being played. Also, Player Y has no
+                opportunity to find out which game is being played. </p>
+
+                <p>While Player X makes his choice, Player Y will be asked to answer a few questions.</p>
+
+            </div>
+            </div>
+            <br><br><br>
+            <div style="float: left;">
+                <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+            </div>
+            <div style="float: right;">
+                        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Control Questions</h3>
+            </div>
+            <br>
+
+            <div class="card">
+                <div class="card-body">
+                    <p>Please answer the following control questions. Keep in mind that both games are equally likely to be played.</p>
+                    <br>
+               <div class="two-columns">
+                <div class="column">
+                    <p class="center">Game 1</p>
+                                {% include '_templates/snippets/TableA.html' %}
+                </div>
+                <div class="column">
+                    <p class="center">Game 2</p>
+                                {% include '_templates/snippets/TableB.html' %}
+                </div>
+                    </div>
+
+                     <br>
+                    <br>
+                    <br>
+                    {{ form.q_control1.label }}
+                    {{ form.q_control1 }}
+                    <br>
+                    {{ form.q_control2.label }}
+                    {{ form.q_control2 }}
+
+                </div>
+            </div>
+<br><br><br>
+     <div style="float: left;">
+            <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+     </div>
+     <div style="float: right;">
+            <button class="nexttab btn-primary btn next">Next</button>
+     </div>
+    </div>
+
+    </div>
+
+
+
+{% block scripts %}
+
+<script src="{% static 'prev_next_button.js' %}"></script>
+
+<script>
+var ul = document.getElementById('grid');
+for (var i = ul.children.length; i >= 0; i--) {
+    ul.appendChild(ul.children[Math.random() * i | 0]);
+}</script>
+{% endblock %}
+
+
+{% endblock %}

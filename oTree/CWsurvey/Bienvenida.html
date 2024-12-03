@@ -1,0 +1,50 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% load staticfiles otree_tags %}
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+¡Bienvenido!
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <p>Usted está participando en un estudio financiado por la Universidad de Ámsterdam.
+            Recibirá <b>£ X</b> como pago por su participación.</p>
+        <br>
+        <p>El objetivo de este estudio es evaluar percepciones sobre la historia de España. El estudio consta de
+            la lectura de un texto corto sobre un evento reciente de la historia de España, seguido de una encuesta corta.
+
+        </p>
+        <br>
+        <p>En esta encuesta recopilaremos algunos datos demográficos. Además de su Prolific ID, no se le pedirá que proporcione información personal con la que se le pueda identificar.
+            Su información y respuestas solo se utilizarán para los fines de este estudio, y los datos serán tratados con estricta confidencialidad. Al participar en este estudio, usted consiente que los datos se utilicen con este propósito.
+        </p>
+        <label for="prolific_id">Por favor, introduzca su Prolific ID:</label>
+        <input required type="text" style="max-width:400px" class="form-control" id="prolific_id" name="prolific_id" autocomplete="off">
+        <br>
+        <p>Su participación en esta investigación es completamente voluntaria, y tiene derecho a retirar su consentimiento en cualquier momento cerrando su navegador. Recuerde que si no completa el estudio, no recibirá el pago por su participación.</p>
+        <label for="consent">Por favor, seleccione si da su consentimiento:</label>
+        <input required type="checkbox" id="consent" name="consent" autocomplete="off">
+        <br>
+        <br>
+        <p>Si tiene preguntas, puede contactar al investigador. Presione "Siguiente" para continuar.</p>
+    </div>
+</div>
+
+
+<br>
+        <button style="float: right;" type="submit" onclick="submitForm()" class="btn btn-primary">Siguiente</button>
+
+{% endblock %}
+
+
+

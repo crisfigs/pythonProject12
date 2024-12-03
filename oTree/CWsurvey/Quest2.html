@@ -1,0 +1,356 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{{block styles }}
+<link href="{% static 'heatmap.css' %}" rel="stylesheet">
+   <style>
+
+.card {
+        font-size: 18px;
+    }
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between labels and slider */
+}
+
+.slider-label {
+  font-size: 16px; /* Increase font size */
+  font-weight: bold; /* Make text bold */
+  color: #2c95dd; /* Use a contrasting color */
+  text-transform: uppercase; /* Make text uppercase */
+  margin: 0 10px; /* Add spacing around the labels */
+}
+    .center {
+        display: grid;
+        place-items: center;
+    }
+
+.heat-slider--h {
+	 display: flex;
+	 align-items: center;
+}
+ .heat-slider--h .heat-slider--label + * {
+	 margin-left: 1em;
+	 flex: 1;
+}
+ .heat-slider--v {
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: center;
+}
+ .heat-slider--v .heat-slider--label + * {
+	 margin-top: 1em;
+	 flex: 1;
+}
+ .heat-slider {
+	 --slider-base: #d8d8d8;
+	 --slider-red: #2c95dd;
+	 --slider-orange:#2c95dd;
+	 --slider-yellow: #2c95dd;
+	 --slider-green: #2c95dd;
+	 --slider-blue: #2c95dd;
+	 --slider-radius: 1em;
+	 --slider-handle-size: 1em;
+	 --p: 22.9%;
+    width: 15em; /* Make the slider smaller */
+    --slider-handle-size: 0.8em; /* Adjust the size of the slider handle */
+}
+ /*
+  --slider-base: #d8d8d8;
+	 --slider-red: #fc3770;
+	 --slider-orange: #ff7f36;
+	 --slider-yellow: #f6d866;
+	 --slider-green: #74c35a;
+	 --slider-blue: #2c95dd;
+  */
+ /*--slider-red: #020a8d;
+	 --slider-orange: #1c26de;
+	 --slider-yellow: #2c35dd;
+	 --slider-green: #2c5edd;
+	 --slider-blue: #2c95dd;  */
+ .heat-slider--input {
+	 position: relative;
+	 line-height: 0;
+	 border-radius: var(--slider-radius);
+	 background-image: linear-gradient(to right, var(--slider-blue), var(--slider-green), var(--slider-yellow), var(--slider-orange), var(--slider-red));
+}
+ .heat-slider--input::before {
+	 content: '';
+	 position: absolute;
+	 pointer-events: none;
+	 top: 0;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 margin-right: 0;
+	 border-radius: var(--slider-radius);
+	 background: linear-gradient(to right, transparent 0, transparent calc(var(--p) + var(--slider-handle-size) / 2), var(--slider-base) var(--p), var(--slider-base) 100%);
+}
+ .heat-slider--input input {
+	 position: relative;
+	 z-index: 1;
+	 width: 100%;
+	 appearance: none;
+	 font: inherit;
+	 background: transparent;
+	 border: 0;
+	 margin: 0;
+	 padding: 0;
+}
+ .heat-slider--input input::-webkit-slider-runnable-track {
+	 background: transparent;
+	 padding: calc(var(--slider-handle-size) / 1.6) 0;
+	 margin: 0 calc(var(--slider-handle-size) / 2 * -1);
+	 cursor: pointer;
+}
+ .heat-slider--input input::-moz-range-track {
+	 background: transparent;
+	 padding: calc(var(--slider-handle-size) / 1.6) 0;
+	 margin: 0 calc(var(--slider-handle-size) / 2 * -1);
+	 cursor: pointer;
+}
+ .heat-slider--input input::-webkit-slider-thumb {
+	 position: relative;
+	 appearance: none;
+	 box-shadow: 0 0 0 0.2em #444;
+	 height: calc(var(--slider-handle-size) * 2);
+	 width: var(--slider-handle-size)  ; /*500px */
+	 margin: calc(var(--slider-handle-size) * -1) 0;
+	 border-radius: var(--slider-radius, 1em);
+	 background: transparent;
+	 cursor: grab;
+}
+ .heat-slider--input input::-moz-range-thumb {
+	 position: relative;
+	 appearance: none;
+	 box-shadow: 0 0 0 0.2em #444;
+	 height: calc(var(--slider-handle-size) * 2);
+	 width: var(--slider-handle-size);
+	 margin: calc(var(--slider-handle-size) * -1) 0;
+	 border-radius: var(--slider-radius, 1em);
+	 background: transparent;
+	 cursor: grab;
+}
+ .heat-slider--input input:focus {
+	 outline: none;
+}
+ .heat-slider--input input:active::-webkit-slider-thumb {
+	 position: relative;
+	 appearance: none;
+	 box-shadow: 0 0 0 0.2em #444;
+	 height: calc(var(--slider-handle-size) * 2);
+	 width: var(--slider-handle-size);
+	 margin: calc(var(--slider-handle-size) * -1) 0;
+	 border-radius: var(--slider-radius, 1em);
+	 background: transparent;
+	 cursor: grabbing;
+}
+ .heat-slider--input input:active::-moz-range-thumb {
+	 position: relative;
+	 appearance: none;
+	 box-shadow: 0 0 0 0.2em #444;
+	 height: calc(var(--slider-handle-size) * 2);
+	 width: var(--slider-handle-size);
+	 margin: calc(var(--slider-handle-size) * -1) 0;
+	 border-radius: var(--slider-radius, 1em);
+	 background: transparent;
+	 cursor: grabbing;
+}
+ body {
+	 margin: 0;
+	 min-height: 100vh;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 justify-content: center;
+	 font-family: system-ui, sans-serif;
+}
+ *, *::before, *::after {
+	 box-sizing: border-box;
+}
+ output {
+	 margin: 1em;
+	 opacity: 0.4;
+}
+   </style>
+
+{{ endblock }}
+
+
+
+
+{% block title %}
+Encuesta 3/4
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+            <p>Haya, o no haya vivido durante la época de la Guerra Civil y el Franquismo,
+                nos interesa saber qué ha escuchado o aprendido sobre esta época ya sea a través de su familia,
+                la educación o los medios de comunicación.</p>
+
+            <p>1. ¿Podría indicarnos cuánto ha escuchado sobre la Guerra Civil y
+                la época de Franco a través de las siguientes fuentes de información?</p>
+
+             <div type="hidden" class="slidecontainer">
+                <input type="hidden" id="myRange1" type="range" min="0" max="100" value="50" >
+             </div>
+	            <p>En la {{form.transmission_school.label}}: </p>
+                    <div class="slider-container">
+                      <label for="d" class="slider-label">Nada</label>
+                        <label class="heat-slider heat-slider--v">
+                      <span class="heat-slider--input">
+                        <input id="d" type="range" value="22" min="0" max="100" oninput="doThings1(event)" />
+                      </span></label>
+                      <label for="d" class="slider-label">Mucho</label>
+                    </div>
+                <input  type="hidden" name="transmission_school" id="transmission_school">
+                        <output type="hidden" id="output1"></output>
+
+
+<br><br>
+<br>
+            <div type="hidden" class="slidecontainer">
+                <input type="hidden" id="myRange2" type="range" min="0" max="100" value="50" >
+             </div>
+	            <p>En la {{form.transmission_family.label}}: </p>
+                    <div class="slider-container">
+                      <label for="d" class="slider-label">Nada</label>
+                        <label class="heat-slider heat-slider--v">
+                      <span class="heat-slider--input">
+                        <input id="d" type="range" value="22" min="0" max="100" oninput="doThings2(event)" />
+                      </span></label>
+                      <label for="d" class="slider-label">Mucho</label>
+                    </div>
+                <input  type="hidden" name="transmission_family" id="transmission_family">
+                        <output type="hidden" id="output2"></output>
+
+
+<br><br>
+<br>
+            <div type="hidden" class="slidecontainer">
+                <input type="hidden" id="myRange3" type="range" min="0" max="100" value="50" >
+             </div>
+	            <p>En los {{form.transmission_media.label}}: </p>
+                    <div class="slider-container">
+                      <label for="d" class="slider-label">Nada</label>
+                        <label class="heat-slider heat-slider--v">
+                      <span class="heat-slider--input">
+                        <input id="d" type="range" value="22" min="0" max="100" oninput="doThings3(event)" />
+                      </span></label>
+                      <label for="d" class="slider-label">Mucho</label>
+                    </div>
+                <input  type="hidden" name="transmission_media" id="transmission_media">
+                        <output type="hidden" id="output3"></output>
+<!--
+            <br><br>
+                    <br>
+                    <div type="hidden" class="slidecontainer">
+                      <input type="hidden" id="myRange4" type="range" min="0" max="100" value="50">
+                    </div>
+
+                    <p>En  <input type="text"  name="transmission_other2"  id="transmission_other2"  class="specify-input"  placeholder="Por favor especifique">:</p> <div class="slider-container">
+                      <label for="d" class="slider-label">Nada</label>
+                      <label class="heat-slider heat-slider--v">
+                        <span class="heat-slider--input">
+                          <input id="d" type="range" value="22" min="0" max="100" oninput="doThings4(event)">
+                        </span>
+                      </label>
+                      <label for="d" class="slider-label">Mucho</label>
+                    </div>
+                                <input  type="hidden" name="transmission_other1" id="transmission_other1">
+
+                                        <output type="hidden" id="output4"></output>-->
+
+
+            <p>{{ form.familyside.label }}</p>
+             {{ form.familyside}}
+   <br> <br>
+            <p>{{ form.memory.label }}</p>
+             {{ form.memory}}
+
+
+                      </div>
+    </div>
+
+
+        <button style="float: right;" type="submit" onclick="submitForm()" class="btn btn-primary">Siguiente</button>
+
+<script>
+    var slider1 = document.getElementById("myRange1");
+    var slider2 = document.getElementById("myRange2");
+    var slider3 = document.getElementById("myRange2");
+    var slider4 = document.getElementById("myRange2");
+
+    slider1.oninput = function() {
+    document.getElementById("transmission_school").value = this.value;}
+    slider2.oninput = function() {
+    document.getElementById("transmission_family").value = this.value;}
+    slider3.oninput = function() {
+    document.getElementById("transmission_media").value = this.value;}
+    slider4.oninput = function() {
+    document.getElementById("transmission_media").value = this.value;}
+
+
+    const output1 = document.getElementById("output1");
+    const output2 = document.getElementById("output2");
+    const output3 = document.getElementById("output3");
+    const output4 = document.getElementById("output3");
+
+    const doThings1 = (event) => {
+	    const { value, min, max, step, parentElement: parent } = event.target
+	    const decimals = step && step.includes('.') ? step.split('.')[1] : 1
+	    const percent = `${((value - min)/(max - min) * 100).toFixed(decimals)}%`
+	    parent.style.setProperty('--p', percent)
+	    output1.value = ``
+        document.getElementById("transmission_school").value = `${value}`;}
+
+    const doThings2 = (event) => {
+	    const { value, min, max, step, parentElement: parent } = event.target
+	    const decimals = step && step.includes('.') ? step.split('.')[1] : 1
+	    const percent = `${((value - min)/(max - min) * 100).toFixed(decimals)}%`
+	    parent.style.setProperty('--p', percent)
+	    output2.value = ``
+        document.getElementById("transmission_family").value = `${value}`;}
+
+     const doThings3 = (event) => {
+	    const { value, min, max, step, parentElement: parent } = event.target
+	    const decimals = step && step.includes('.') ? step.split('.')[1] : 1
+	    const percent = `${((value - min)/(max - min) * 100).toFixed(decimals)}%`
+	    parent.style.setProperty('--p', percent)
+	    output3.value = ``
+        document.getElementById("transmission_media").value = `${value}`;}
+
+     const doThings4= (event) => {
+	    const { value, min, max, step, parentElement: parent } = event.target
+	    const decimals = step && step.includes('.') ? step.split('.')[1] : 1
+	    const percent = `${((value - min)/(max - min) * 100).toFixed(decimals)}%`
+	    parent.style.setProperty('--p', percent)
+	    output4.value = ``
+        document.getElementById("transmission_other1").value = `${value}`;}
+
+function submitForm(){
+            if (document.getElementById("transmission_school").value =="") {
+                window.alert("Por favor, responda a todas las preguntas (escuela)");
+                                        event.preventDefault();}
+            else if (document.getElementById("transmission_family").value =="") {
+                window.alert("Por favor, responda a todas las preguntas (familia)");
+                                        event.preventDefault();}
+            else if (document.getElementById("transmission_media").value =="") {
+                window.alert("Por favor, responda a todas las preguntas (medios)");
+                                        event.preventDefault();}
+
+             else  {
+            document.getElementById("form").submit();
+            }
+            }
+
+    </script>
+
+
+{% endblock %}

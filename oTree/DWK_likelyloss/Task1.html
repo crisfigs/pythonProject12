@@ -1,0 +1,44 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+    Task
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .card {
+    font-size: 18px;
+    }
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="card">
+  <div class="card-body">
+
+
+
+
+
+      <p> Please choose if you wish to reveal which of the two games is actually being played. Player Y will not observe this decision.</p>
+          <br>
+          <br>
+
+      <div class=“parent”> <p style="text-align:center">Make your choice here:</p>
+          <br>
+          <br>
+          <div class=“child”><div style="position:absolute;left:250px;right: 0px;bottom: 10px; "><button name="reveal" style="font-size: 20px;padding: 15px 30px; width: 200px; height: 60px;" id="reveal" value="1" class="btn btn-primary"> Reveal </button></div> </div>
+          <div class=“child”><div style="position:absolute;left:500px;right: 0px;bottom: 10px;"><button name="reveal" style="font-size: 20px;padding: 15px 30px; width: 200px; height: 60px;" id="reveal" value="0" class="btn btn-primary"> Don't reveal </button></div></div>
+      </div>
+
+
+  </div>
+
+
+    </div>
+
+{% endblock %}

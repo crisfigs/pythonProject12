@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+    Role Assignment
+{% endblock %}
+
+{% block styles %}
+<style>
+    .card {
+    font-size: 18px;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="card">
+  <div class="card-body">
+
+    {{if player.id_in_group == 1  }}
+<p> You have been assigned to be Player X. </p>
+    {{ elif player.id_in_group == 2  }}
+
+<p> You have been assigned to be Player Y.</p>
+    {{ endif }}
+
+      <p> Press "Next" to begin with the task.</p>
+
+
+  </div></div>
+
+    <br>
+
+         <div style="float: right;">
+   {% next_button %}
+         </div>
+
+{% endblock %}

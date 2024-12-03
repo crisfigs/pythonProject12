@@ -1,0 +1,149 @@
+{% extends "global/Page.html" %}
+{% block title %} Summary of instructions{% endblock %}
+
+{% block styles %}
+    <link href="{% static 'custom.css' %}" rel="stylesheet">
+    <style>
+    .nav-tabs {
+        display: none;
+    }
+        .card {
+        font-size: 18px;
+    }
+    .column {
+        flex: 1;
+        padding: 10px; /* Optional: adds space inside each column */
+    }
+    html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.card {
+    flex: 1;
+    width: 100%;
+    max-width: none; /* Ensure the card doesn’t restrict itself to a maximum width */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.two-columns {
+    display: flex;
+    gap: 25px;
+    width: 100%;
+}
+
+.card-body {
+    flex: 1; /* Allows card-body to grow and fill the space inside the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    padding: 20px; /* Optional: adjust padding as needed */
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px; /* Reduce font size for a more compact look */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 6px 10px; /* Reduce padding to make cells smaller */
+    text-align: center;
+    border-right: 1px solid #e0e0e0;
+}
+
+th:last-child, td:last-child {
+    border-right: none;
+}
+
+th {
+    font-weight: 500;
+    background-color: #f5f5f5;
+}
+
+tr {
+    background-color: #fff;
+}
+
+tr:not(:first-child) {
+    border-top: 1px solid #f0f0f0;
+}
+
+th:nth-child(1), td:nth-child(1) {
+    width: 25%; /* Adjust the percentage as needed */
+}
+
+th:nth-child(2), td:nth-child(2) {
+    width: 15%; /* Adjust the percentage as needed */
+}
+
+th:nth-child(3), td:nth-child(3) {
+    width: 15%; /* Adjust the percentage as needed */
+}
+.center {
+  display: grid;
+  place-items: center;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="card">
+                <div class="card-body" style="justify-content: center;">
+
+
+
+                            <p>If you are player X, you will decide in one of the two games below. If you are player Y, you will answer some questions.</p>
+
+                        <p>The actual game was randomly decided before the experiment by the computer. Each game has a 50% probability of being played.</p>
+
+                        <p>You choose whether to find out which of the games is actually being played.</p>
+
+                        <p>Subsequently you will choose "A" or "B".</p>
+
+                        <p>At the end of the experiment we will pay both players privately.</p>
+
+
+
+
+
+
+                <div class="two-columns">
+                    <div class="column">
+                    <p class="center">50% probability</p>
+                                {% include '_templates/snippets/TableA.html' %}
+                    </div>
+                    <div class="column">
+                    <p class="center">50% probability</p>
+                                {% include '_templates/snippets/TableB.html' %}
+                    </div>
+                </div>
+
+
+                </div>
+
+            </div>
+    <br>
+         <div style="float: right;">
+   {% next_button %}
+         </div>
+
+
+{% endblock %}
+
+

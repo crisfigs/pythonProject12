@@ -1,0 +1,122 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+
+.remaining-box {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: green;
+    font-weight: bold;
+}
+</style>
+{% endblock %}
+
+    {% block scripts %}
+<script>
+    // Add this script with the rest of the javascript for your page
+
+//This bit creates 2 variables, one will function as a timer, the other will hold the timer output. They are set to 0 and -1 here to initialise them, these will not be the final outputs.
+var pageTimeElapsed = 0;
+var pageTimerID = -1;
+
+//This function captures the timer output. When the timer starts it will increase 'pageTimeElapsed' every second and send this value to the 'timeSpent' variable that will be saved
+//When a person moves to the next page, or the page times out, the final value that the timer was on will be saved. The value resets each round/page.
+function pageTick() {
+  pageTimeElapsed++
+  document.getElementById("timeSpent").value = pageTimeElapsed;
+}
+
+//This function automatically starts the timer when the page loads. In this case I want seconds so the interval is set to 1000, but I believe if you set it to 1 then it will count milliseconds - you will need to test this
+window.onload = function() {
+  if(pageTimerID == -1){
+    pageTimerID = setInterval(pageTick, 1000);
+  }
+};
+</script>
+{% endblock %}
+
+{% block title %}
+    Donación
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+<p>Antes de avanzar a una breve encuesta, nos gustaría que tomara una decisión:</p>
+
+<p>El equipo de investigadores realizará una donación de 100 euros. Este monto será distribuido entre tres organizaciones según las preferencias de un participante seleccionado al azar.</p>
+
+            <p>Ahora, le pedimos que indique cómo le gustaría asignar los 100 euros entre las tres organizaciones. Si usted es elegido al azar, su decisión determinará cómo distribuiremos la donación.</p>
+<p>Por favor, reflexione cuidadosamente antes de realizar su asignación.</p>
+            <br>
+
+
+<ul>
+    {% for org in descriptions %}
+        <li>
+            <b>{{ org.name }}</b>: {{ org.description }}
+        <br>
+        </li>
+    {% endfor %}
+</ul>
+
+<br>
+<p> Por favor, distribuya 100 euros entre las tres organizaciones descritas arriba. Recuerde que la suma total de las tres asignaciones debe ser exactamente 100 euros.</p>
+
+        <!-- Real-time remaining amount box -->
+        <div class="remaining-box" id="remainingAmount">Cantidad restante por distribuir: 100 euros</div>
+
+    <div>
+        {{ formfields}}<br>
+    </div>
+    <br>
+
+
+  </div>
+    </div>
+<br>
+<div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+// Function to update the remaining amount
+function updateRemainingAmount() {
+    const inputs = document.querySelectorAll('input[type="number"]');
+    let total = 0;
+    inputs.forEach(input => {
+        total += parseInt(input.value || 0);
+    });
+    const remaining = 100 - total;
+    const remainingBox = document.getElementById("remainingAmount");
+    remainingBox.textContent = `Cantidad restante por distribuir: ${remaining} euros`;
+
+    // Change the color to red if over-allocated
+    if (remaining < 0) {
+        remainingBox.style.color = "red";
+    } else {
+        remainingBox.style.color = "green";
+    }
+}
+
+// Add event listeners to all number inputs
+window.onload = function() {
+    const inputs = document.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => {
+        input.addEventListener("input", updateRemainingAmount);
+    });
+    // Initialize the remaining amount on page load
+    updateRemainingAmount();
+};
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+   Payoffs
+{% endblock %}
+
+{% block styles %}
+    <style>
+.card {
+    font-size: 18px;
+}
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="card">
+  <div class="card-body">
+
+Player X has chosen Option {{ if p1_task1 == "A" }} A.
+      {{elif p1_task1 == "B" }} B.
+      {{ endif }}
+      Given the game that was selected by the computer,
+      Player X earns {{p1_bonus}} and Player Y earns {{  p2_bonus }} as a bonus.
+
+  </div></div>
+
+    <br><br>
+
+<button type="button" class="btn btn-primary btn-right btn-lg" onclick="completed()" > Back to Prolific </button>
+{% endblock %}
+
+{% block scripts%}
+<script>
+
+        let completionlink = js_vars.completionlink;
+        function completed() {
+            console.log("clicking the button")
+            window.location.href =completionlink;
+        }
+
+</script>
+{% endblock %}

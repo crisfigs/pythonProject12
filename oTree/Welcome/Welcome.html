@@ -1,0 +1,53 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% load staticfiles otree_tags %}
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+    Welcome
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <p>Welcome! You are participating in a study funded by the University of Amsterdam.</p>
+
+        <p>
+            The goal of this study is to assess how people make decisions.
+            The computer has selected that you receive
+            {{if player.treatnumber in [1, 2, 4] }}
+                <b>{{ C.participation_fee }} euro</b> as a payment for participation. This is, you receive a "Fair" (according to Prolific standards) participation fee.
+            {{elif player.treatnumber == 3}}
+                <b>{{ C.participation_fee }} + 2 euro</b> as a payment for participation. This is, you receive a "Great" (according to Prolific standards) participation fee.
+            {{ endif }}
+
+            Further, you can earn extra money as a bonus.
+        </p>
+
+        <p>
+            Your bonus depends on your decisions and on the decisions of other participants.
+            Your decisions may affect the payment of other participants.
+            During the experiment, we do not speak of money, but of points. Your payoffs will be represented in points, where:
+        </p>
+
+        <p>1 Point = 0.10 euro</p>
+
+        <p>Press "Next" to continue.</p>
+    </div>
+</div>
+
+<br>
+<div style="float: right;">
+    <div class="center">{% next_button %}</div>
+</div>
+{% endblock %}
+
+
+
