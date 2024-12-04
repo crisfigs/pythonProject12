@@ -51,29 +51,20 @@ window.onload = function() {
 
     <div class="card">
         <div class="card-body">
-         <p>Ahora es su turno de distribuir los 100 euros entre las tres organizaciones descritas.
-            Si usted es seleccionado al azar, sus asignaciones determinaran cómo se asignarán los fondos.</p>
 
-            <p>Lea las descripciones de cada organización detenidamente y asegúrese de que la suma total de sus asignaciones sea exactamente 100 euros.</p>
+            <p>Antes de avanzar, nos gustaría que tomara una decisión:</p>
 
-            <ul>
-            {% for org in descriptions %}
-                <li>
-                   <div class="alert alert-warning" role="alert">
-                <b>{{ org.name }}</b>: {{ org.description }}
-                    <div>
-                <br>
-                </li>
-            {% endfor %}
-            </ul>
+            <p>El equipo de investigadores realizará una donación de 100 euros. Este monto será distribuido entre tres organizaciones según las preferencias de un participante seleccionado al azar.</p>
 
-<br>
+            <p>A continuación, le pedimos que indique cómo le gustaría asignar los 100 euros entre las tres organizaciones. Si usted es elegido al azar, su decisión determinará cómo distribuiremos la donación.</p>
 
-        <!-- Real-time remaining amount box -->
-        <div class="remaining-box" id="remainingAmount">Cantidad restante por distribuir: 100 euros</div>
+            <p>Por favor, lea cuidadosamente la descripción de cada organización antes de decidir su asignación.</p>
+            <br>
 
-    <div>
-        {{ formfields}}<br>
+
+
+
+
     </div>
     <br>
 

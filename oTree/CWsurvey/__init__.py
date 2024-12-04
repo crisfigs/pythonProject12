@@ -22,7 +22,7 @@ class Player(BasePlayer):
     treatnumber = models.IntegerField()
     sum_correct = models.IntegerField()
     number = models.IntegerField()
-
+    control_number = models.IntegerField()
     # Allocations
     allocation_left = models.IntegerField(
         label="¿Cuánto desea asignar a la Fundación FAES?",
@@ -38,12 +38,12 @@ class Player(BasePlayer):
         max=100)
     #question on political spectrum perception
 
-    agreement = models.IntegerField(label="1. ¿Qué tan de acuerdo está usted con la descripción de los eventos que aparece en el texto?",
-                                       choices=[[1, 'Completamente en desacuerdo'],
-                                          [2, 'En desacuerdo'],
-                                          [3, 'Ni de acuerdo ni en desacuerdo'],
-                                          [4, 'De acuerdo' ],
-                                          [5, 'Completamente de acuerdo']], widget=widgets.RadioSelectHorizontal)
+    agreement = models.IntegerField(label="1. ¿En qué medida considera que el texto representa fielmente los acontecimientos históricos reales?",
+                                       choices=[[1, 'En ninguna medida'],
+                                          [2, 'En poca medida'],
+                                          [3, 'En medida neutral '],
+                                          [4, 'En buena medida' ],
+                                          [5, 'En gran medida']], widget=widgets.RadioSelectHorizontal)
 
     ##Political preferences
     political_spectrum = models.IntegerField(label = '2. En política se habla normalmente de “izquierda” y “derecha”. En una escala donde “0” es izquierda y “10” la derecha, ¿dónde se ubicaría usted?',
@@ -76,11 +76,27 @@ class Player(BasePlayer):
                                           [4, 'Con ninguno de los dos' ],
                                           [5, 'No sabe']], widget=widgets.RadioSelect)
 
-    transmission_school = models.IntegerField(label = "escuela")
-    transmission_family = models.IntegerField(label = 'familia')
-    transmission_media = models.IntegerField(label = 'medios de comunicación (libros, películas, prensa, etc.)' )
-    transmission_other1 = models.IntegerField(label = 'otras fuentes')
-    transmission_other2 = models.StringField(label = '', blank=True)
+    transmission_school = models.IntegerField(label = "En la escuela: ",
+                                              choices=[[0, 'Nada'],
+                                                       [1,'Poco'],
+                                                       [2,'Algo'],
+                                                       [3,'Bastante'],
+                                                       [4, 'Mucho']],widget=widgets.RadioSelectHorizontal)
+    transmission_family = models.IntegerField(label = 'En la familia: ',
+                                              choices=[[0, 'Nada'],
+                                                       [1, 'Poco'],
+                                                       [2, 'Algo'],
+                                                       [3, 'Bastante'],
+                                                       [4, 'Mucho']], widget = widgets.RadioSelectHorizontal)
+
+    transmission_media = models.IntegerField(label = 'En los medios de comunicación (libros, películas, prensa, etc.): ',
+                                             choices=[[0, 'Nada'],
+                                                      [1, 'Poco'],
+                                                      [2, 'Algo'],
+                                                      [3, 'Bastante'],
+                                                      [4, 'Mucho']], widget = widgets.RadioSelectHorizontal)
+
+
 
     memory = models.LongStringField(label="3. Por favor, recuerde cualquier historia(s) sobre la Guerra Civil o el Franquismo que haya sido compartida en su familia. Resúmala brevemente en unas pocas frases.")
 
@@ -207,71 +223,144 @@ class Player(BasePlayer):
 
 
     #Feedback questions
-    q_feedback = models.LongStringField(label="Este es el final de la encuesta."
-                                              "Si tiene comentarios, por favor déjelos aquí.",
+    q_feedback = models.LongStringField(label="Este es el final de la encuesta. Si tiene comentarios, por favor déjelos aquí.",
                                         blank=True)
     q_feedback_pilot = models.LongStringField(
         label="Si encontró alguna instrucción poco clara o confusa, por favor háganoslo saber aquí.",
         blank=True)
 
     ##Attention questions
-    controlq1_1 = models.IntegerField(
-        label="¿Qué característica fue común en ambos bandos durante la Guerra Civil?",
+    pregunta_1 = models.IntegerField(
+        label="1. ¿Cuál fue la causa principal de la Guerra Civil Española?",
         choices=[
-            [1, 'Ambos participaron en actos de violencia y cometieron atrocidades'],
-            [2, 'Un bando fue claramente más violento que el otro'],
-            [3, 'Ninguno de los bandos tuvo responsabilidad en las atrocidades']
-        ]
-    )
-    controlq1_2 = models.IntegerField(
-        label="¿Qué enfoque adoptaron ambos bandos hacia sus oponentes durante la Guerra Civil?",
+            [1, 'El fracaso de la Segunda República para gobernar responsablemente y mantener el orden.'],
+            [2, 'La rebelión nacionalista contra un gobierno legítimo y democrático.'],
+            [3, 'Las divisiones políticas, sociales y económicas arraigadas, exacerbadas por visiones irreconciliables para España.'],
+            [4, 'La intervención de potencias extranjeras que avivaron las tensiones.']],  widget=widgets.RadioSelect)
+
+    pregunta_2 = models.IntegerField(
+        label="2. ¿Qué bando fue el responsable de causar la mayoría de las muertes durante la guerra?",
         choices=[
+            [1, 'Los Nacionalistas, a través de su represión sistemática y campañas de bombardeo.'],
+            [2, 'Los Republicanos, a través de ejecuciones masivas y violencia radical.'],
+            [3, 'Ambos bandos, ya que se cometieron atrocidades por ambas facciones.'],
+            [4, 'La intervención extranjera, que exacerbó las bajas.']],  widget=widgets.RadioSelect)
 
-            [2, 'Solo uno de los bandos reprimió y purgó a sus oponentes'],
-            [1, 'Ambos llevaron a cabo acciones represivas y purgas contra sus opositores'],
-            [3, 'Ambos intentaron reconciliarse con sus opositores sin represalias']
-        ]
-    )
-
-    controlq1_3 = models.IntegerField(label = "¿Qué tensiones políticas existían en España antes de la Guerra Civil?",
-                                      choices=[
-                                          [2, 'Falta de interés en la política'],
-                                          [3, 'Concordia entre los distintos grupos políticos'],
-                                          [1, 'División entre posiciones políticas, sociales y económicas opuestas']])
-
-    controlq2_1 = make_field3(label="... ")
-    controlq2_2 = make_field3(label="...")
-    controlq2_3 = models.IntegerField(
+    pregunta_3 = models.IntegerField(
+        label="3. En términos de gobernanza, el régimen de Franco fue...",
         choices=[
-            [1, 'False'],
-            [0, 'True']],
-        label="....",
-        widget=widgets.RadioSelect)
-    controlq3_1 = make_field3(label="... ")
-    controlq3_2 = make_field3(label="...")
-    controlq3_3 = models.IntegerField(
+            [1, 'una fuerza estabilizadora y unificadora que corrigió el caos de la era republicana.' ],
+            [2, 'una dictadura represiva que sofocó las libertades individuales y la expresión cultural.'],
+            [3, 'un régimen autoritario que impuso orden pero sacrificó las libertades democráticas. '],
+            [4, 'un gobierno de transición en el camino de España hacia la democracia moderna.']],  widget=widgets.RadioSelect)
+    pregunta_4 = models.IntegerField(
+        label="4. ¿Cómo se caracteriza a la España de hoy en día en comparación con la epoca de Franco?",
         choices=[
-            [1, 'False'],
-            [0, 'True']],
-        label="....",
-        widget=widgets.RadioSelect)
+            [1, 'La España moderna sufre tensiones separatistas, en contraste con la era de estabilidad y orgullo nacional de Franco.' ],
+            [2, 'La España moderna prospera como una sociedad democrática centrada en la libertad, a diferencia del régimen represivo de Franco. '],
+            [3, 'La España moderna es un país que todavía lucha con las tensiones regionales y el legado del autoritarismo de Franco.'],
+            [4, 'La España moderna ha alcanzado plena unidad y prosperidad, dejando atrás las divisiones de la Guerra Civil.']],  widget=widgets.RadioSelect)
 
+
+    def set_error_message1(player, value):
+        correct_answers = {
+            'pregunta_1': 3,
+            'pregunta_2': 3,
+            'pregunta_3': 3,
+            'pregunta_4':3,
+        }
+
+        incorrect_questions = []
+
+        for question, correct_answer in correct_answers.items():
+            if value.get(question) != correct_answer:
+                incorrect_questions.append(question)
+
+        if incorrect_questions:
+            incorrect_list = ", ".join(incorrect_questions)
+            return (
+                f"No respondió a las siguientes preguntas correctamente: {incorrect_list}. "
+                "Por favor, vuelva a las instrucciones y revise sus respuestas."
+            )
+        return None  # Return None if all answers are correct
+    def set_error_message2(player, value):
+        correct_answers = {
+            'pregunta_1': 1,
+            'pregunta_2': 1,
+            'pregunta_3': 1,
+            'pregunta_4': 1,
+        }
+
+        incorrect_questions = []
+
+        for question, correct_answer in correct_answers.items():
+            if value.get(question) != correct_answer:
+                incorrect_questions.append(question)
+
+        if incorrect_questions:
+            incorrect_list = ", ".join(incorrect_questions)
+            return (
+                f"No respondió a las siguientes preguntas correctamente: {incorrect_list}. "
+                "Por favor, vuelva a las instrucciones y revise sus respuestas."
+            )
+        return None  # Return None if all answers are correct
+    def set_error_message3(player, value):
+        correct_answers = {
+            'pregunta_1': 2,
+            'pregunta_2': 2,
+            'pregunta_3': 2,
+            'pregunta_4': 2,
+        }
+
+        incorrect_questions = []
+
+        for question, correct_answer in correct_answers.items():
+            if value.get(question) != correct_answer:
+                incorrect_questions.append(question)
+
+        if incorrect_questions:
+            incorrect_list = ", ".join(incorrect_questions)
+            return (
+                f"No respondió a las siguientes preguntas correctamente: {incorrect_list}. "
+                "Por favor, vuelva a las instrucciones y revise sus respuestas."
+            )
+        return None  # Return None if all answers are correct
 
 class Bienvenida(Page):
     form_model = 'player'
     def vars_for_template(player: Player):
-        player.treatnumber = random.choices([1,2,3], weights=(1,0,0), k=1)[0]
+        player.treatnumber = random.choices([1,2,3], weights=(1/3,1/3,1/3), k=1)[0]
+        player.control_number = random.choices([1,2,3,4], weights=(1/4,1/4,1/4,1/4), k=1)[0]
+
         return {
             'treatnumber': player.treatnumber
         }
-
-
-class Texto(Page):
+class Text1(Page):
     form_model = 'player'
-    form_fields = []
-
+    form_fields = ["pregunta_1",'pregunta_2', 'pregunta_3' , 'pregunta_4']
+    def error_message(player,value):
+        return player.set_error_message1(value)
     def is_displayed(player: Player):
-      return player.treatnumber == 1
+        return player.treatnumber == 1
+
+class Text2(Page):
+    form_model = 'player'
+    form_fields = ["pregunta_1",'pregunta_2', 'pregunta_3' , 'pregunta_4']
+    def error_message(player,value):
+        return player.set_error_message2(value)
+    def is_displayed(player: Player):
+        return player.treatnumber == 2
+
+class Text3(Page):
+    form_model = 'player'
+    form_fields = ["pregunta_1",'pregunta_2', 'pregunta_3' , 'pregunta_4']
+    def error_message(player,value):
+        return player.set_error_message3(value)
+    def is_displayed(player: Player):
+        return player.treatnumber == 3
+
+class IntroChoice(Page):
+    pass
 
 class Choice(Page):
     form_model = 'player'
@@ -296,60 +385,7 @@ class Choice(Page):
         if total != 100:
             return "La suma de las asignaciones debe ser exactamente 100 euros."
 
-class Atencion1(Page):
-    form_model = 'player'
-    form_fields = ["controlq1_1", "controlq1_2", "controlq1_3"]
 
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        player.sum_correct = player.controlq1_1 + player.controlq1_2 + player.controlq1_3
-        player.number = random.choices([1,0], weights=(1, 99), k=1)[0]
-    @staticmethod
-    def is_displayed(player: Player):
-      return player.treatnumber == 1
-
-class Atencion2(Page):
-    form_model = 'player'
-    form_fields = ["controlq2_1", "controlq2_2","controlq2_3"]
-
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        player.sum_correct = player.controlq2_1 + player.controlq2_2 + player.controlq2_3
-        player.number = random.choices([1,0], weights=(1, 99), k=1)[0]
-    @staticmethod
-    def is_displayed(player: Player):
-      return player.treatnumber == 2
-
-
-class Atencion3(Page):
-    form_model = 'player'
-    form_fields = ["controlq3_1", "controlq3_2", "controlq3_3"]
-
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        player.sum_correct = player.controlq3_1 + player.controlq3_2 + player.controlq3_3
-        player.number = random.choices([1, 0], weights=(1, 99), k=1)[0]
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.treatnumber == 3
-
-class FailedAttention(Page):
-        form_model = 'player'
-        form_fields = []
-
-        @staticmethod
-        def is_displayed(player: Player):
-            return player.sum_correct > 3 and player.number == 1
-
-        def js_vars(player):
-            error_code = player.session.config["error_code"]
-            link = "https://app.prolific.co/submissions/complete?cc=" + str(error_code)
-            return dict(
-                errorlink=link
-            )
-
-        pass
 class Emociones(Page):
     form_model = 'player'
     def get_form_fields(player):
@@ -364,7 +400,7 @@ class Quest1(Page):
 
 class Quest2(Page):
     form_model = 'player'
-    form_fields = ['familyside', 'memory','transmission_school', 'transmission_family',  'transmission_media']
+    form_fields = ['transmission_school', 'transmission_family',  'transmission_media','familyside', 'memory']
 
 class Quest3(Page):
     form_model = 'player'
@@ -387,15 +423,13 @@ class Fin(Page):
 
 
 page_sequence = [Bienvenida,
-                 Texto,
-
-                 Atencion1,
-                 Atencion2,
-                 Atencion3,
+                 Text1,
+                 Text2,
+                 Text3,
+                 IntroChoice,
                  Choice,
-                 FailedAttention,
-                 Emociones,
                  Quest1,
                  Quest2,
                  Quest3,
+                 Emociones,
                  Fin]

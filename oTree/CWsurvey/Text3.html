@@ -1,0 +1,149 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% load otree %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+     .card {
+        font-size: 18px;
+    }
+         .nav-tabs {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+    <!-- Tab navigation -->
+    <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()">Tab 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2" onclick="topFunction()">Tab 2</a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link" id="part3-tab" data-toggle="tab" href="#part3" role="tab" aria-controls="part3" onclick="topFunction()">Tab 3</a>
+        </li>
+    </ul>
+    <br>
+    <br>
+
+    <!-- Tab content -->
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Lectura</h3>
+            </div>
+
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <p>A continuación le proporcionamos un texto sobre un evento reciente de la historia de España. Por favor, lea el texto con atención antes de proseguir.
+                            Tras la lectura del texto, le haremos unas preguntas relacionadas. </p>
+
+                </div>
+            </div>
+
+                    <br>
+                    <div style="float: right;">                         <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Siguiente</button>
+</div>
+            </div>
+
+
+        <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Texto: Guerra Civil Española</h3>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <p>Por favor, lea el siguiente texto con atención antes de proseguir.</p>
+                    <br>
+                    <br>
+                    <div class="alert alert-warning" role="alert">
+                        <ul>
+                            <li>La Guerra Civil Española fue desencadenada por la rebelión nacionalista, un golpe ilegal y reaccionario contra el gobierno republicano legítimo y democráticamente elegido, impulsado por la negativa a aceptar el progreso y la igualdad. </li>
+                            <br>
+                            <li>La campaña sistemática de represión de los Nacionalistas, que incluyó ejecuciones masivas, bombardeos a poblaciones civiles y campos de trabajo forzado, provocó un número abrumador de muertes, muy superior al causado por las fuerzas republicanas. </li>
+                            <br>
+                            <li>La dictadura de Franco impuso un sistema represivo que sofocó las libertades individuales, la expresión cultural y el pluralismo político, en contraste con la visión republicana de una sociedad democrática donde los ciudadanos pudieran moldear libremente sus destinos. </li>
+                            <br>
+                            <li>La apuesta de la República por la autonomía regional y la diversidad cultural reflejaba una visión moderna e inclusiva para España, mientras que las políticas centralistas de Franco reprimieron cruelmente las identidades regionales y alimentaron divisiones duraderas entre el centro y la periferia. </li>
+                            <br>
+                            <li>El régimen de Franco, caracterizado por represiones brutales, un miedo generalizado y el estancamiento, contrasta profundamente con la España democrática de hoy, donde la libertad, la reconciliación y el progreso buscan superar las cicatrices de su gobierno autoritario. </li>
+                        </ul>
+
+                    </div>
+                        <p>Una vez haya leído el texto, haga click en "Siguiente" para continuar.</p>
+                </div>
+            </div>
+
+            <br><br><br>
+
+            <div style="float: right;">
+                        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Siguiente</button>
+            </div>
+        </div>
+
+
+            <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
+                <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Control de Atención</h3>
+                </div>
+            <br>
+
+                    <div class="card">
+                        <div class="card-body">
+         <p>La atención es importante para este estudio.
+             Antes de continuar, y para garantizar que ha seguido las instrucciones y leído el texto,
+             le pedimos que responda las siguientes preguntas basándose exclusivamente en el contenido del texto que acaba de leer.
+             Por favor, lea cada pregunta cuidadosamente y seleccione la respuesta que mejor refleje la información presentada.</p>
+                            <p><strong>Recuerde:</strong></p>
+                            <ul>
+                                <li>No se trata de sus opiniones personales, sino de lo que está explicado en el texto.</li>
+                                <li>Solo una respuesta por pregunta es correcta.</li>
+                            </ul>
+                            <p>Si tiene dudas, le sugerimos volver a leer el texto para asegurarse de que comprende completamente la información antes de responder.</p>
+
+                            <p><strong>De acuerdo al texto...</strong></p>
+
+                                   {{formfields}}
+
+                        </div>
+                    </div>
+
+                    <br>
+                    <br><br><br>
+                    <div style="float: left;">
+                    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Anterior</button>
+                    </div>
+                    <div style="float: right;">
+                    <button class="nexttab btn-primary btn next">Siguiente</button>
+                    </div>
+                    </div>
+
+    </div>
+
+
+
+{% block scripts %}
+
+<script src="{% static 'prev_next_button.js' %}"></script>
+
+<script>
+var ul = document.getElementById('grid');
+for (var i = ul.children.length; i >= 0; i--) {
+    ul.appendChild(ul.children[Math.random() * i | 0]);
+}</script>
+{% endblock %}
+
+
+{% endblock %}

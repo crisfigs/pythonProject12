@@ -1,11 +1,11 @@
 {% extends "global/Page.html" %}
 {% load staticfiles otree_tags %}
 {% block styles%}
-    <styles>
-.card {
+    <style>
+        .card {
         font-size: 18px;
-    }
-    </styles>
+        }
+    </style>
 {% endblock %}
 {% block scripts%}
 <script>
@@ -22,10 +22,14 @@
 {%  block title %}Feedback{% endblock %}
 
 {% block content %}
-
+<div class="card">
+    <div class="card-body">
     {% formfields %}
+    </div>
+      </div>
 <br>
 <br>
+ <div style="float: right;">
 <button type="button" class="btn btn-primary btn-right btn-lg" onclick="completed()" > Back to Prolific </button>
-
+ </div>
 {% endblock %}
