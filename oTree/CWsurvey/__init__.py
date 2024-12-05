@@ -46,25 +46,43 @@ class Player(BasePlayer):
                                           [5, 'En gran medida']], widget=widgets.RadioSelectHorizontal)
 
     ##Political preferences
-    political_spectrum = models.IntegerField(label = '2. En política se habla normalmente de “izquierda” y “derecha”. En una escala donde “0” es izquierda y “10” la derecha, ¿dónde se ubicaría usted?',
+    political_spectrum = models.IntegerField(label = '3. En política se habla normalmente de “izquierda” y “derecha”. En una escala donde “0” es la izquierda y “10” la derecha, ¿dónde se ubicaría usted?',
                                              choices=[ [0, '0 \n Izquierda'],
                                                        [1, '1'],
                                                        [2, '2'],[3, '3'],[4, '4'], [5, '5'],[6, '6'],
                                                        [7, '7'], [8, '8'],[9, '9'],[10, '10 \n Derecha']], widget=widgets.RadioSelectHorizontal
                                              )
+    #25 most voted
     vote2023 = models.StringField(
-        label= "3. ¿Por cuál partido o coalición votó usted en las elecciones generales del 23 de julio de 2023?",
+        label= "2. ¿Por cuál partido o coalición votó usted en las elecciones generales del 23 de julio de 2023?",
         choices=[
             "Partido Popular (PP)",
             "Partido Socialista Obrero Español (PSOE)",
-            "Vox",
-            "Sumar",
+            "VOX (VOX)",
+            "SUMAR (SUMAR)",
+            "Esquerra Republicana de Catalunya (ERC)",
+            "Junts Per Catalunya - Junts (JxCAT - JUNTS)",
+            "Euskal Herria Bildu (EH Bildu)",
+            "Partido Nacionalista Vasco (EAJ-PNV)",
+            "Bloque Nacionalista Galego (BNG)",
+            "Coalición Canaria (CCa)",
+            "Unión del Pueblo Navarro (UPN)",
+            "Partido Animalista con el Medio Ambiente (PACMA)",
+            "Candidatura D’Uunitat Popular-Per La Ruptura (CUP-PR)",
+            "Frente Obrero (FO)",
+            "Nueva Canarias - Bloque Canarista (NC-bc)",
+            "Partit Demòcrata Europeu Català (PDeCAT-E-CiU)",
+            "Recortes Cero (RECORTES CERO)",
+            "Unión del Pueblo Leonés (UPL)",
+            "Por Un Mundo Más Justo (PUM+J)",
+            "EXISTE",
+            "Partido Comunista de los Trabajadores de España (PCTE)",
             "Otro",
             "Prefiero no responder",
             "No votó",
             "Voto en blanco"
         ])
-    vote2023_otro = models.StringField(label = "4. Si seleccionó 'Otro', por favor especifique:", blank=True )
+    vote2023_otro = models.StringField(label = "3. Si seleccionó 'Otro', por favor especifique:", blank=True )
 
 
    ##Personal Experience
@@ -99,6 +117,12 @@ class Player(BasePlayer):
 
 
     memory = models.LongStringField(label="3. Por favor, recuerde cualquier historia(s) sobre la Guerra Civil o el Franquismo que haya sido compartida en su familia. Resúmala brevemente en unas pocas frases.")
+    transmission_binary = models.IntegerField(label="4.Si tuviera hijos (o si los tiene), les transmitiría (o les ha transmitido) lo anterior?", choices= [[0,"No"],
+    [1, "Sí"]])
+    transmission_no = models.LongStringField(
+        label="5. Si su respuesta a la anterior pregunta es no, ¿nos podría explicar brevemente qué les transmitiría?", blank=True)
+
+
 
     #Trust
 
@@ -110,8 +134,53 @@ class Player(BasePlayer):
     trust_parliament= models.IntegerField(label="Parlamento",choices=[0, 1, 2, 3, 4],widget=widgets.RadioSelect)
 
     #Demographics
+    #'
+    age = models.IntegerField(
+        label="1. ¿Cuál es su edad?",
+        min = 0,  # You can adjust the minimum and maximum age limits as needed
+        max = 100,
+    )
+    gender = models.StringField(
+        label="2. ¿Cuál es su sexo?",
+        choices=[
+            ("male", "Hombre"),
+            ("female", "Mujer"),
+            ("other", "Otro"),
+            ("prefer_not_to_say", "Prefiero no decirlo"),
+        ],
+    )
+    level_studies = models.StringField(
+        label="7. ¿Cuál es su nivel más alto de estudios completados?",
+        choices=[
+            ("none", "Ninguno"),
+            ("primary", "Educación primaria"),
+            ("secondary", "Educación secundaria"),
+            ("higher", "Educación superior (universidad o equivalente)"),
+            ("postgraduate", "Postgrado o superior"),
+        ],
+    )
+    employment_situation = models.StringField(
+        label="8. ¿Cuál es su situación laboral actual?",
+        choices=[
+            ("employed", "Empleado/a"),
+            ("unemployed", "Desempleado/a"),
+            ("student", "Estudiante"),
+            ("retired", "Jubilado/a"),
+            ("other", "Otro"),
+        ],
+    )
+    religiosity = models.StringField(
+        label="6. ¿Cómo se define usted en materia religiosa?",
+        choices=[
+            ("catholic", "Católico"),
+            ("other religion", "Creyente de otra religión"),
+            ("non believer", "No Creyente"),
+            ("atheist", "Ateo"),
+            ("agnostic", "Agnóstico"),
+        ],
+    )
     province = models.StringField(
-        label="6. ¿En qué provincia de España creció (dónde residía antes de los 16 años)? Seleccione su provincia de residencia o, si vivió la mayor parte de su vida antes de los 16 años fuera de España, elija la opción 'Fuera de España':",
+        label="5. ¿En qué provincia de España creció (dónde residía antes de los 16 años)? Seleccione su provincia de residencia o, si vivió la mayor parte de su vida antes de los 16 años fuera de España, elija la opción 'Fuera de España':",
         choices=[
             "Álava",
             "Albacete",
@@ -168,7 +237,7 @@ class Player(BasePlayer):
             "Fuera de España"
         ])
     income_level = models.StringField(
-        label="5. Aproximadamente, ¿cuál es su nivel de ingresos mensuales (antes de impuestos)?",
+        label="4. Aproximadamente, ¿cuál es su nivel de ingresos mensuales (antes de impuestos)?",
         choices=[
             "Menos de 1.000 €",
             "Entre 1.000 € y 1.499 €",
@@ -241,8 +310,8 @@ class Player(BasePlayer):
     pregunta_2 = models.IntegerField(
         label="2. ¿Qué bando fue el responsable de causar la mayoría de las muertes durante la guerra?",
         choices=[
-            [1, 'Los Nacionalistas, a través de su represión sistemática y campañas de bombardeo.'],
-            [2, 'Los Republicanos, a través de ejecuciones masivas y violencia radical.'],
+            [1, 'Los Republicanos, a través de ejecuciones masivas y violencia radical.'],
+            [2, 'Los Nacionales, a través de su represión sistemática y campañas de bombardeo.'],
             [3, 'Ambos bandos, ya que se cometieron atrocidades por ambas facciones.'],
             [4, 'La intervención extranjera, que exacerbó las bajas.']],  widget=widgets.RadioSelect)
 
@@ -329,12 +398,15 @@ class Player(BasePlayer):
 class Bienvenida(Page):
     form_model = 'player'
     def vars_for_template(player: Player):
-        player.treatnumber = random.choices([1,2,3], weights=(1/3,1/3,1/3), k=1)[0]
+        player.treatnumber = random.choices([1,2,3], weights=(1,0,0), k=1)[0]
         player.control_number = random.choices([1,2,3,4], weights=(1/4,1/4,1/4,1/4), k=1)[0]
 
         return {
             'treatnumber': player.treatnumber
         }
+class Sociodemograficas(Page):
+    form_model = 'player'
+    form_fields = ['age', 'gender','political_spectrum',   'income_level', 'province', 'religiosity','level_studies', 'employment_situation']
 class Text1(Page):
     form_model = 'player'
     form_fields = ["pregunta_1",'pregunta_2', 'pregunta_3' , 'pregunta_4']
@@ -396,11 +468,11 @@ class Emociones(Page):
 
 class Quest1(Page):
     form_model = 'player'
-    form_fields = ['agreement', 'political_spectrum', 'vote2023', 'vote2023_otro', 'province', 'income_level']
+    form_fields = ['agreement', 'vote2023', 'vote2023_otro']
 
 class Quest2(Page):
     form_model = 'player'
-    form_fields = ['transmission_school', 'transmission_family',  'transmission_media','familyside', 'memory']
+    form_fields = ['transmission_school', 'transmission_family',  'transmission_media','familyside', 'memory', 'transmission_binary','transmission_no']
 
 class Quest3(Page):
     form_model = 'player'
@@ -423,6 +495,7 @@ class Fin(Page):
 
 
 page_sequence = [Bienvenida,
+                 Sociodemograficas,
                  Text1,
                  Text2,
                  Text3,

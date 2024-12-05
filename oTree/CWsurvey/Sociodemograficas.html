@@ -1,12 +1,13 @@
 {% extends "global/Page.html" %}
+{% load otree %}
 {% load staticfiles otree_tags %}
 
-
-{{block styles }}
-<link href="{% static 'heatmap.css' %}" rel="stylesheet">
-   <style>
-
-.card {
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+    .card {
         font-size: 18px;
     }
 
@@ -59,59 +60,61 @@ div.labelWrap2 {
     width:70px;
     line-height: 1.2; /* Adjust line spacing for better readability */
 }
-
-   </style>
-
-{{ endblock }}
-
-
-
-
-{% block title %}
-Parte 3. Encuesta 1/4
+</style>
 {% endblock %}
 
+{% block title %}
+Cuestionario Sociodemográfico
+{% endblock %}
 
 {% block content %}
+<div class="card">
+    <div class="card-body">
+        <p>Antes de comenzar, le pedimos que conteste a las siguientes preguntas sobre información sociodemográfica.</p>
+        {{ form.age.label }} <br>
+         {{ form.age}}<br>
+        {{ form.gender.label }}<br>
+            {{ form.gender}}<br>
+        <br>
 
-    <div class="card">
-        <div class="card-body">
 
-{{ form.agreement.label }}
-              <br>
-  <br>
-
+                    {{ form.political_spectrum.label }}
                         <table>
                              <tr>
-                                {{ for choice in form.agreement }}
+                                {{ for choice in form.political_spectrum}}
                              <td class="buttonGroup">
                                     <div class="buttonWrap">{{ choice }}</div>
-                                     <div class="labelWrap">{{ choice.label }}</div>
+                                     <div class="labelWrap2">{{ choice.label }}</div>
                              </td>
                                 {{ endfor }}
                              </tr>
                         </table>
+         <br>
+         <br>
+        {{ form.income_level.label }} <br>
+         {{ form.income_level}}<br>
+        {{ form.province.label }}<br>
+            {{ form.province}}<br>
+                {{ form.religiosity.label }}<br>
+            {{ form.religiosity}}<br>
+                {{ form.level_studies.label }}<br>
+            {{ form.level_studies}}<br>
+                {{ form.employment_situation.label }}<br>
+            {{ form.employment_situation}}<br>
+        <br>
 
 
 
+        <p> Presione "Siguiente" para empezar con el estudio.</p>
 
-            <br>
-            <br>
-            <p> {{ form.vote2023.label }} </p>
-             <p> {{ form.vote2023}}</p>
-            <p>  {{ form.vote2023_otro.label }}</p>
-            <p>  {{ form.vote2023_otro}}</p>
-
-
-                      </div>
     </div>
-            <br>
-            <br>
-
-<div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
 </div>
 
 
-
+<br>
+        <button style="float: right;" type="submit" onclick="submitForm()" class="btn btn-primary">Siguiente</button>
 
 {% endblock %}
+
+
+
