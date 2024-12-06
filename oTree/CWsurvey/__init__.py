@@ -25,15 +25,15 @@ class Player(BasePlayer):
     control_number = models.IntegerField()
     # Allocations
     allocation_left = models.IntegerField(
-        label="¿Cuánto desea asignar a la Fundación FAES?",
+        label="¿Cuánto desea asignar a la <b>Fundación FAES</b>?",
         min=0,
         max=100)
     allocation_right = models.IntegerField(
-        label="¿Cuánto desea asignar a la Fundación AVANZA?",
+        label="¿Cuánto desea asignar a la <b>Fundación AVANZA</b>?",
         min=0,
         max=100)
     allocation_neutral = models.IntegerField(
-        label="¿Cuánto desea asignar a la Fundación Española del Corazón?",
+        label="¿Cuánto desea asignar a la <b>Fundación Española del Corazón</b>?",
         min=0,
         max=100)
     #question on political spectrum perception
@@ -134,7 +134,7 @@ class Player(BasePlayer):
     trust_parliament= models.IntegerField(label="Parlamento",choices=[0, 1, 2, 3, 4],widget=widgets.RadioSelect)
 
     #Demographics
-    #'
+
     age = models.IntegerField(
         label="1. ¿Cuál es su edad?",
         min = 0,  # You can adjust the minimum and maximum age limits as needed
@@ -298,38 +298,18 @@ class Player(BasePlayer):
         label="Si encontró alguna instrucción poco clara o confusa, por favor háganoslo saber aquí.",
         blank=True)
 
+
     ##Attention questions
     pregunta_1 = models.IntegerField(
-        label="1. ¿Cuál fue la causa principal de la Guerra Civil Española?",
-        choices=[
-            [1, 'El fracaso de la Segunda República para gobernar responsablemente y mantener el orden.'],
-            [2, 'La rebelión nacionalista contra un gobierno legítimo y democrático.'],
-            [3, 'Las divisiones políticas, sociales y económicas arraigadas, exacerbadas por visiones irreconciliables para España.'],
-            [4, 'La intervención de potencias extranjeras que avivaron las tensiones.']],  widget=widgets.RadioSelect)
+        label="1. ¿Cuál fue la causa principal de la Guerra Civil Española?")
 
     pregunta_2 = models.IntegerField(
-        label="2. ¿Qué bando fue el responsable de causar la mayoría de las muertes durante la guerra?",
-        choices=[
-            [1, 'Los Republicanos, a través de ejecuciones masivas y violencia radical.'],
-            [2, 'Los Nacionales, a través de su represión sistemática y campañas de bombardeo.'],
-            [3, 'Ambos bandos, ya que se cometieron atrocidades por ambas facciones.'],
-            [4, 'La intervención extranjera, que exacerbó las bajas.']],  widget=widgets.RadioSelect)
+        label="2. ¿Qué bando fue el responsable de causar la mayoría de las muertes durante la guerra?")
 
     pregunta_3 = models.IntegerField(
-        label="3. En términos de gobernanza, el régimen de Franco fue...",
-        choices=[
-            [1, 'una fuerza estabilizadora y unificadora que corrigió el caos de la era republicana.' ],
-            [2, 'una dictadura represiva que sofocó las libertades individuales y la expresión cultural.'],
-            [3, 'un régimen autoritario que impuso orden pero sacrificó las libertades democráticas. '],
-            [4, 'un gobierno de transición en el camino de España hacia la democracia moderna.']],  widget=widgets.RadioSelect)
+        label="3. En términos de gobernanza, el régimen de Franco fue...")
     pregunta_4 = models.IntegerField(
-        label="4. ¿Cómo se caracteriza a la España de hoy en día en comparación con la epoca de Franco?",
-        choices=[
-            [1, 'La España moderna sufre tensiones separatistas, en contraste con la era de estabilidad y orgullo nacional de Franco.' ],
-            [2, 'La España moderna prospera como una sociedad democrática centrada en la libertad, a diferencia del régimen represivo de Franco. '],
-            [3, 'La España moderna es un país que todavía lucha con las tensiones regionales y el legado del autoritarismo de Franco.'],
-            [4, 'La España moderna ha alcanzado plena unidad y prosperidad, dejando atrás las divisiones de la Guerra Civil.']],  widget=widgets.RadioSelect)
-
+        label="4. ¿Cómo se caracteriza a la España de hoy en día en comparación con la epoca de Franco?")
 
     def set_error_message1(player, value):
         correct_answers = {
@@ -394,6 +374,47 @@ class Player(BasePlayer):
                 "Por favor, vuelva a las instrucciones y revise sus respuestas."
             )
         return None  # Return None if all answers are correct
+
+
+def pregunta_1_choices(player):
+    import random
+    choices = [[1, 'El fracaso de la Segunda República para gobernar responsablemente y mantener el orden.'],
+               [2, 'La rebelión nacionalista contra un gobierno legítimo y democrático.'],
+               [3,'Las divisiones políticas, sociales y económicas arraigadas, exacerbadas por visiones irreconciliables para España.'],
+               [4, 'La intervención de potencias extranjeras que avivaron las tensiones.']]
+    random.shuffle(choices)
+    return choices
+
+def pregunta_2_choices(player):
+    import random
+    choices=[
+            [1, 'Los Republicanos, a través de ejecuciones masivas y violencia radical.'],
+            [2, 'Los Nacionales, a través de su represión sistemática y campañas de bombardeo.'],
+            [3, 'Ambos bandos, ya que se cometieron atrocidades por ambas facciones.'],
+            [4, 'La intervención extranjera, que exacerbó las bajas.']]
+    random.shuffle(choices)
+    return choices
+
+def pregunta_3_choices(player):
+    import random
+    choices = [
+        [1, 'una fuerza estabilizadora y unificadora que corrigió el caos de la era republicana.'],
+        [2, 'una dictadura represiva que sofocó las libertades individuales y la expresión cultural.'],
+        [3, 'un régimen autoritario que impuso orden pero sacrificó las libertades democráticas. '],
+        [4,'un gobierno de transición en el camino de España hacia la democracia moderna.']]
+    random.shuffle(choices)
+    return choices
+
+def pregunta_4_choices(player):
+    import random
+    choices = [
+        [1, 'La España moderna sufre tensiones separatistas, en contraste con la era de estabilidad y orgullo nacional de Franco.'],
+        [2, 'La España moderna prospera como una sociedad democrática centrada en la libertad, a diferencia del régimen represivo de Franco. '],
+        [3, 'La España moderna es un país que todavía lucha con las tensiones regionales y el legado del autoritarismo de Franco.'],
+        [4, 'La España moderna ha alcanzado plena unidad y prosperidad, dejando atrás las divisiones de la Guerra Civil.']]
+    random.shuffle(choices)
+    return choices
+
 
 class Bienvenida(Page):
     form_model = 'player'

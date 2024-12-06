@@ -15,6 +15,17 @@
     color: green;
     font-weight: bold;
 }
+        .mytitle {
+            font-size: 25px;
+            margin-bottom: 10px;
+             text-align: center;
+        }
+        .myseparator {
+            width: 80%;
+            height: 2px;
+            background-color: #000;
+            margin: 0 auto;
+        }
 </style>
 {% endblock %}
 
@@ -55,7 +66,11 @@ window.onload = function() {
             Si usted es seleccionado al azar, sus asignaciones determinaran cómo se asignarán los fondos.</p>
 
             <p>Lea las descripciones de cada organización detenidamente y asegúrese de que la suma total de sus asignaciones sea exactamente 100 euros.</p>
-
+      <br>
+            <div class="mytitle"><b>Descripción de las organizaciones:</b></div>
+    <div class="myseparator"></div>
+        <br>
+          <br>
             <ul>
             {% for org in descriptions %}
                 <li>
@@ -69,8 +84,11 @@ window.onload = function() {
 
 <br>
 
-        <!-- Real-time remaining amount box -->
+          <div class="mytitle"> <b>Asignaciones para la donación:</b> </div>
+    <div class="myseparator"></div>
+
         <div class="remaining-box" id="remainingAmount">Cantidad restante por distribuir: 100 euros</div>
+         <br>
 
     <div>
         {{ formfields}}<br>
