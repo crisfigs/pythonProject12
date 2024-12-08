@@ -466,7 +466,7 @@ def pregunta_4_choices(player):
 class Bienvenida(Page):
     form_model = 'player'
     def vars_for_template(player: Player):
-        player.treatnumber = random.choices([1,2,3], weights=(1,0,0), k=1)[0]
+        player.treatnumber = random.choices([1,2,3], weights=(1/3,1/3,1/3), k=1)[0]
         return {
             'treatnumber': player.treatnumber
         }
