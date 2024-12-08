@@ -294,9 +294,9 @@ class Player(BasePlayer):
     temporary_contracts_percentage = models.FloatField(label="En España, ¿qué porcentaje de los contratos laborales firmados en 2023 fueron temporales?",min=0,max=100)
     unsafe_abortion_deaths = models.IntegerField(label="Según la OMS, ¿cuántas mujeres mueren cada año como consecuencia de abortos inseguros en países donde el aborto es ilegal o tiene restricciones severas?")
     immigrant_welfare_percentage = models.FloatField(label="¿Cuál es el porcentaje de los beneficiarios de prestaciones sociales en España que son inmigrantes?",min=0,max=100)
-    gdp_gap_richest_poor = models.FloatField(label="En términos de PIB per cápita, ¿cuál es la diferencia aproximada entre las comunidades más ricas y más pobres de España? Responsa con un porcentaje.",min=0,max=100)
-    marijuana_health_issues_percentage = models.FloatField(label="¿Qué porcentaje de personas que consumen marihuana desarrolla problemas graves de salud mental, como ansiedad o depresión?",min=0,max=100)
-    richest_tax_revenue_percentage = models.FloatField(label="En España, ¿qué porcentaje del gasto público total se financia con los impuestos recaudados de los ciudadanos y empresas más ricos (el 10% con mayores ingresos)?",min=0,max=100)
+    gdp_gap_richest_poor = models.FloatField(label="En términos de PIB per cápita, ¿cuál es la diferencia aproximada entre las comunidades más ricas y más pobres de España? Responda con un porcentaje.",min=0,max=100)
+    marijuana_health_issues_percentage = models.FloatField(label="¿Qué porcentaje de personas que consumen marihuana desarrolla problemas graves de salud mental, como ansiedad o depresión? ",min=0,max=100)
+    richest_tax_revenue_percentage = models.FloatField(label="En España, ¿qué porcentaje del gasto público total se financia con los impuestos recaudados de los ciudadanos y empresas más ricas (el 10% con mayores ingresos)?",min=0,max=100)
     co2_reduction_percentage = models.FloatField(label="En términos de emisiones de CO₂, ¿cuánto más bajas son las emisiones de un coche eléctrico en comparación con un coche de gasolina, considerando todo su ciclo de vida? De un porcentaje.",min=0,max=100)
     public_funding_tauromaquia = models.IntegerField(label="En España, ¿qué cantidad de dinero público se destina anualmente al apoyo de la tauromaquia (subvenciones, ayudas locales, etc.)?")
 
