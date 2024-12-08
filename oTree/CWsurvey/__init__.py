@@ -557,7 +557,7 @@ class Quest3(Page):
 
 class FactualQs(Page):
     form_model = 'player'
-    timeout_seconds = 300 # 5 minutes (300 seconds)
+    timeout_seconds = 360 # 5 minutes (300 seconds)
 
     def get_form_fields(player):
         b =  [
