@@ -8,6 +8,7 @@ class C(BaseConstants):
     participation_fee = 2 # in pounds
 
 
+
 class Group(BaseGroup):
     pass
 
@@ -23,6 +24,7 @@ class Player(BasePlayer):
     sum_correct = models.IntegerField()
     number = models.IntegerField()
     control_number = models.IntegerField()
+
     # Allocations
     allocation_left = models.IntegerField(
         label="¿Cuánto desea asignar a la <b>Fundación FAES</b>?",
@@ -86,7 +88,7 @@ class Player(BasePlayer):
 
 
    ##Personal Experience
-    familyside = models.IntegerField(label="2. Por lo que usted sabe o puede recordar, ¿con cuál de los dos bandos de la Guerra Civil simpatizaba más su familia?",
+    familyside = models.IntegerField(label="5. Por lo que usted sabe o puede recordar, ¿con cuál de los dos bandos de la Guerra Civil simpatizaba más su familia?",
                                       choices = [
                                           [1, 'Con los nacionales'],
                                           [2, 'Con los republicanos'],
@@ -116,11 +118,12 @@ class Player(BasePlayer):
 
 
 
-    memory = models.LongStringField(label="3. Por favor, recuerde cualquier historia(s) sobre la Guerra Civil o el Franquismo que haya sido compartida en su familia. Resúmala brevemente en unas pocas frases.")
-    transmission_binary = models.IntegerField(label="4.Si tuviera hijos (o si los tiene), les transmitiría (o les ha transmitido) lo anterior?", choices= [[0,"No"],
-    [1, "Sí"]])
+    memory = models.LongStringField(label="6. Por favor, recuerde cualquier historia(s) sobre la Guerra Civil o el Franquismo que haya sido compartida en su familia. Resúmala brevemente en unas pocas frases.")
+    transmission_binary = models.IntegerField(label="7. Si tiene hijos, o si los tuviera en el futuro, ¿les transmitiría (o les ha transmitido) las historias sobre la Guerra Civil y la época de Franco que su familia le contó?",
+                                              choices= [[1,'Sí'], [0, 'No']])
+
     transmission_no = models.LongStringField(
-        label="5. Si su respuesta a la anterior pregunta es no, ¿nos podría explicar brevemente qué les transmitiría?", blank=True)
+        label="8. Si su respuesta a la anterior pregunta es no, ¿nos podría explicar brevemente qué les transmitiría?", blank=True)
 
 
 
@@ -132,6 +135,31 @@ class Player(BasePlayer):
     trust_constitutionalcourt= models.IntegerField(label="Tribunal Constitucional",choices=[0, 1, 2, 3, 4],widget=widgets.RadioSelect)
     trust_ombudsman= models.IntegerField(label="Defensor del Pueblo",choices=[0, 1, 2, 3, 4],widget=widgets.RadioSelect)
     trust_parliament= models.IntegerField(label="Parlamento",choices=[0, 1, 2, 3, 4],widget=widgets.RadioSelect)
+
+    #History
+    talk_past = models.IntegerField(label="9. Es mejor olvidarse del pasado porque, si se remueve, podría volver a repetirse la Guerra Civil.",
+                                    choices=[[1, 'Completamente en desacuerdo'],
+                                             [2, 'Más bien en desacuerdo'],
+                                             [3, 'Ni de acuerdo ni en desacuerdo'],
+                                             [4, 'Más bien de acuerdo'],
+                                             [5, 'Completamente de acuerdo']], widget=widgets.RadioSelectHorizontal)
+
+    partiality_education = models.IntegerField(label="10. La enseñanza de la historia de la Guerra Civil Española y la época de Franco en la actualidad carece de objetividad.",
+                                                choices=[[1, 'Completamente en desacuerdo'],
+                                                         [2, 'Más bien en desacuerdo'],
+                                                         [3, 'Ni de acuerdo ni en desacuerdo'],
+                                                         [4, 'Más bien de acuerdo'],
+                                                         [5, 'Completamente de acuerdo']],
+                                                widget=widgets.RadioSelectHorizontal)
+
+    regionalism_education = models.IntegerField(label="11. Existe una excesiva variabilidad entre regiones en la manera en que se imparte la historia de España.",
+                                                choices=[[1, 'Completamente en desacuerdo'],
+                                                         [2, 'Más bien en desacuerdo'],
+                                                         [3, 'Ni de acuerdo ni en desacuerdo'],
+                                                         [4, 'Más bien de acuerdo'],
+                                                         [5, 'Completamente de acuerdo']],
+                                                widget=widgets.RadioSelectHorizontal)
+
 
     #Demographics
 
@@ -251,7 +279,26 @@ class Player(BasePlayer):
     )
 
 
+ #Factual questions
+    franco_years_in_power = models.IntegerField(label="¿Cuántos años gobernó Francisco Franco en España?")
+    civil_war_duration = models.IntegerField(label="¿Cuánto tiempo duró la Guerra Civil Española?")
+    white_terror_executions = models.IntegerField(label="¿Cuántos civiles fueron ejecutados durante el Terror Blanco de Franco (1939–1945)?")
+    red_terror_executions = models.IntegerField(label="¿Cuántos civiles fueron ejecutados durante el Terror Rojo de los republicanos (1936–1939)?")
 
+    industrial_decline_percentage = models.IntegerField(label="¿Cuál fue el porcentaje estimado de disminución en la producción industrial en España al final de la Guerra Civil (1939 comparado con 1936)?", min=0,max=100)
+    gdp_growth_rate = models.FloatField(label="En promedio, ¿cuánto creció anualmente el PIB per cápita de España durante el régimen de Franco (1939-1975)?",min=0,max=100)
+    emigrated_due_to_repression = models.IntegerField(label="¿Cuántos españoles emigraron debido a la represión política durante el régimen de Franco?")
+    orphaned_children = models.IntegerField(label="¿Cuántos niños fueron enviados a los orfanatos del Auxilio Social durante la era de Franco?")
+    churches_destroyed = models.IntegerField(label="Aproximadamente, ¿cuántas iglesias católicas fueron destruidas durante la Guerra Civil Española?")
+    gender_wage_gap_percentage = models.FloatField(label="¿Qué porcentaje más ganan los hombres que las mujeres en España por realizar el mismo trabajo?",min=0,max=100)
+    temporary_contracts_percentage = models.FloatField(label="En España, ¿qué porcentaje de los contratos laborales firmados en 2023 fueron temporales?",min=0,max=100)
+    unsafe_abortion_deaths = models.IntegerField(label="Según la OMS, ¿cuántas mujeres mueren cada año como consecuencia de abortos inseguros en países donde el aborto es ilegal o tiene restricciones severas?")
+    immigrant_welfare_percentage = models.FloatField(label="¿Cuál es el porcentaje de los beneficiarios de prestaciones sociales en España que son inmigrantes?",min=0,max=100)
+    gdp_gap_richest_poor = models.FloatField(label="En términos de PIB per cápita, ¿cuál es la diferencia aproximada entre las comunidades más ricas y más pobres de España? Responsa con un porcentaje.",min=0,max=100)
+    marijuana_health_issues_percentage = models.FloatField(label="¿Qué porcentaje de personas que consumen marihuana desarrolla problemas graves de salud mental, como ansiedad o depresión?",min=0,max=100)
+    richest_tax_revenue_percentage = models.FloatField(label="En España, ¿qué porcentaje del gasto público total se financia con los impuestos recaudados de los ciudadanos y empresas más ricos (el 10% con mayores ingresos)?",min=0,max=100)
+    co2_reduction_percentage = models.FloatField(label="En términos de emisiones de CO₂, ¿cuánto más bajas son las emisiones de un coche eléctrico en comparación con un coche de gasolina, considerando todo su ciclo de vida? De un porcentaje.",min=0,max=100)
+    public_funding_tauromaquia = models.IntegerField(label="En España, ¿qué cantidad de dinero público se destina anualmente al apoyo de la tauromaquia (subvenciones, ayudas locales, etc.)?")
 
 
 
@@ -400,7 +447,7 @@ def pregunta_3_choices(player):
     choices = [
         [1, 'una fuerza estabilizadora y unificadora que corrigió el caos de la era republicana.'],
         [2, 'una dictadura represiva que sofocó las libertades individuales y la expresión cultural.'],
-        [3, 'un régimen autoritario que impuso orden pero sacrificó las libertades democráticas. '],
+        [3, 'un régimen autoritario que consiguió orden pero sacrificó las libertades democráticas. '],
         [4,'un gobierno de transición en el camino de España hacia la democracia moderna.']]
     random.shuffle(choices)
     return choices
@@ -410,7 +457,7 @@ def pregunta_4_choices(player):
     choices = [
         [1, 'La España moderna sufre tensiones separatistas, en contraste con la era de estabilidad y orgullo nacional de Franco.'],
         [2, 'La España moderna prospera como una sociedad democrática centrada en la libertad, a diferencia del régimen represivo de Franco. '],
-        [3, 'La España moderna es un país que todavía lucha con las tensiones regionales y el legado del autoritarismo de Franco.'],
+        [3, 'La España moderna es un país que todavía lucha con las tensiones regionales y el legado de la Guerra Civil y el Franquismo.'],
         [4, 'La España moderna ha alcanzado plena unidad y prosperidad, dejando atrás las divisiones de la Guerra Civil.']]
     random.shuffle(choices)
     return choices
@@ -420,8 +467,6 @@ class Bienvenida(Page):
     form_model = 'player'
     def vars_for_template(player: Player):
         player.treatnumber = random.choices([1,2,3], weights=(1,0,0), k=1)[0]
-        player.control_number = random.choices([1,2,3,4], weights=(1/4,1/4,1/4,1/4), k=1)[0]
-
         return {
             'treatnumber': player.treatnumber
         }
@@ -494,6 +539,14 @@ class Quest1(Page):
 class Quest2(Page):
     form_model = 'player'
     form_fields = ['transmission_school', 'transmission_family',  'transmission_media','familyside', 'memory', 'transmission_binary','transmission_no']
+    def error_message(player, values):
+        if values['transmission_binary'] == 0 and not values['transmission_no']:
+            return "Por favor, responda brevemente a la pregunta 8."
+
+
+class Quest2_(Page):
+    form_model = 'player'
+    form_fields = ['talk_past','partiality_education', 'regionalism_education']
 
 class Quest3(Page):
     form_model = 'player'
@@ -502,6 +555,18 @@ class Quest3(Page):
         random.shuffle(e)
         return e
 
+class FactualQs(Page):
+    form_model = 'player'
+    timeout_seconds = 300 # 5 minutes (300 seconds)
+
+    def get_form_fields(player):
+        b =  [
+        'franco_years_in_power','civil_war_duration','white_terror_executions','red_terror_executions','industrial_decline_percentage',
+        'gdp_growth_rate','emigrated_due_to_repression','orphaned_children','churches_destroyed','gender_wage_gap_percentage',
+        'temporary_contracts_percentage','unsafe_abortion_deaths','immigrant_welfare_percentage','gdp_gap_richest_poor',
+        'marijuana_health_issues_percentage','richest_tax_revenue_percentage','co2_reduction_percentage','public_funding_tauromaquia']
+        random.shuffle(b)
+        return b
 
 class Fin(Page):
     form_model = 'player'
@@ -524,6 +589,8 @@ page_sequence = [Bienvenida,
                  Choice,
                  Quest1,
                  Quest2,
+                Quest2_,
                  Quest3,
                  Emociones,
+                 FactualQs,
                  Fin]

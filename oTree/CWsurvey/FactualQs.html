@@ -1,0 +1,89 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{{block styles }}
+<link href="{% static 'heatmap.css' %}" rel="stylesheet">
+   <style>
+
+.card {
+        font-size: 18px;
+    }
+  #time-left {
+    display: none; /* Hides the element */
+  }
+
+      .center {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center;
+              font-weight: bold;
+           font-size: 20px;
+    }
+
+   </style>
+
+{{ endblock }}
+
+
+{% block title %}
+Parte 3. Encuesta 6/6
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+Esta es la parte final de la encuesta, para responder a las siguientes preguntas tendrá un tiempo limitado.
+             <br>
+             <br>
+Por favor, responda a las preguntas a continuación de acuerdo a su opinión.
+
+
+            <br>
+             <br>
+
+       <div class="center"> En su opinión.....</div>
+<p> <span id="time-left"></span></p>
+
+
+ <ol style="list-style: none; padding-left: 0;"> <!-- Remove default numbering -->
+        {% for field in form %}
+            <li style="margin-bottom: 20px; display: flex; align-items: flex-start;">
+                <span style=" margin-right: 10px;">{{ forloop.counter }}.</span> <!-- Manual numbering -->
+                <div>
+                    <label>{{ field.label }}</label><br> <!-- Explicitly render the label -->
+                    {{ field }} <!-- Render the input field -->
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+
+      </p> </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+<div style="float: right;">
+    <button type="submit" class="btn btn-primary">Siguiente</button>
+
+
+        </div>
+
+    <script>
+        let customTimerEle = document.getElementById('time-left');
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                customTimerEle.innerText = event.offset.totalSeconds;
+            });
+        });
+
+    </script>
+
+
+
+{% endblock %}

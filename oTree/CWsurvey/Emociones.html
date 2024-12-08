@@ -14,18 +14,19 @@ img {
 </style>
 {{ endblock }}
 
-{{ block title }} Parte 3. Encuesta 4/4 {{ endblock }}
+{{ block title }} Parte 3. Encuesta 5/6 {{ endblock }}
 {{ block content }}
 
  <div class="card">
      <div class="card-body">
 
 
-         <p>¿Cómo calificaría la intensidad de las emociones que sintió al leer (o después de leer) el texto? </p>
+         <p>10. ¿Cuáles y qué tan intensas son las emociones que le genera (o le ha generado) el texto de la primera parte de este estudio?</p>
 
-<p>Por favor, evalúe con qué intensidad experimentó cada una de las siguientes emociones, utilizando la escala indicada.</p>
+<p>Por favor, evalúe la intensidad de cada una de las siguientes emociones usando la escala proporcionada.</p>
 <br>
          <br>
+           <br>
          <div class="parent"> <table class="table table-striped">
     {{ for field in form }}
         <tr>
@@ -36,14 +37,14 @@ img {
         </tr>
     {{ endfor }}
 </table>
-             <div class="child"><div style="position:absolute;left: 410px;top: 100px">Ninguna</div> </div>
-             <div class="child"><div style="position:absolute;left: 410px;top:120px">Emoción</div> </div>
+             <div class="child"><div style="position:absolute;left: 410px;top: 140px">Ninguna</div> </div>
+             <div class="child"><div style="position:absolute;left: 410px;top:160px">Emoción</div> </div>
 
-             <div class="child"><div style="position:absolute;left: 520px;top: 120px">Leve</div> </div>
-             <div class="child"><div style="position:absolute;left: 610px;top: 120px">Moderada</div> </div>
-             <div class="child"><div style="position:absolute;left: 730px;top: 120px">Alta</div> </div>
-            <div class="child"><div style="position:absolute;right: 78px;top: 100px">Muy alta</div> </div>
-             <div class="child"><div style="position:absolute;right: 78px;top:120px">Emoción</div> </div>
+             <div class="child"><div style="position:absolute;left: 520px;top: 160px">Leve</div> </div>
+             <div class="child"><div style="position:absolute;left: 610px;top: 160px">Moderada</div> </div>
+             <div class="child"><div style="position:absolute;left: 730px;top: 160px">Alta</div> </div>
+            <div class="child"><div style="position:absolute;right: 78px;top: 140px">Muy alta</div> </div>
+             <div class="child"><div style="position:absolute;right: 78px;top:160px">Emoción</div> </div>
 
 
 
