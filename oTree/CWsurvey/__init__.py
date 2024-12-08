@@ -288,7 +288,7 @@ class Player(BasePlayer):
     industrial_decline_percentage = models.IntegerField(label="¿Cuál fue el porcentaje estimado de disminución en la producción industrial en España al final de la Guerra Civil (1939 comparado con 1936)?", min=0,max=100)
     gdp_growth_rate = models.FloatField(label="En promedio, ¿cuánto creció anualmente el PIB per cápita de España durante el régimen de Franco (1939-1975)?",min=0,max=100)
     emigrated_due_to_repression = models.IntegerField(label="¿Cuántos españoles emigraron debido a la represión política durante el régimen de Franco?")
-    orphaned_children = models.IntegerField(label="¿Cuántos niños fueron enviados a los orfanatos del Auxilio Social durante la era de Franco?")
+    orphaned_children = models.IntegerField(label="¿Cuántos niños fueron enviados a los orfanatos del Auxilio Social durante la dictadura franquista?")
     churches_destroyed = models.IntegerField(label="Aproximadamente, ¿cuántas iglesias católicas fueron destruidas durante la Guerra Civil Española?")
     gender_wage_gap_percentage = models.FloatField(label="¿Qué porcentaje más ganan los hombres que las mujeres en España por realizar el mismo trabajo?",min=0,max=100)
     temporary_contracts_percentage = models.FloatField(label="En España, ¿qué porcentaje de los contratos laborales firmados en 2023 fueron temporales?",min=0,max=100)
@@ -356,7 +356,7 @@ class Player(BasePlayer):
     pregunta_3 = models.IntegerField(
         label="3. En términos de gobernanza, el régimen de Franco fue...")
     pregunta_4 = models.IntegerField(
-        label="4. ¿Cómo se caracteriza a la España de hoy en día en comparación con la epoca de Franco?")
+        label="4. ¿Cómo se caracteriza a la España de hoy en día en comparación con la época de Franco?")
 
     def set_error_message1(player, value):
         correct_answers = {
@@ -455,7 +455,7 @@ def pregunta_3_choices(player):
 def pregunta_4_choices(player):
     import random
     choices = [
-        [1, 'La España moderna sufre tensiones separatistas, en contraste con la era de estabilidad y orgullo nacional de Franco.'],
+        [1, 'La España moderna sufre tensiones separatistas, en contraste con la época de estabilidad y orgullo nacional de Franco.'],
         [2, 'La España moderna prospera como una sociedad democrática centrada en la libertad, a diferencia del régimen represivo de Franco. '],
         [3, 'La España moderna es un país que todavía lucha con las tensiones regionales y el legado de la Guerra Civil y el Franquismo.'],
         [4, 'La España moderna ha alcanzado plena unidad y prosperidad, dejando atrás las divisiones de la Guerra Civil.']]
