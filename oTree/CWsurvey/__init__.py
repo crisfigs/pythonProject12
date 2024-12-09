@@ -27,11 +27,11 @@ class Player(BasePlayer):
 
     # Allocations
     allocation_left = models.IntegerField(
-        label="¿Cuánto desea asignar a la <b>Fundación FAES</b>?",
+        label="¿Cuánto desea asignar a la <b>Fundación AVANZA</b>?",
         min=0,
         max=100)
     allocation_right = models.IntegerField(
-        label="¿Cuánto desea asignar a la <b>Fundación AVANZA</b>?",
+        label="¿Cuánto desea asignar a la <b>Fundación FAES</b>?",
         min=0,
         max=100)
     allocation_neutral = models.IntegerField(
@@ -202,8 +202,7 @@ class Player(BasePlayer):
         choices=[
             ("catholic", "Católico"),
             ("other religion", "Creyente de otra religión"),
-            ("non believer", "No Creyente"),
-            ("atheist", "Ateo"),
+            ("non believer/atheist", "No Creyente/Ateo"),
             ("agnostic", "Agnóstico"),
         ],
     )
@@ -286,7 +285,7 @@ class Player(BasePlayer):
     red_terror_executions = models.IntegerField(label="¿Cuántos civiles fueron ejecutados durante el Terror Rojo de los republicanos (1936–1939)?")
 
     industrial_decline_percentage = models.IntegerField(label="¿Cuál fue el porcentaje estimado de disminución en la producción industrial en España al final de la Guerra Civil (1939 comparado con 1936)?", min=0,max=100)
-    gdp_growth_rate = models.FloatField(label="En promedio, ¿cuánto creció anualmente el PIB per cápita de España durante el régimen de Franco (1939-1975)?",min=0,max=100)
+    gdp_growth_rate = models.FloatField(label="En promedio, ¿cuánto creció anualmente el PIB per cápita de España durante el régimen de Franco (1939-1975)? Responda con un porcentaje.",min=0,max=100)
     emigrated_due_to_repression = models.IntegerField(label="¿Cuántos españoles emigraron debido a la represión política durante el régimen de Franco?")
     orphaned_children = models.IntegerField(label="¿Cuántos niños fueron enviados a los orfanatos del Auxilio Social durante la dictadura franquista?")
     churches_destroyed = models.IntegerField(label="Aproximadamente, ¿cuántas iglesias católicas fueron destruidas durante la Guerra Civil Española?")
@@ -297,7 +296,7 @@ class Player(BasePlayer):
     gdp_gap_richest_poor = models.FloatField(label="En términos de PIB per cápita, ¿cuál es la diferencia aproximada entre las comunidades más ricas y más pobres de España? Responda con un porcentaje.",min=0,max=100)
     marijuana_health_issues_percentage = models.FloatField(label="¿Qué porcentaje de personas que consumen marihuana desarrolla problemas graves de salud mental, como ansiedad o depresión? ",min=0,max=100)
     richest_tax_revenue_percentage = models.FloatField(label="En España, ¿qué porcentaje del gasto público total se financia con los impuestos recaudados de los ciudadanos y empresas más ricas (el 10% con mayores ingresos)?",min=0,max=100)
-    co2_reduction_percentage = models.FloatField(label="En términos de emisiones de CO₂, ¿cuánto más bajas son las emisiones de un coche eléctrico en comparación con un coche de gasolina, considerando todo su ciclo de vida? De un porcentaje.",min=0,max=100)
+    co2_reduction_percentage = models.FloatField(label="En términos de emisiones de CO₂, ¿cuánto más bajas son las emisiones de un coche eléctrico en comparación con un coche de gasolina, considerando todo su ciclo de vida? Responda con un porcentaje.",min=0,max=100)
     public_funding_tauromaquia = models.IntegerField(label="En España, ¿qué cantidad de dinero público se destina anualmente al apoyo de la tauromaquia (subvenciones, ayudas locales, etc.)?")
 
 
