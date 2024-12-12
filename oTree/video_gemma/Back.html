@@ -12,15 +12,15 @@
 </script>
 {% endblock %}
 
-{%  block title %} End{% endblock %}
+{%  block title %}{% endblock %}
 
 
 
 {% block content %}
 
-    {% formfields %}
-Click "Next" to proceed to payment.
-    {% next_button %}
+
+<button type="button" class="btn btn-primary btn-right btn-lg" onclick="completed()" > Back to Prolific </button>
+
 {% endblock %}
 
 

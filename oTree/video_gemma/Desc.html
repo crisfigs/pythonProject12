@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+{% load otree%}
+{{block styles }}
+<style>
+.center {
+  text-align: center;
+}
+</style>
+{{ endblock }}
+
+{% block title %}
+   Video Description
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="card">
+  <div class="card-body">
+     <p> Before showing you the video, we would like to briefly describe what you will see.</p>
+     <p> Please read carefully the short video description below. </p>
+
+
+       <div class="alert alert-warning" role="alert">
+          <p> "The video shows Gemma, the Director of Fundraising at Save the Children UK, asking participants to donate their money to Save the Children in order to support their work providing education, food and medicine to children."</p>
+</div>
+
+<br>
+
+
+Please, press "Next" when you finish reading the description.
+
+      </div></div>
+<br>
+<div class="center"> {{ next_button }}</div>
+
+{% endblock %}
+
+
