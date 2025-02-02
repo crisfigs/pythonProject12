@@ -29,6 +29,8 @@ class Player(BasePlayer):
     task1 = models.StringField(blank=True)  # whether participant takes selfish choice in Dana task
     scenario1 = models.BooleanField(blank=True)  # whether scenario 1 or 2 will be displayed
     bonus_payoff = models.StringField(blank=True)
+    treatgender = models.BooleanField(blank=True)  # whether male gender or female gender of professors in PlayerTaskY.
+    treatlocation = models.BooleanField(blank=True)  # whether pub or cafe is displayed first in PlayerTaskY.
 
     # Comprehension questions
     qXB = models.IntegerField(label="Player X receives:")
@@ -58,6 +60,31 @@ class Player(BasePlayer):
                                          ('1', 'A'),
                                          ('0', 'B')],
                                      label="In the game on the right, I would choose:")
+
+    ####PlayerYTask
+    def appropriateness_field(label):
+        return models.IntegerField(
+            choices=[
+                (1, 'Highly inappropriate'),
+                (2, 'Somewhat inappropriate'),
+                (3, 'Neutral'),
+                (4, 'Somewhat appropriate'),
+                (5, 'Highly appropriate'),
+            ],
+            label=label,
+            widget=widgets.RadioSelectHorizontal,
+            blank=True
+        )
+
+    appropriateness_pub_MM = appropriateness_field(label="The professor chooses to mentor a male student")
+    appropriateness_pub_MF = appropriateness_field(label="The professor chooses to mentor a female student")
+    appropriateness_cafe_MM = appropriateness_field(label="The professor chooses to mentor a male student")
+    appropriateness_cafe_MF = appropriateness_field(label="The professor chooses to mentor a female student")
+    appropriateness_pub_FM = appropriateness_field(label="The professor chooses to mentor a male student")
+    appropriateness_pub_FF = appropriateness_field(label="The professor chooses to mentor a female student")
+    appropriateness_cafe_FM = appropriateness_field(label="The professor chooses to mentor a male student")
+    appropriateness_cafe_FF = appropriateness_field(label="The professor chooses to mentor a female student")
+
 
   ###FUNCTIONS
     def set_error_message(player, value):
@@ -164,7 +191,18 @@ class Questions(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.id_in_group == 2
+    def before_next_page(player, timeout_happened):
+        player.treatgender = random.choice([True, False])
+        player.treatlocation = random.choice([True, False])
 
+
+class PlayerYTask(Page):
+    form_model = 'player'
+    form_fields = ['appropriateness_pub_MM','appropriateness_pub_MF','appropriateness_cafe_MM','appropriateness_cafe_MF',
+                   'appropriateness_pub_FM','appropriateness_pub_FF','appropriateness_cafe_FM','appropriateness_cafe_FF']
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.id_in_group == 2
 class ResultsWaitPage(WaitPage):
     after_all_players_arrive = set_payoffs
 
@@ -192,6 +230,7 @@ page_sequence = [
     Task1Reveal,
     Task1NoReveal,
     Questions,
+    PlayerYTask,
     ResultsWaitPage,
     SummaryTask1
 ]

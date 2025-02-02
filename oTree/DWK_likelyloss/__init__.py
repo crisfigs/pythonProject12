@@ -30,6 +30,7 @@ class Player(BasePlayer):
     scenario1 = models.BooleanField(blank=True)  # whether scenario 1 or 2 will be displayed
     bonus_payoff = models.StringField(blank=True)
 
+
     # Comprehension questions
     qXB = models.IntegerField(label="Player X receives:")
     qYB = models.IntegerField(label="Player Y receives:")
@@ -59,7 +60,8 @@ class Player(BasePlayer):
                                          ('0', 'B')],
                                      label="In the game on the right, I would choose:")
 
-  ###FUNCTIONS
+
+    ###FUNCTIONS
     def set_error_message(player, value):
         correct_answers = {
                         'qXB': 3,

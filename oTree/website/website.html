@@ -1,0 +1,265 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                /* Previous styles remain the same */
+                body {
+                    font-family: system-ui, -apple-system, sans-serif;
+                    margin: 0 auto;
+                    padding: 0px;
+                    color: #333;
+                    line-height: 1.6;
+                }
+
+                .profile-container {
+                    display: flex;
+                    gap: 0px;
+                    margin-bottom: 40px;
+                    width: 100%; /* Make it take full width */
+                }
+
+                .profile-image {
+                    width: 100%; /* Make image responsive to container */
+                    height: auto; /* Maintain aspect ratio */
+                }
+                .bio-text {
+                    color: #4a5568;
+                    font-size: 0.95em;
+                    line-height: 1.6;
+                    margin: 15px 0;
+
+                }
+
+                /* All the rest of your previous styles remain exactly the same */
+                .profile-info h1 {
+                    margin: 0 0 5px 0;
+                    color: #555;
+                }
+
+                .profile-info p {
+                    margin: 0px 0;
+                }
+
+
+
+                .contact-info {
+                    margin-top: 20px;
+                }
+
+                section {
+                    margin-bottom: 40px;
+                }
+
+                h2 {
+                    color: #555;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 10px;
+                }
+
+                .paper-item {
+                    margin-bottom: 25px;
+                    padding-left: 20px;
+                    border-left: 3px solid #eee;
+                }
+
+                .paper-title {
+                    color: #2b5797;
+                    text-decoration: none;
+                    font-weight: 500;
+                    display: block;
+                    margin-bottom: 5px;
+                }
+
+                .paper-title:hover {
+                    text-decoration: underline;
+                }
+
+                .abstract-toggle {
+                    color: #666;
+                    cursor: pointer;
+                    display: inline-block;
+                    margin: 8px 0;
+                    user-select: none;
+                }
+
+                .abstract-toggle:hover {
+                    color: #2b5797;
+                }
+
+                .abstract-content {
+                    display: none;
+                    padding: 10px;
+                    background: #f8f9fa;
+                    border-radius: 4px;
+                    margin: 10px 0;
+                    font-size: 0.95em;
+                    color: #444;
+                }
+
+                .abstract-toggle::before {
+                    content: '▶ ';
+                    font-size: 0.8em;
+                    display: inline-block;
+                    transition: transform 0.2s;
+                }
+
+                .abstract-toggle.active::before {
+                    transform: rotate(90deg);
+                }
+
+                .abstract-toggle.active + .abstract-content {
+                    display: block;
+                }
+
+                .authors {
+                    color: #666;
+                    font-size: 0.95em;
+                    margin-bottom: 5px;
+                }
+
+                .journal {
+                    font-style: italic;
+                    color: #444;
+                }
+
+                .tag {
+                    background: #f0f0f0;
+                    padding: 2px 8px;
+                    border-radius: 12px;
+                    font-size: 0.8em;
+                    margin-right: 5px;
+                    color: #666;
+                    display: inline-block;
+                    margin-top: 5px;
+                }
+
+                .link-button {
+                    display: inline-block;
+                    padding: 4px 12px;
+                    background: #f5f5f5;
+                    text-decoration: none;
+                    color: #666;
+                    border-radius: 4px;
+                    margin-right: 10px;
+                    font-size: 0.9em;
+                    margin-top: 8px;
+                }
+
+                .link-button:hover {
+                    background: #eee;
+                }
+            .column1 {
+                float: left;
+                width: 30%; /* Adjust width as needed */
+                padding: 0 15px; /* Add some padding inside columns */
+                box-sizing: border-box; /* Make sure padding doesn't affect total width */
+            }
+
+            .column2 {
+                float: left;
+                width: 70%; /* Adjust width as needed */
+                padding: 0 15px; /* Add some padding inside columns */
+                box-sizing: border-box; /* Make sure padding doesn't affect total width */
+            }
+                    /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+            </style>
+        </head>
+
+
+
+
+
+
+
+
+        <body>
+
+        <div class="row">
+                        <h2>Cristina Figueroa</h2>
+
+        <div class="column1">
+    <div class="profile-container">
+            <div class="profile-info">
+                            <img src="{% static 'cristina.jpg' %}"alt="Profile photo" class="profile-image">
+
+                  <div class="contact-info">
+                    <p>📍 Address Line 1, City, Country</p>
+                    <p>📧 email@university.edu</p>
+                    <a href="#" class="link-button">CV</a>
+                </div>
+        </div>
+        </div>
+             </div>
+
+
+
+        <div class="column2">
+            <p class="bio-text">
+                    Welcome! I am a  at [University Name]. My research focuses on experimental and behavioral economics, with a particular interest in understanding how individuals make decisions in various economic contexts. I use laboratory and field experiments to study social networks, market behavior, and decision-making under uncertainty.
+                </p>
+
+            <br>
+            <br>
+            <br>
+
+            <section>
+            <h2>Working Papers</h2>
+            <div class="paper-item">
+                <a href="#" class="paper-title">The Effect of Social Networks on Economic Decision Making</a>
+                <p class="authors">With John Smith, Jane Doe</p>
+                <p>Under review</p>
+                <div class="abstract-toggle">Abstract</div>
+                <div class="abstract-content">
+                </div>
+                <div>
+                    <span class="tag"></span>
+                    <span class="tag"></span>
+                </div>
+                <a href="#" class="link-button">PDF</a>
+                <a href="#" class="link-button">Slides (upon request)</a>
+            </div>
+        </section>
+
+            <section>
+            <h2>Work in Progress</h2>
+            <div class="paper-item">
+                <a href="#" class="paper-title">Understanding Risk Preferences in Online Markets</a>
+                <p class="authors">With Sarah Johnson</p>
+                <p>Data collection in progress</p>
+                <div class="abstract-toggle">Abstract</div>
+                <div class="abstract-content">
+                    This study examines how individuals make decisions under uncertainty in online marketplaces. We combine experimental data with field observations to understand how risk preferences vary across different market contexts and how platform design can influence risk-taking behavior.
+                </div>
+                <div>
+                    <span class="tag">Risk Analysis</span>
+                    <span class="tag">Online Markets</span>
+                </div>
+            </div>
+        </section>
+
+
+
+            <script>
+            document.querySelectorAll('.abstract-toggle').forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                });
+            });
+        </script>
+              </div>
+              </div>
+
+        </body>
+    </html>
+
+{% endblock %}
