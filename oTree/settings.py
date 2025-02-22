@@ -181,7 +181,12 @@ dict(
           num_demo_participants=2,
           cc_code="CCCODE",
           error_code="ECODE",
-     )
+     ),
+    dict(
+        name='recaptcha_v2',
+        app_sequence=['recaptcha_v2_'],
+        num_demo_participants=3,
+    ),
 ]
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
@@ -216,6 +221,10 @@ Here are some oTree games.
 
 
 SECRET_KEY = '{{ secret_key }}'
+# RECAPTCHA V2
+RECAPTCHA_SITE_KEY = "6LfTTd8qAAAAAHEL6N4QHxAfE0-pW29Lwdm9DZzK"
+
+RECAPTCHA_SECRET_KEY = "6LfTTd8qAAAAAA_ECYNkXJd5_UCzp_Zx5pUs4TrW"
 
 INSTALLED_APPS = ['otree']
 

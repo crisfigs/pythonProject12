@@ -7,6 +7,12 @@
     .card {
         font-size: 18px;
     }
+
+
+        .center {
+        display: grid;
+        place-items: center;
+    }
 </style>
 {% endblock %}
 
@@ -17,27 +23,42 @@
 {% block content %}
 <div class="card">
     <div class="card-body">
-        <p>Welcome! You are participating in a study funded by the University of Amsterdam.</p>
+        <p>
+            Welcome! You are now participating in an experimental economics study funded by the University of Amsterdam.
+            Please read the instructions carefully. They will explain everything you need to know about participating in the experiment.
+        </p>
+
+        <p> You will receive a participation fee of {{ C.participation_fee}} euros.
+            During the experiment, you can earn additional money.
+            Throughout the experiment, we do not talk about euros, but about points.
+            Thus, your income will initially be calculated in points.
+            The total number of points you achieve during the experiment will then be converted into euros at the end.
+            The conversion is as follows:
+        </p>
+
+        <p class="center">50 Points = 1 euro</p>
 
         <p>
-            The goal of this study is to assess how people make decisions.
-            The computer has selected that you receive
-            {{if player.treatnumber in [1, 2, 4] }}
-                <b>{{ C.participation_fee }} euro</b> as a payment for participation. This is, you receive a "Fair" (according to Prolific standards) participation fee.
-            {{elif player.treatnumber == 3}}
-                <b>{{ C.participation_fee }} + 2 euro</b> as a payment for participation. This is, you receive a "Great" (according to Prolific standards) participation fee.
-            {{ endif }}
 
-            Further, you can earn extra money as a bonus.
+            During the experiment, you will be matched randomly with another participant. Neither before nor after the experiment will you learn the identity of the assigned participants.
+            Likewise, the other participants will never learn anything about your identity. All decisions in this experiment are made anonymously.
         </p>
 
         <p>
-            Your bonus depends on your decisions and on the decisions of other participants.
-            Your decisions may affect the payment of other participants.
-            During the experiment, we do not speak of money, but of points. Your payoffs will be represented in points, where:
+            If you have any questions, you can always contact the researcher via Prolific.
         </p>
 
-        <p>50 Points = 1 euro</p>
+
+        <div >
+            <p>
+                <strong>Quality Control Notice:</strong> We have implemented measures to ensure that all answers are provided by human participants.
+                These include, but are not limited to, the reCAPTCHA test shown below. Please note that AI-generated responses are not accepted.
+            </p>
+                <div class="center">
+    <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY }}" data-callback="verify_token"></div>
+                    </div>
+
+        </div>
 
         <p>Press "Next" to continue.</p>
     </div>
@@ -47,7 +68,11 @@
 <div style="float: right;">
     <div class="center">{% next_button %}</div>
 </div>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+         function verify_token(response_token) {
+             liveSend({'response_token': response_token});
+         }
+    </script>
 {% endblock %}
-
-
-

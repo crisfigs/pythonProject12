@@ -52,188 +52,176 @@
         Before answering the questions, please consider the following scenario:
         <br><br>
 
+         <!--Gender of the professor is randomized treatgendermentor =1 is male -->
 
         <div class="vignette-card">
             <p>A
-                  {% if player.treatgender == 1 %}male
-                  {% elif player.treatgender == 0 %}female
+                  {% if player.treatgendermentor == 1 %}male
+                  {% elif player.treatgendermentor == 0 %}female
                   {% endif%} professor has been invited to participate in an informal mentorship program.
                 The program involves a one time, one-on-one mentoring session with either a male or a female student, taking place at a specified location.
                 To participate, the professor needs to answer some questions for the matching procedure, including the gender of the mentee he wants to mentor. A voucher for two non-alcoholic drinks is provided for the meeting.
             </p>
         </div>
-         <!--Location presentation needs to be randomized and so does the gender -->
+    <br> <br>
+    <p> Before you answer the following questions, please consider the scenario described above.
+        There are no correct answers—please provide your honest opinion based on the information provided. </p>
 <br><br>
-     {% if player.treatgender == 1 %}
+        {% if player.treatgendermentor == 1 %}
+
+         <!--Location presentation needs to be randomized treatlocation == 1  is first the pub, then the cafeteria -->
+
               {% if player.treatlocation == 1 %}
-                                      <h4>Location 1: Informal Mentorship at a Pub Near Campus</h4>
-                    <p>How appropriate do you deem the following mentee choices?</p>
 
-                     <table>
-                         <tr>
-                            <br>
-                             <span class="question-label">{{form.appropriateness_pub_MM.label}}</span>
-
-                             {{ for choice in form.appropriateness_pub_MM }} &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp
-                                {{ choice }}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                            {{ endfor }}
-                            <br>
-                             Highly inappropriate &nbsp &nbsp &nbsp
-                             Somewhat inappropriate &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp
-                             Neutral &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                             Somewhat appropriate &nbsp &nbsp &nbsp &nbsp
-                             Highly appropriate
-                         </tr>
-                            <br>
-                            <br>
-
-                         <tr>
-                            <br>
-                             <span class="question-label">{{form.appropriateness_pub_MF.label}}</span>
-
-                             {{ for choice in form.appropriateness_pub_MF }}&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp
-                                {{ choice }}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                            {{ endfor }}
-                              <br>
-                                Highly inappropriate &nbsp &nbsp &nbsp
-                             Somewhat inappropriate &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp
-                             Neutral &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                             Somewhat appropriate &nbsp &nbsp &nbsp &nbsp
-                             Highly appropriate
-                         </tr>
-
-
-                     </table>
+                  <p>1. Imagine that the informal mentorship meeting is scheduled to take place at a <em>pub near campus</em>,
+                  and the professor is informed of this in advance.
+                  How would you assess the appropriateness of the professor choosing to meet with...</p>
+         <!--Gender of the mentee needs to be randomized treatgendermentee=1 means male is always shown first.-->
+                                {% if player.treatgendermentee == 1 %}
+                                    {{form.appropriateness_pub_MM.label}}
+                                    {{form.appropriateness_pub_MM}}
+                                    {{form.appropriateness_pub_MF.label}}
+                                    {{form.appropriateness_pub_MF }}
+                                {% elif player.treatgendermentee == 0 %}
+                                    {{form.appropriateness_pub_MF.label}}
+                                    {{form.appropriateness_pub_MF }}
+                                    {{form.appropriateness_pub_MM.label}}
+                                    {{form.appropriateness_pub_MM}}
+                                {% endif %}
                     <br> <br>
 
-                    <h4>Location 2: Informal Mentorship at an On-Campus Cafeteria</h4>
-                    <p>How appropriate do you deem the following mentee choices?</p>
-
-                    <table>
-             <tr>
-                <br>
-                 <span class="question-label">{{form.appropriateness_cafe_MM.label}}</span>
-
-                 {{ for choice in form.appropriateness_cafe_MM }} &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp
-                    {{ choice }}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                {{ endfor }}
-                <br>
-                 Highly inappropriate &nbsp &nbsp &nbsp
-                 Somewhat inappropriate &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp
-                 Neutral &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                 Somewhat appropriate &nbsp &nbsp &nbsp &nbsp
-                 Highly appropriate
-             </tr>
-                <br>
-                <br>
-
-             <tr>
-                <br>
-                 <span class="question-label">{{form.appropriateness_cafe_MF.label}}</span>
-                 {{ for choice in form.appropriateness_cafe_MF }}&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp
-                    {{ choice }}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                {{ endfor }}
-                  <br>
-                    Highly inappropriate &nbsp &nbsp &nbsp
-                 Somewhat inappropriate &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp
-                 Neutral &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                 Somewhat appropriate &nbsp &nbsp &nbsp &nbsp
-                 Highly appropriate
-             </tr>
-
-
-         </table>
+                  <p>2.  Now imagine that the informal mentorship meeting is scheduled to take place at an <em>on-campus cafeteria</em>,
+                  and the professor is informed of this in advance.
+                  How would you assess the appropriateness of the professor choosing to meet with...</p>
+                                {% if player.treatgendermentee == 1 %}
+                                    {{form.appropriateness_cafe_MM.label}}
+                                    {{form.appropriateness_cafe_MM}}
+                                    {{form.appropriateness_cafe_MF.label}}
+                                    {{form.appropriateness_cafe_MF }}
+                                {% elif player.treatgendermentee == 0 %}
+                                    {{form.appropriateness_cafe_MF.label}}
+                                    {{form.appropriateness_cafe_MF }}
+                                    {{form.appropriateness_cafe_MM.label}}
+                                    {{form.appropriateness_cafe_MM}}
+                                {% endif%}
+                    <br> <br>
 
               {% elif player.treatlocation == 0 %}
 
-                  <h4>Location 1: Informal Mentorship at an On-Campus Cafeteria</h4>
-                    <p>How appropriate do you deem the following mentee choices?</p>
+                <p>1. Imagine that the informal mentorship meeting is scheduled to take place at an <em>on-campus cafeteria</em>,
+                  and the professor is informed of this in advance.
+                  How would you assess the appropriateness of the professor choosing to meet with...</p>
+                                {% if player.treatgendermentee == 1 %}
+                                    {{form.appropriateness_cafe_MM.label}}
+                                    {{form.appropriateness_cafe_MM}}
+                                    {{form.appropriateness_cafe_MF.label}}
+                                    {{form.appropriateness_cafe_MF }}
+                                {% elif player.treatgendermentee == 0 %}
+                                    {{form.appropriateness_cafe_MF.label}}
+                                    {{form.appropriateness_cafe_MF }}
+                                    {{form.appropriateness_cafe_MM.label}}
+                                    {{form.appropriateness_cafe_MM}}
+                                {% endif%}
+                    <br> <br>
 
-                    <table>
-             <tr>
-                <br>
-                 <span class="question-label">{{form.appropriateness_cafe_MM.label}}</span>
-
-                 {{ for choice in form.appropriateness_cafe_MM }} &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp
-                    {{ choice }}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                {{ endfor }}
-                <br>
-                 Highly inappropriate &nbsp &nbsp &nbsp
-                 Somewhat inappropriate &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp
-                 Neutral &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                 Somewhat appropriate &nbsp &nbsp &nbsp &nbsp
-                 Highly appropriate
-             </tr>
-                <br>
-                <br>
-
-             <tr>
-                <br>
-                 <span class="question-label">{{form.appropriateness_cafe_MF.label}}</span>
-                 {{ for choice in form.appropriateness_cafe_MF }}&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp
-                    {{ choice }}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                {{ endfor }}
-                  <br>
-                    Highly inappropriate &nbsp &nbsp &nbsp
-                 Somewhat inappropriate &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp
-                 Neutral &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                 Somewhat appropriate &nbsp &nbsp &nbsp &nbsp
-                 Highly appropriate
-             </tr>
-
-
-         </table>
-
-                  <h4>Location 2: Informal Mentorship at a Pub Near Campus</h4>
-                    <p>How appropriate do you deem the following mentee choices?</p>
-
-                     <table>
-                         <tr>
-                            <br>
-                             <span class="question-label">{{form.appropriateness_pub_MM.label}}</span>
-
-                             {{ for choice in form.appropriateness_pub_MM }} &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp
-                                {{ choice }}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                            {{ endfor }}
-                            <br>
-                             Highly inappropriate &nbsp &nbsp &nbsp
-                             Somewhat inappropriate &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp
-                             Neutral &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                             Somewhat appropriate &nbsp &nbsp &nbsp &nbsp
-                             Highly appropriate
-                         </tr>
-                            <br>
-                            <br>
-
-                         <tr>
-                            <br>
-                             <span class="question-label">{{form.appropriateness_pub_MF.label}}</span>
-
-                             {{ for choice in form.appropriateness_pub_MF }}&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp
-                                {{ choice }}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                            {{ endfor }}
-                              <br>
-                                Highly inappropriate &nbsp &nbsp &nbsp
-                             Somewhat inappropriate &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp
-                             Neutral &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                             Somewhat appropriate &nbsp &nbsp &nbsp &nbsp
-                             Highly appropriate
-                         </tr>
-
-
-                     </table>
+                  <p>2. Now, imagine that the informal mentorship meeting is scheduled to take place at a <em>pub near campus</em>,
+                  and the professor is informed of this in advance.
+                  How would you assess the appropriateness of the professor choosing to meet with...</p>
+                                {% if player.treatgendermentee == 1 %}
+                                    {{form.appropriateness_pub_MM.label}}
+                                    {{form.appropriateness_pub_MM}}
+                                    {{form.appropriateness_pub_MF.label}}
+                                    {{form.appropriateness_pub_MF }}
+                                {% elif player.treatgendermentee == 0 %}
+                                    {{form.appropriateness_pub_MF.label}}
+                                    {{form.appropriateness_pub_MF }}
+                                    {{form.appropriateness_pub_MM.label}}
+                                    {{form.appropriateness_pub_MM}}
+                                {% endif%}
                     <br> <br>
 
                {% endif %}
 
 
+        {% elif player.treatgendermentor == 0 %}
+
+                      {% if player.treatlocation == 1 %}
+                              <p> 1. Imagine that the informal mentorship meeting is scheduled to take place at a <em>pub near campus</em>,
+                              and the professor is informed of this in advance.
+                              How would you assess the appropriateness of the professor choosing to meet with...</p>
+
+                          <!--Gender of the mentee needs to be randomized treatgendermentee=1 means male is always shown first.-->
+                                            {% if player.treatgendermentee == 1 %}
+                                                {{form.appropriateness_pub_FM.label}}
+                                                {{form.appropriateness_pub_FM}}
+                                                {{form.appropriateness_pub_FF.label}}
+                                                {{form.appropriateness_pub_FF }}
+                                            {% elif player.treatgendermentee == 0 %}
+                                                {{form.appropriateness_pub_FF.label}}
+                                                {{form.appropriateness_pub_FF }}
+                                                {{form.appropriateness_pub_FM.label}}
+                                                {{form.appropriateness_pub_FM}}
+                                            {% endif %}
+                                <br> <br>
+
+                              <p>2.  Now imagine that the informal mentorship meeting is scheduled to take place at an <em>on-campus cafeteria</em>,
+                              and the professor is informed of this in advance.
+                              How would you assess the appropriateness of the professor choosing to meet with...</p>
+                                            {% if player.treatgendermentee == 1 %}
+                                                {{form.appropriateness_cafe_FM.label}}
+                                                {{form.appropriateness_cafe_FM}}
+                                                {{form.appropriateness_cafe_FF.label}}
+                                                {{form.appropriateness_cafe_FF }}
+                                            {% elif player.treatgendermentee == 0 %}
+                                                {{form.appropriateness_cafe_FF.label}}
+                                                {{form.appropriateness_cafe_FF }}
+                                                {{form.appropriateness_cafe_FM.label}}
+                                                {{form.appropriateness_cafe_FM}}
+                                            {% endif%}
+                                <br><br>
+
+                        {% elif player.treatlocation == 0 %}
+
+                              <p>1. Imagine that the informal mentorship meeting is scheduled to take place at an <em>on-campus cafeteria</em>,
+                              and the professor is informed of this in advance.
+                              How would you assess the appropriateness of the professor choosing to meet with...</p>
+                                            {% if player.treatgendermentee == 1 %}
+                                                {{form.appropriateness_cafe_FM.label}}
+                                                {{form.appropriateness_cafe_FM}}
+                                                {{form.appropriateness_cafe_FF.label}}
+                                                {{form.appropriateness_cafe_FF }}
+                                            {% elif player.treatgendermentee == 0 %}
+                                                {{form.appropriateness_cafe_FF.label}}
+                                                {{form.appropriateness_cafe_FF }}
+                                                {{form.appropriateness_cafe_FM.label}}
+                                                {{form.appropriateness_cafe_FM}}
+                                            {% endif%}
+                                <br> <br>
+
+                              <p>2. Now, imagine that the informal mentorship meeting is scheduled to take place at a <em>pub near campus</em>,
+                              and the professor is informed of this in advance.
+                              How would you assess the appropriateness of the professor choosing to meet with...</p>
+                                            {% if player.treatgendermentee == 1 %}
+                                                {{form.appropriateness_pub_FM.label}}
+                                                {{form.appropriateness_pub_FM}}
+                                                {{form.appropriateness_pub_FF.label}}
+                                                {{form.appropriateness_pub_FF }}
+                                            {% elif player.treatgendermentee == 0 %}
+                                                {{form.appropriateness_pub_FF.label}}
+                                                {{form.appropriateness_pub_FF }}
+                                                {{form.appropriateness_pub_FM.label}}
+                                                {{form.appropriateness_pub_FM}}
+                                            {% endif%}
+                                <br> <br>
+
+
+                                  {% endif %}
+
+
+        {% endif %}
 
 
 
-    {% elif player.treatgender == 0 %}
-
-
-    {% endif %}
     </div>
 </div>
 

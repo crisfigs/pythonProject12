@@ -29,8 +29,11 @@ class Player(BasePlayer):
     task1 = models.StringField(blank=True)  # whether participant takes selfish choice in Dana task
     scenario1 = models.BooleanField(blank=True)  # whether scenario 1 or 2 will be displayed
     bonus_payoff = models.StringField(blank=True)
-    treatgender = models.BooleanField(blank=True)  # whether male gender or female gender of professors in PlayerTaskY.
+    #PlayerYTask
+    treatgendermentor = models.BooleanField(blank=True)  # whether male gender or female gender of professors in PlayerTaskY.
     treatlocation = models.BooleanField(blank=True)  # whether pub or cafe is displayed first in PlayerTaskY.
+    treatgendermentee = models.BooleanField(blank=True)  # whether male or female question is displayed always first or second in PlayerTaskY.
+
 
     # Comprehension questions
     qXB = models.IntegerField(label="Player X receives:")
@@ -60,6 +63,10 @@ class Player(BasePlayer):
                                          ('1', 'A'),
                                          ('0', 'B')],
                                      label="In the game on the right, I would choose:")
+    honeypot = models.StringField(blank=True)  # Hidden input field
+
+
+
 
     ####PlayerYTask
     def appropriateness_field(label):
@@ -72,18 +79,17 @@ class Player(BasePlayer):
                 (5, 'Highly appropriate'),
             ],
             label=label,
-            widget=widgets.RadioSelectHorizontal,
             blank=True
         )
 
-    appropriateness_pub_MM = appropriateness_field(label="The professor chooses to mentor a male student")
-    appropriateness_pub_MF = appropriateness_field(label="The professor chooses to mentor a female student")
-    appropriateness_cafe_MM = appropriateness_field(label="The professor chooses to mentor a male student")
-    appropriateness_cafe_MF = appropriateness_field(label="The professor chooses to mentor a female student")
-    appropriateness_pub_FM = appropriateness_field(label="The professor chooses to mentor a male student")
-    appropriateness_pub_FF = appropriateness_field(label="The professor chooses to mentor a female student")
-    appropriateness_cafe_FM = appropriateness_field(label="The professor chooses to mentor a male student")
-    appropriateness_cafe_FF = appropriateness_field(label="The professor chooses to mentor a female student")
+    appropriateness_pub_MM = appropriateness_field(label="...a male student")
+    appropriateness_pub_MF = appropriateness_field(label="...a female student")
+    appropriateness_cafe_MM = appropriateness_field(label="...a male student")
+    appropriateness_cafe_MF = appropriateness_field(label="...a female student")
+    appropriateness_pub_FM = appropriateness_field(label="...a male student")
+    appropriateness_pub_FF = appropriateness_field(label="...a female student")
+    appropriateness_cafe_FM = appropriateness_field(label="...a male student")
+    appropriateness_cafe_FF = appropriateness_field(label="...a female student")
 
 
   ###FUNCTIONS
@@ -114,29 +120,29 @@ def set_payoffs(group: Group):
     p1 = group.get_player_by_id(1)
     p2 = group.get_player_by_id(2)
     if p1.task1 == "A":
-        p1.payoff = str(C.participation_fee + 0.1 * C.dictator_A) + "0"
-        p1.bonus_payoff = str(0.1 * C.dictator_A) + "0"
+        p1.payoff = str(C.participation_fee + 0.02 * C.dictator_A) + "0"
+        p1.bonus_payoff = str( 0.02 * C.dictator_A) + "0"
         if p1.scenario1 == 1:
-            p2.payoff = str(C.participation_fee + 0.1 * C.receiver_scenario1A) + "0"
-            p2.bonus_payoff = str(0.1 * C.receiver_scenario1A) + "0"
+            p2.payoff = str(C.participation_fee +  0.02 * C.receiver_scenario1A) + "0"
+            p2.bonus_payoff = str( 0.02 * C.receiver_scenario1A) + "0"
         else:
             p2.payoff = str(C.participation_fee + 0.1 * C.receiver_scenario2A) + "0"
-            p2.bonus_payoff = str(0.1 * C.receiver_scenario2A) + "0"
+            p2.bonus_payoff = str( 0.02 * C.receiver_scenario2A) + "0"
 
     elif p1.task1 == "B":
         p1.payoff = str(C.participation_fee + 0.1 * C.dictator_B) + "0"
-        p1.bonus_payoff = str(0.1 * C.dictator_B) + "0"
+        p1.bonus_payoff = str( 0.02 * C.dictator_B) + "0"
 
         if p1.scenario1:
-            p2.payoff = str(C.participation_fee + 0.1 * C.receiver_scenario1B) + "0"
-            p2.bonus_payoff = str(0.1 * C.receiver_scenario1B) + "0"
+            p2.payoff = str(C.participation_fee +  0.02 * C.receiver_scenario1B) + "0"
+            p2.bonus_payoff = str( 0.02 * C.receiver_scenario1B) + "0"
         else:
             p2.payoff =  str(C.participation_fee  + 0.1 * C.receiver_scenario2B) + "0"
-            p2.bonus_payoff = str(0.1 * C.receiver_scenario2B) + "0"
+            p2.bonus_payoff = str( 0.02 * C.receiver_scenario2B) + "0"
 
 class Consent(Page):
     form_model = 'player'
-    form_fields = ['prolific_id']
+    form_fields = ['prolific_id', 'honeypot']
     def before_next_page(player, timeout_happened):
         player.scenario1 = random.choice([True, False])
 
@@ -192,8 +198,10 @@ class Questions(Page):
     def is_displayed(player: Player):
         return player.id_in_group == 2
     def before_next_page(player, timeout_happened):
-        player.treatgender = random.choice([True, False])
+        player.treatgendermentor = random.choice([True, False])
+        player.treatgendermentee = random.choice([True, False])
         player.treatlocation = random.choice([True, False])
+
 
 
 class PlayerYTask(Page):
