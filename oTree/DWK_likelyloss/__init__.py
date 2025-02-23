@@ -89,24 +89,16 @@ def set_payoffs(group: Group):
     p1 = group.get_player_by_id(1)
     p2 = group.get_player_by_id(2)
     if p1.task1 == "A":
-        p1.payoff = str(C.participation_fee + 0.1 * C.dictator_A) + "0"
         p1.bonus_payoff = str(0.1 * C.dictator_A) + "0"
         if p1.scenario1 == 1:
-            p2.payoff = str(C.participation_fee  + 0.1 * C.receiver_scenario1A) + "0"
             p2.bonus_payoff = str(0.1 * C.receiver_scenario1A) + "0"
         else:
-            p2.payoff = str(C.participation_fee  + 0.1 * C.receiver_scenario2A) + "0"
             p2.bonus_payoff = str(0.1 * C.receiver_scenario2A) + "0"
-
     elif p1.task1 == "B":
-        p1.payoff = str(C.participation_fee  + 0.1 * C.dictator_B) + "0"
         p1.bonus_payoff = str(0.1 * C.dictator_B) + "0"
-
         if p1.scenario1:
-            p2.payoff = str(C.participation_fee  + 0.1 * C.receiver_scenario1B) + "0"
             p2.bonus_payoff = str(0.1 * C.receiver_scenario1B) + "0"
         else:
-            p2.payoff =  str(C.participation_fee  + 0.1 * C.receiver_scenario2B) + "0"
             p2.bonus_payoff = str(0.1 * C.receiver_scenario2B) + "0"
 
 
@@ -176,8 +168,7 @@ class SummaryTask1(Page):
     form_model = 'player'
 
     def vars_for_template(player):
-        return {"p1_payoff":  f"{float(player.group.get_player_by_id(1).payoff)} euros",
-                "p2_payoff": f"{float(player.group.get_player_by_id(2).payoff)} euros",
+        return {
                 "p1_task1": player.group.get_player_by_id(1).task1,
                 "p1_bonus": f"{float(player.group.get_player_by_id(1).bonus_payoff)} euros",
                 "p2_bonus": f"{float(player.group.get_player_by_id(2).bonus_payoff)} euros"
