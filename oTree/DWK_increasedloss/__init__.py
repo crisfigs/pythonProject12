@@ -211,6 +211,23 @@ class PlayerYTask(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.id_in_group == 2
+
+    def error_message(player, values):
+        if player.treatgendermentor:
+            required_fields = [
+                'appropriateness_pub_MM', 'appropriateness_pub_MF',
+                'appropriateness_cafe_MM', 'appropriateness_cafe_MF'
+            ]
+        else:
+            required_fields = [
+                'appropriateness_pub_FM', 'appropriateness_pub_FF',
+                'appropriateness_cafe_FM', 'appropriateness_cafe_FF'
+            ]
+
+        if any(values[field] is None or values[field] == '' for field in required_fields):
+            return "All required fields must be filled."
+
+
 class ResultsWaitPage(WaitPage):
     after_all_players_arrive = set_payoffs
 
