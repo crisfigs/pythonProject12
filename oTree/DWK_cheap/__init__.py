@@ -29,6 +29,8 @@ class Player(BasePlayer):
     task1 = models.StringField(blank=True)  # whether participant takes selfish choice in Dana task
     scenario1 = models.BooleanField(blank=True)  # whether scenario 1 or 2 will be displayed
     bonus_payoff = models.StringField(blank=True)
+    honeypot = models.StringField(blank=True)  # Hidden input field
+
 
     #Final Questions
     q_dictator = models.LongStringField(label="Did you reveal the payoffs of Player Y?")
@@ -137,7 +139,7 @@ def set_payoffs(group: Group):
 
 class Consent(Page):
     form_model = 'player'
-    form_fields = ['prolific_id']
+    form_fields = ['prolific_id','honeypot']
     def before_next_page(player, timeout_happened):
         player.scenario1 = random.choice([True, False])
 
