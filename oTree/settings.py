@@ -182,11 +182,7 @@ dict(
           cc_code="CCCODE",
           error_code="ECODE",
      ),
-    dict(
-        name='recaptcha_v2',
-        app_sequence=['recaptcha_v2_'],
-        num_demo_participants=3,
-    ),
+
 ]
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
