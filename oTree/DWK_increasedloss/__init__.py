@@ -29,10 +29,13 @@ class Player(BasePlayer):
     task1 = models.StringField(blank=True)  # whether participant takes selfish choice in Dana task
     scenario1 = models.BooleanField(blank=True)  # whether scenario 1 or 2 will be displayed
     bonus_payoff = models.StringField(blank=True)
-    #PlayerYTask
-    treatgendermentor = models.BooleanField(blank=True)  # whether male gender or female gender of professors in PlayerTaskY.
-    treatlocation = models.BooleanField(blank=True)  # whether pub or cafe is displayed first in PlayerTaskY.
-    treatgendermentee = models.BooleanField(blank=True)  # whether male or female question is displayed always first or second in PlayerTaskY.
+
+    #Final Questions
+    q_dictator = models.LongStringField(label="Did you reveal the payoffs of Player Y?")
+    q_dictator_why = models.LongStringField(label="Why or why not?")
+    q_receiver_perception = models.LongStringField(label="Do you think all Player Xs wanted to know PlayerY's payoff?")
+    q_receiver_reasoning = models.LongStringField(label="If Player X did not want to know Player Y's payoff, what do you think was the reason?")
+
 
 
     # Comprehension questions
@@ -67,6 +70,10 @@ class Player(BasePlayer):
 
 
 
+    #PlayerYTask
+    treatgendermentor = models.BooleanField(blank=True)  # whether male gender or female gender of professors in PlayerTaskY.
+    treatlocation = models.BooleanField(blank=True)  # whether pub or cafe is displayed first in PlayerTaskY.
+    treatgendermentee = models.BooleanField(blank=True)  # whether male or female question is displayed always first or second in PlayerTaskY.
 
     ####PlayerYTask
     def appropriateness_field(label):
@@ -223,6 +230,17 @@ class PlayerYTask(Page):
 class ResultsWaitPage(WaitPage):
     after_all_players_arrive = set_payoffs
 
+
+class FinalQuestions(Page):
+    form_model = 'player'
+
+    def get_form_fields(player):
+        if player.id_in_group == 1:
+            return ['q_dictator', 'q_dictator_why']
+        else:
+            return ['q_receiver_perception', 'q_receiver_reasoning']
+
+
 class SummaryTask1(Page):
     form_model = 'player'
 
@@ -248,5 +266,6 @@ page_sequence = [
     Questions,
     PlayerYTask,
     ResultsWaitPage,
+    FinalQuestions,
     SummaryTask1
 ]

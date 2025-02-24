@@ -35,7 +35,7 @@ def recaptcha_valid(response_token):
 class Welcome(Page):
     form_model = 'player'
     def vars_for_template(player: Player):
-        player.treatnumber = random.choices([1,2,3,4], weights=(0,0,1,0), k=1)[0]
+        player.treatnumber = random.choices([1,2,3,4], weights=(1/4,1/4,1/4,1/4), k=1)[0]
         return {
             'treatnumber': player.treatnumber,
             "RECAPTCHA_SITE_KEY": RECAPTCHA_SITE_KEY

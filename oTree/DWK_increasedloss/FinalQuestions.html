@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Waiting Task: Questions 1
+   Final Questions
 {% endblock %}
 
 {% block styles %}
@@ -76,26 +76,28 @@
 <div class="card">
     <div class="card-body">
         <p>
-            You will not make a choice.
-              However, while Player X makes his decision, you are asked to answer the following questions.
- </p>
-
-           First, we ask that you pick which option, A or B, you would choose if you were Player X in each
-            of the two versions of the game. For each version, please select one of the two options. Then click "Next" to confirm your choice and
-            advance to the next page. The choices you make will not affect the payment you receive.
+Before informing you of your final payoffs we would like that you answer the following questions.
         </p>
-        <div class="center">
-            {{ formfields }}
+         {{if player.id_in_group == 1}}
+                <p> {{ form.q_dictator.label}} </p>
+                <p> {{ form.q_dictator}} </p>
+
+                        <p> {{ form.q_dictator_why.label}} </p>
+                <p> {{ form.q_dictator_why}} </p>
+        {{elif player.id_in_group == 2}}
+                <p> {{ form.q_receiver_perception.label}} </p>
+                <p> {{ form.q_receiver_perception}} </p>
+
+                <p> {{ form.q_receiver_reasoning.label}} </p>
+                <p> {{ form.q_receiver_reasoning}} </p>
+
+        {{ endif }}
+
+
         </div>
         <br>
         <br>
-        <div class="two-columns">
-            <div class="column">
-                {% include '_templates/snippets/TableA_cheap.html' %}
-            </div>
-            <div class="column">
-                {% include '_templates/snippets/TableB_cheap.html' %}
-            </div>
+
         </div>
         <br>
         <br>
