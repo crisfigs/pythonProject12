@@ -144,7 +144,7 @@ def set_payoffs(group: Group):
 
 class Consent(Page):
     form_model = 'player'
-    form_fields = ['prolific_id','consent']
+    form_fields = ['prolific_id','honeypot']
     def before_next_page(player, timeout_happened):
         player.scenario1 = random.choices([1,0], weights=(0.8,0.2), k=1)[0]
 
