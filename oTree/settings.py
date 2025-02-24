@@ -229,7 +229,14 @@ SECRET_KEY = '{{ secret_key }}'
 
 RECAPTCHA_SITE_KEY = os.getenv('RECAPTCHA_SITE_KEY')
 RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
+REDIS_URL = os.getenv('REDISCLOUD_URL')
 
+CHANNEL_ROUTING = {
+    'backend': 'channels_redis.core.RedisChannelLayer',
+    'config': {
+        "hosts": [REDIS_URL],
+    },
+}
 INSTALLED_APPS = ['otree']
 
 DEBUG = False
