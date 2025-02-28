@@ -6,7 +6,7 @@ from otree.settings import RECAPTCHA_SECRET_KEY, RECAPTCHA_SITE_KEY
 
 class C(BaseConstants):
     NAME_IN_URL = 'Dana'
-    PLAYERS_PER_GROUP = 2
+    PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     TREATMENTS = ['DWK_baseline', 'DWK_cheap', 'DWK_increasedloss', 'DWK_likelyloss']
 
@@ -25,7 +25,32 @@ class Player(BasePlayer):
     prolific_id = models.StringField()
     is_human = models.BooleanField(initial=False)
     assigned_treatment = models.StringField()
+    role_ = models.StringField()
 
+# Function to balance role assignment across treatments
+def creating_session(subsession: Subsession):
+    players = subsession.get_players()
+
+    # Track role counts within each treatment
+    treatment_counts = {t: {'dictators': 0, 'receivers': 0} for t in C.TREATMENTS}
+
+    for p in players:
+        if p.field_maybe_none('assigned_treatment') is None:
+            p.assigned_treatment = random.choices(C.TREATMENTS, weights=(1,0,0,0), k=1)[0]
+
+        # Get current counts for this player's treatment
+        counts = treatment_counts[p.assigned_treatment]
+
+        if p.field_maybe_none('role_') is None:
+            # Assign role to balance within the treatment
+            if counts['dictators'] < counts['receivers']:
+                p.role_ = 'dictator'
+                counts['dictators'] += 1
+            else:
+                p.role_ = 'receiver'
+                counts['receivers'] += 1
+            # Store the role in participant.vars for access across apps
+            p.participant.vars['role_'] = p.role_
 def recaptcha_valid(response_token):
     res = requests.post("https://www.google.com/recaptcha/api/siteverify", data={
         'secret': RECAPTCHA_SECRET_KEY,
@@ -34,17 +59,17 @@ def recaptcha_valid(response_token):
     return res.json()["success"]
 
 # Creating session without `self`
-def creating_session(subsession: Subsession):
-    players = subsession.get_players()
-    random.shuffle(players)
+#def creating_session(subsession: Subsession):
+ #   players = subsession.get_players()
+  #  random.shuffle(players)
 
-    group_matrix = [players[i:i + 2] for i in range(0, len(players), 2)]
-    subsession.set_group_matrix(group_matrix)
+   # group_matrix = [players[i:i + 2] for i in range(0, len(players), 2)]
+    #subsession.set_group_matrix(group_matrix)
 
-    for group in subsession.get_groups():
-        treatment = random.choice(C.TREATMENTS)
-        for p in group.get_players():
-            p.assigned_treatment = treatment  # Only store the string treatment
+    #for group in subsession.get_groups():
+     #   treatment = random.choice(C.TREATMENTS)
+      #  for p in group.get_players():
+       #     p.assigned_treatment = treatment  # Only store the string treatment
 
 
 class Welcome(Page):

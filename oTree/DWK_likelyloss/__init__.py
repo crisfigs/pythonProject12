@@ -3,7 +3,7 @@ import random
 
 class C(BaseConstants):
     NAME_IN_URL = 'Dana_likelyloss'
-    PLAYERS_PER_GROUP = 2
+    PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
     # Payoffs
@@ -33,11 +33,26 @@ class Player(BasePlayer):
 
 
     #Final Questions
-    q_dictator = models.LongStringField(label="Did you reveal the payoffs of Player Y?")
-    q_dictator_why = models.LongStringField(label="Why or why not?")
+    #q_dictator = models.LongStringField(label="Did you reveal the payoffs of Player Y?")
+    q_dictator_why = models.LongStringField(label="could you explain to us why?")
     q_receiver_perception = models.LongStringField(label="Do you think all Player Xs wanted to know PlayerY's payoff?")
     q_receiver_reasoning = models.LongStringField(label="If Player X did not want to know Player Y's payoff, what do you think was the reason?")
-
+    motivation = models.StringField(
+        choices=[
+            "I was mainly concerned about how I would feel about myself and my decision",
+            "I was mainly concerned about the actual outcomes and payoffs",
+            "I was curious",
+            "None of the above"
+        ] ,  widget=widgets.RadioSelect,
+    )
+    motivation_receiver = models.StringField(
+        choices=[
+            "Player X was mainly concerned about how he/she would feel about him/herself and his/her decision",
+            "Player X  was mainly concerned about the actual outcomes and payoffs",
+            "Player X was mainly curious",
+            "None of the above"
+        ] ,  widget=widgets.RadioSelect,
+    )
 
 
 
@@ -56,7 +71,7 @@ class Player(BasePlayer):
                                      choices=[
                                          ('0', '60 points'),
                                          ('0', '10 points'),
-                                         ('1', ' 60 or 10 points')],
+                                         ('1', ' 60 or 10 points, depending on the game selected by the computer')],
                                      label="If Player X chooses B, then Player Y receives")
     q_receiver_scenario1 = models.IntegerField(widget=widgets.RadioSelect,
                                      choices=[
@@ -99,6 +114,7 @@ class Player(BasePlayer):
     appropriateness_cafe_FM = appropriateness_field(label="...a male student")
     appropriateness_cafe_FF = appropriateness_field(label="...a female student")
 
+
     ###FUNCTIONS
     def set_error_message(player, value):
         correct_answers = {
@@ -123,22 +139,19 @@ class Player(BasePlayer):
             return Text
 
 
-def set_payoffs(group: Group):
-    p1 = group.get_player_by_id(1)
-    p2 = group.get_player_by_id(2)
-    if p1.task1 == "A":
-        p1.bonus_payoff = f"{0.02 * C.dictator_A:.2f}"
-        if p1.scenario1 == 1:
-            p2.bonus_payoff = f"{0.02 * C.receiver_scenario1A:.2f}"
-        else:
-            p2.bonus_payoff = f"{0.02 * C.receiver_scenario2A:.2f}"
-    elif p1.task1 == "B":
-        p1.bonus_payoff = f"{0.02 * C.dictator_B:.2f}"
-        if p1.scenario1:
-            p2.bonus_payoff = f"{0.02 * C.receiver_scenario1B:.2f}"
-        else:
-            p2.bonus_payoff = f"{0.02 * C.receiver_scenario2B:.2f}"
-
+    def set_payoffs(player):
+        if player.task1 == "A" and player.participant.vars["role_"] == "dictator":
+            player.bonus_payoff = f"{0.02 * C.dictator_A:.2f}"
+            #if player.scenario1 == 1:
+             #   p2.bonus_payoff = f"{0.02 * C.receiver_scenario1A:.2f}"
+            #else:
+             #   p2.bonus_payoff = f"{0.02 * C.receiver_scenario2A:.2f}"
+        elif player.task1 == "B" and player.participant.vars["role_"] == "dictator":
+            player.bonus_payoff = f"{0.02 * C.dictator_B:.2f}"
+            #if p1.scenario1:
+               # p2.bonus_payoff = f"{0.02 * C.receiver_scenario1B:.2f}"
+            #else:
+                #p2.bonus_payoff = f"{0.02 * C.receiver_scenario2B:.2f}"
 
 
 
@@ -166,13 +179,22 @@ class SummaryInstructionsTask1(Page):
 
 class Role(Page):
     form_model = 'player'
+    def vars_for_template(player):
+        return {
+            "role_": player.participant.vars['role_']
+        }
 
 class Task1(Page):
     form_model = 'player'
     form_fields = ['reveal']
 
     def is_displayed(player):
-        return player.id_in_group == 1
+        return player.participant.vars['role_'] == "dictator"
+    def before_next_page(player, timeout_happened):
+        player.treatgendermentor = random.choice([True, False])
+        player.treatgendermentee = random.choice([True, False])
+        player.treatlocation = random.choice([True, False])
+
 
 
 
@@ -181,7 +203,9 @@ class Task1Reveal(Page):
     form_fields = ['task1']
 
     def is_displayed(player):
-        return player.id_in_group == 1 and player.reveal == 1
+        return player.participant.vars['role_'] == "dictator" and player.reveal == 1
+    def before_next_page(player, timeout_happened):
+        return player.set_payoffs()
 
 
 
@@ -189,7 +213,10 @@ class Task1NoReveal(Page):
     form_model = 'player'
     form_fields = ['task1']
     def is_displayed(player):
-      return player.id_in_group == 1 and player.reveal == 0
+      return player.participant.vars['role_'] == "dictator" and player.reveal == 0
+
+    def before_next_page(player, timeout_happened):
+        return player.set_payoffs()
 
 
 class Questions(Page):
@@ -197,7 +224,7 @@ class Questions(Page):
     form_fields = ['q_receiver_scenario1', 'q_receiver_scenario2']
     @staticmethod
     def is_displayed(player: Player):
-        return player.id_in_group == 2
+        return player.participant.vars['role_'] == "receiver"
     def before_next_page(player, timeout_happened):
         player.treatgendermentor = random.choice([True, False])
         player.treatgendermentee = random.choice([True, False])
@@ -211,7 +238,7 @@ class PlayerYTask(Page):
                    'appropriateness_pub_FM','appropriateness_pub_FF','appropriateness_cafe_FM','appropriateness_cafe_FF']
     @staticmethod
     def is_displayed(player: Player):
-        return player.id_in_group == 2
+        return player.participant.vars['role_'] == "receiver"
 
     def error_message(player, values):
         if player.treatgendermentor:
@@ -229,30 +256,70 @@ class PlayerYTask(Page):
             return "All required fields must be filled."
 
 
-class ResultsWaitPage(WaitPage):
-    after_all_players_arrive = set_payoffs
+#class ResultsWaitPage(WaitPage):
+#   after_all_players_arrive = set_payoffs
 
 class FinalQuestions(Page):
         form_model = 'player'
 
         def get_form_fields(player):
-            if player.id_in_group == 1:
-                return ['q_dictator', 'q_dictator_why']
+            if player.participant.vars['role_'] == "dictator":
+                return [ 'q_dictator_why', 'motivation'] #
             else:
-                return ['q_receiver_perception', 'q_receiver_reasoning']
+                return ['q_receiver_perception', 'q_receiver_reasoning', 'motivation_receiver']
+
+        def vars_for_template(player):
+            is_dictator = player.participant.vars["role_"] == "dictator"
+
+            return {
+                "role_": player.participant.vars['role_'],
+                "reveal": player.reveal if is_dictator else None
+            }
+
+class PlayerXTask(Page):
+    form_model = 'player'
+    form_fields = ['appropriateness_pub_MM','appropriateness_pub_MF','appropriateness_cafe_MM','appropriateness_cafe_MF',
+                   'appropriateness_pub_FM','appropriateness_pub_FF','appropriateness_cafe_FM','appropriateness_cafe_FF']
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.participant.vars['role_'] == "dictator"
+
+    def error_message(player, values):
+        if player.treatgendermentor:
+            required_fields = [
+                'appropriateness_pub_MM', 'appropriateness_pub_MF',
+                'appropriateness_cafe_MM', 'appropriateness_cafe_MF'
+            ]
+        else:
+            required_fields = [
+                'appropriateness_pub_FM', 'appropriateness_pub_FF',
+                'appropriateness_cafe_FM', 'appropriateness_cafe_FF'
+            ]
+
+        if any(values[field] is None or values[field] == '' for field in required_fields):
+            return "All required fields must be filled."
 
 
 class SummaryTask1(Page):
     form_model = 'player'
 
     def vars_for_template(player):
+        is_dictator = player.participant.vars["role_"] == "dictator"
+
         return {
-                "p1_task1": player.group.get_player_by_id(1).task1,
-                "p1_bonus": f"{float(player.group.get_player_by_id(1).bonus_payoff)} euros",
-                "p2_bonus": f"{float(player.group.get_player_by_id(2).bonus_payoff)} euros"
+                "p1_task1":  player.task1 if is_dictator else None,
+                "p1_bonus": f"{float(player.bonus_payoff)} pounds" if is_dictator else None,
                }
 
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.participant.vars['role_'] == "dictator"
 
+class SummaryTask2(Page):
+    form_model = 'player'
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.participant.vars['role_'] == "receiver"
 
 page_sequence = [
 
@@ -266,7 +333,8 @@ page_sequence = [
     Task1NoReveal,
     Questions,
     PlayerYTask,
-    ResultsWaitPage,
     FinalQuestions,
-    SummaryTask1
+    PlayerXTask,
+    SummaryTask1,
+    SummaryTask2
 ]

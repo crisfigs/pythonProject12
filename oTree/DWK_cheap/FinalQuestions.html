@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-   Final Questions
+   Final Questions 1
 {% endblock %}
 
 {% block styles %}
@@ -75,23 +75,44 @@
 {% block content %}
 <div class="card">
     <div class="card-body">
-        <p>
-Before informing you of your final payoffs we would like that you answer the following questions.
-        </p>
-         {{if player.id_in_group == 1}}
-                <p> {{ form.q_dictator.label}} </p>
-                <p> {{ form.q_dictator}} </p>
+                {% if role_ == "dictator" %}
+                    <p> Before proceeding to payment, please answer two more sets of questions. Below you can find the first set.</p>
 
-                        <p> {{ form.q_dictator_why.label}} </p>
-                <p> {{ form.q_dictator_why}} </p>
-        {{elif player.id_in_group == 2}}
-                <p> {{ form.q_receiver_perception.label}} </p>
-                <p> {{ form.q_receiver_perception}} </p>
 
-                <p> {{ form.q_receiver_reasoning.label}} </p>
-                <p> {{ form.q_receiver_reasoning}} </p>
+                     {% if reveal == 1 %}
+                    <p> You decided to reveal Player Y's payoffs,  {{ form.q_dictator_why.label }} </p>
+                     {% elif reveal == 0 %}
+                    <p> You decided not to reveal Player Y's payoffs,  {{ form.q_dictator_why.label }} </p>
+                    {% endif %}
 
-        {{ endif }}
+                    <p> {{ form.q_dictator_why }} </p>
+                    <br>
+                    {% if reveal == 1 %}
+                        <p> Which of the following better describes your primary motivation for revealing Player Y's payoffs? </p>
+                    {% elif reveal == 0 %}
+                        <p> Which of the following better describes your primary motivation for not revealing Player Y's payoffs? </p>
+                    {% endif %}
+
+                    <p> {{ form.motivation }} </p>
+
+                {% elif role_ == "receiver" %}
+                    <p> Before proceeding to payment, please answer the questions below.</p>
+
+                    <p> {{ form.q_receiver_perception.label }} </p>
+                    <p> {{ form.q_receiver_perception }} </p>
+
+                    <p> {{ form.q_receiver_reasoning.label }} </p>
+                    <p> {{ form.q_receiver_reasoning }} </p>
+                    <br>
+
+                    <p>Consider the two following motivations for revealing or not revealing.
+                        Which do you think better describes the primary motivation of Player X for revealing Player Y's payoffs?</p>
+
+                    <p>Player X decided to reveal because...</p>
+                    <p> {{ form.motivation_receiver }} </p>
+
+                {% endif %}
+
 
 
         </div>

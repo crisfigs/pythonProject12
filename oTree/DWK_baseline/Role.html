@@ -18,16 +18,13 @@
 {% block content %}
     <div class="card">
   <div class="card-body">
-
-    {{if player.id_in_group == 1  }}
-<p> You have been assigned to be Player X. </p>
-    {{ elif player.id_in_group == 2  }}
-
-<p> You have been assigned to be Player Y.</p>
+    {{if role_ == 'dictator'}}
+      <p> You have been assigned to be Player X. </p>
+    {{ elif role_ == "receiver" }}
+      <p> You have been assigned to be Player Y.</p>
     {{ endif }}
 
       <p> Press "Next" to begin with the task.</p>
-
 
   </div></div>
 
