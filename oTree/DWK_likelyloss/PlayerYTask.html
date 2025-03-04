@@ -59,7 +59,10 @@
                   {% elif player.treatgendermentor == 0 %}female
                   {% endif%} professor has been invited to participate in an informal mentorship program.
                 The program involves a one time, one-on-one mentoring session with either a male or a female student, taking place at a specified location.
-                To participate, the professor needs to answer some questions for the matching procedure, including the gender of the mentee he wants to mentor. A voucher for two non-alcoholic drinks is provided for the meeting.
+                To participate, the professor needs to answer some questions for the matching procedure, including the gender of the mentee
+                {% if player.treatgendermentor == 1 %}he
+                {% elif player.treatgendermentor == 0 %}she
+                {% endif%}wants to mentor. A voucher for two non-alcoholic drinks is provided for the meeting.
             </p>
         </div>
     <br> <br>
