@@ -10,7 +10,7 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
     TREATMENTS = ['DWK_baseline', 'DWK_cheap', 'DWK_increasedloss', 'DWK_likelyloss']
 
-    participation_fee = 2 # in pounds
+    participation_fee = 1.05 # in pounds
 
 
 
@@ -36,7 +36,7 @@ def creating_session(subsession: Subsession):
 
     for p in players:
         if p.field_maybe_none('assigned_treatment') is None:
-            p.assigned_treatment = random.choices(C.TREATMENTS, weights=(1/4,1/4,1/4,1/4), k=1)[0]
+            p.assigned_treatment = random.choices(C.TREATMENTS, weights=(0,0,1,0), k=1)[0]
 
         # Get current counts for this player's treatment
         counts = treatment_counts[p.assigned_treatment]

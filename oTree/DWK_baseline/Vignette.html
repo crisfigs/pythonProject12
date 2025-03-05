@@ -32,7 +32,7 @@
 
 {{ endblock }}
 
-{{ block title }} Waiting Task: Questions 2
+{{ block title }} Final Questions 2
 
 
 {{ endblock }}
@@ -43,9 +43,11 @@
 <div class="card">
     <div class="card-body">
 
+<p>Finally, this last set of questions that we ask you to answer are part of a separate survey that is not directly related to the main experiment.
+    To answer these questions, please first consider the following scenario:</p>
 
-    Please answer the following last set of questions before proceeding. In order to answer the questions, please first consider the following scenario:
         <br><br>
+
 
          <!--Gender of the professor is randomized treatgendermentor =1 is male -->
 
@@ -64,7 +66,7 @@
     <br> <br>
     <p> Before you answer the following questions, please consider the scenario described above.
         There are no correct answers—please provide your honest opinion based on the information provided. </p>
-<br>
+<br><br>
         {% if player.treatgendermentor == 1 %}
 
          <!--Location presentation needs to be randomized treatlocation == 1  is first the pub, then the cafeteria -->
@@ -140,6 +142,22 @@
 
                {% endif %}
 
+                    <p>We asked other respondents in this survey to express their
+                       beliefs about how appropriate they think it is for a female professor to choose to meet
+                       with either a <i>female</i>  or a <i>male</i>  student for an informal mentorship meeting in either an <i>on-campus cafeteria</i> or a <i>pub near campus</i>.
+                       What do you think the rest of the Players X think?</p>
+                    <p>What do you think other respondents believe about these situations?</p>
+                    1. A male professor meeting with a male student at a <i>pub near campus</i> is <strong>........</strong> her meeting a female student at a <i>pub near campus</i>.
+                    <p>Please complete the sentence by selecting one of the following options:{{form.appropriatenessOther_pub_M}} </p>
+
+                    <br>
+                    2. A male professor meeting with a male student at a <i>on-campus cafeteria</i> is <strong>........</strong> her meeting a female student at an <i>on-campus cafeteria</i>.
+                    <p>Please complete the sentence by selecting one of the following options:{{form.appropriatenessOther_cafe_M}} </p>
+
+                                <br><br>
+                    Do you have any other thoughts on this?
+                    {{ form.openq }}
+
 
         {% elif player.treatgendermentor == 0 %}
 
@@ -178,6 +196,8 @@
                                             {% endif%}
                                 <br><br>
 
+
+
                         {% elif player.treatlocation == 0 %}
 
                               <p>1. Imagine that the informal mentorship meeting is scheduled to take place at an <em>on-campus cafeteria</em>,
@@ -215,8 +235,27 @@
 
                                   {% endif %}
 
+                    <p>We asked other respondents in this survey to express their
+                       beliefs about how appropriate they think it is for a female professor to choose to meet
+                       with either a <i>female</i>  or a <i>male</i>  student for an informal mentorship meeting in either an <i>on-campus cafeteria</i> or a <i>pub near campus</i>.
+                       What do you think the rest of the Players X think?</p>
+                    <p>What do you think other respondents believe about these situations?</p>
+                    1. A female professor meeting with a male student at a <i>pub near campus</i> is <strong>........</strong> her meeting a female student at a <i>pub near campus</i>.
+                    <p>Please complete the sentence by selecting one of the following options:{{form.appropriatenessOther_pub_F}} </p>
+
+                    <br>
+                    2. A female professor meeting with a male student at a <i>on-campus cafeteria</i> is <strong>........</strong> her meeting a female student at an <i>on-campus cafeteria</i>.
+                    <p>Please complete the sentence by selecting one of the following options:{{form.appropriatenessOther_cafe_F}} </p>
+
+
+
+                    <br><br>
+                    Do you have any other thoughts on this?
+                    {{ form.openq }}
 
         {% endif %}
+
+
 
 
 

@@ -33,9 +33,11 @@ class Player(BasePlayer):
     #Final Questions
     q_dictator = models.LongStringField(label="Did you reveal the payoffs of Player Y?")
     q_dictator_why = models.LongStringField(label="could you explain to us why?")
-    q_receiver_perception = models.LongStringField(label="Do you think all Player Xs wanted to know PlayerY's payoff?")
-    q_receiver_reasoning = models.LongStringField(label="If Player X did not want to know Player Y's payoff, what do you think was the reason?")
-    motivation = models.StringField(
+    q_receiver_perception = models.LongStringField(label="1. Do you think all Player Xs wanted to know PlayerY's payoff?")
+    q_receiver_reasoning_notrevealing = models.LongStringField(label="2a. If Player X did not want to know Player Y's payoff (they did not reveal), what do you think was the reason?")
+    q_receiver_reasoning_revealing = models.LongStringField(label="3a. If Player X did want to know Player Y's payoff (they revealed), what do you think was the reason?")
+
+    motivation_revealing = models.StringField(
         choices=[
             "I was mainly concerned about how I would feel about myself and my decision",
             "I was mainly concerned about the actual outcomes and payoffs",
@@ -43,7 +45,14 @@ class Player(BasePlayer):
             "None of the above"
         ] ,  widget=widgets.RadioSelect,
     )
-    motivation_receiver = models.StringField(
+    motivation_notrevealing = models.StringField(
+        choices=[
+            "I was mainly concerned about how I would feel about myself and my decision",
+            "I was mainly concerned about the actual outcomes and payoffs",
+            "None of the above"
+        ] ,  widget=widgets.RadioSelect,
+    )
+    motivation_receiver_revealing = models.StringField(
         choices=[
             "Player X was mainly concerned about how he/she would feel about him/herself and his/her decision",
             "Player X  was mainly concerned about the actual outcomes and payoffs",
@@ -52,6 +61,13 @@ class Player(BasePlayer):
         ] ,  widget=widgets.RadioSelect,
     )
 
+    motivation_receiver_notrevealing = models.StringField(
+        choices=[
+            "Player X was mainly concerned about how he/she would feel about him/herself and his/her decision",
+            "Player X  was mainly concerned about the actual outcomes and payoffs",
+            "None of the above"
+        ] ,  widget=widgets.RadioSelect,
+    )
 
 
 
@@ -86,13 +102,11 @@ class Player(BasePlayer):
     honeypot = models.StringField(blank=True)  # Hidden input field
 
 
-
-    #PlayerYTask
+    ####Vignette
     treatgendermentor = models.BooleanField(blank=True)  # whether male gender or female gender of professors in PlayerTaskY.
     treatlocation = models.BooleanField(blank=True)  # whether pub or cafe is displayed first in PlayerTaskY.
     treatgendermentee = models.BooleanField(blank=True)  # whether male or female question is displayed always first or second in PlayerTaskY.
 
-    ####PlayerYTask
     def appropriateness_field(label):
         return models.IntegerField(
             choices=[
@@ -106,6 +120,18 @@ class Player(BasePlayer):
             blank=True
         )
 
+    def appropriatenessOther_field(label):
+        return models.IntegerField(
+            choices=[
+                (1, 'more appropriate than'),
+                (2, 'less appropriate than'),
+                (3, 'equally as appropriate as'),
+                (4, 'equally as inappropriate as'),
+            ],
+            label=label,
+            blank=True
+        )
+
     appropriateness_pub_MM = appropriateness_field(label="...a male student")
     appropriateness_pub_MF = appropriateness_field(label="...a female student")
     appropriateness_cafe_MM = appropriateness_field(label="...a male student")
@@ -114,6 +140,12 @@ class Player(BasePlayer):
     appropriateness_pub_FF = appropriateness_field(label="...a female student")
     appropriateness_cafe_FM = appropriateness_field(label="...a male student")
     appropriateness_cafe_FF = appropriateness_field(label="...a female student")
+
+    appropriatenessOther_cafe_F = appropriatenessOther_field(label="")
+    appropriatenessOther_pub_F = appropriatenessOther_field(label="")
+    appropriatenessOther_cafe_M = appropriatenessOther_field(label="")
+    appropriatenessOther_pub_M = appropriatenessOther_field(label="")
+    openq = models.LongStringField()
 
 
   ###FUNCTIONS
@@ -236,72 +268,61 @@ class Questions(Page):
 
 
 
-class PlayerYTask(Page):
-    form_model = 'player'
-    form_fields = ['appropriateness_pub_MM','appropriateness_pub_MF','appropriateness_cafe_MM','appropriateness_cafe_MF',
-                   'appropriateness_pub_FM','appropriateness_pub_FF','appropriateness_cafe_FM','appropriateness_cafe_FF']
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.participant.vars['role_'] == "receiver"
-
-    def error_message(player, values):
-        if player.treatgendermentor:
-            required_fields = [
-                'appropriateness_pub_MM', 'appropriateness_pub_MF',
-                'appropriateness_cafe_MM', 'appropriateness_cafe_MF'
-            ]
-        else:
-            required_fields = [
-                'appropriateness_pub_FM', 'appropriateness_pub_FF',
-                'appropriateness_cafe_FM', 'appropriateness_cafe_FF'
-            ]
-
-        if any(values[field] is None or values[field] == '' for field in required_fields):
-            return "All required fields must be filled."
 
 class FinalQuestions(Page):
-        form_model = 'player'
+    form_model = 'player'
 
-        def get_form_fields(player):
-            if player.participant.vars['role_'] == "dictator":
-                return ['q_dictator_why', 'motivation']  #
-            else:
-                return ['q_receiver_perception', 'q_receiver_reasoning', 'motivation_receiver']
+    def get_form_fields(player):
+        if player.participant.vars['role_'] == "dictator" and player.reveal == 1:
+            return ['q_dictator_why', 'motivation_revealing']  #
+        elif player.participant.vars['role_'] == "dictator" and player.reveal == 0:
+            return ['q_dictator_why', 'motivation_notrevealing']  #
+        else:
+            return ['q_receiver_perception', 'q_receiver_reasoning_revealing',
+                    'q_receiver_reasoning_notrevealing',
+                    'motivation_receiver_revealing', 'motivation_receiver_notrevealing']
 
-        def vars_for_template(player):
-            is_dictator = player.participant.vars["role_"] == "dictator"
+    def vars_for_template(player):
+        is_dictator = player.participant.vars["role_"] == "dictator"
 
-            return {
-                "role_": player.participant.vars['role_'],
-                "reveal": player.reveal if is_dictator else None
-            }
+        return {
+            "role_": player.participant.vars['role_'],
+            "reveal": player.reveal if is_dictator else None
+        }
 
 
-class PlayerXTask(Page):
+class Vignette(Page):
     form_model = 'player'
     form_fields = ['appropriateness_pub_MM', 'appropriateness_pub_MF', 'appropriateness_cafe_MM',
                    'appropriateness_cafe_MF',
                    'appropriateness_pub_FM', 'appropriateness_pub_FF', 'appropriateness_cafe_FM',
-                   'appropriateness_cafe_FF']
+                   'appropriateness_cafe_FF', 'appropriatenessOther_cafe_F','appropriatenessOther_pub_F',
+                   'appropriatenessOther_cafe_M', 'appropriatenessOther_pub_M',
+                   'openq'
+                   ]
 
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.participant.vars['role_'] == "dictator"
 
     def error_message(player, values):
         if player.treatgendermentor:
             required_fields = [
                 'appropriateness_pub_MM', 'appropriateness_pub_MF',
-                'appropriateness_cafe_MM', 'appropriateness_cafe_MF'
+                'appropriateness_cafe_MM', 'appropriateness_cafe_MF',
+                'appropriatenessOther_cafe_M', 'appropriatenessOther_pub_M',
+                'openq'
+
             ]
         else:
             required_fields = [
                 'appropriateness_pub_FM', 'appropriateness_pub_FF',
-                'appropriateness_cafe_FM', 'appropriateness_cafe_FF'
+                'appropriateness_cafe_FM', 'appropriateness_cafe_FF',
+                'appropriatenessOther_cafe_F', 'appropriatenessOther_pub_F',
+                'openq'
             ]
 
         if any(values[field] is None or values[field] == '' for field in required_fields):
             return "All required fields must be filled."
+
+
 
 
 class SummaryTask1(Page):
@@ -339,9 +360,8 @@ page_sequence = [
     Task1Reveal,
     Task1NoReveal,
     Questions,
-    PlayerYTask,
     FinalQuestions,
-    PlayerXTask,
+    Vignette,
     SummaryTask1,
     SummaryTask2
 ]

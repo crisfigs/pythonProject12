@@ -89,11 +89,14 @@
                     <br>
                     {% if reveal == 1 %}
                         <p> Which of the following better describes your primary motivation for revealing Player Y's payoffs? </p>
+                                            <p> {{ form.motivation_revealing }} </p>
+
                     {% elif reveal == 0 %}
                         <p> Which of the following better describes your primary motivation for not revealing Player Y's payoffs? </p>
+                         <p> {{ form.motivation_notrevealing }} </p>
+
                     {% endif %}
 
-                    <p> {{ form.motivation }} </p>
 
                 {% elif role_ == "receiver" %}
                     <p> Before proceeding to payment, please answer the questions below.</p>
@@ -101,15 +104,26 @@
                     <p> {{ form.q_receiver_perception.label }} </p>
                     <p> {{ form.q_receiver_perception }} </p>
 
-                    <p> {{ form.q_receiver_reasoning.label }} </p>
-                    <p> {{ form.q_receiver_reasoning }} </p>
+
+                    <br>
+                    <p> 2a. If Player X <i>did not</i> want to know Player Y's payoff (they did not reveal), what do you think was the reason? </p>
+                    <p> {{ form.q_receiver_reasoning_notrevealing }} </p>
                     <br>
 
-                    <p>Consider the following motivations for revealing or not revealing.
-                        Which do you think better describes the primary motivation of Player X for revealing Player Y's payoffs?</p>
+                    <p>2b. Consider the following motivations for <i>not revealing</i> . Which do you think better describes the primary motivation of Player X for not revealing Player Y's payoffs?
+                    Player X decided not to reveal because...</p>
+                    <p> {{ form.motivation_receiver_notrevealing }} </p>
 
-                    <p>Player X decided to reveal because...</p>
-                    <p> {{ form.motivation_receiver }} </p>
+                    <br>
+                     <br>
+                    <p>3a. If Player X <i>did</i> want to know Player Y's payoff (they revealed), what do you think was the reason?</p>
+                    <p> {{ form.q_receiver_reasoning_revealing }} </p>
+                    <br>
+
+                    <p>3b. Consider the following motivations for <i>revealing</i> . Which do you think better describes the primary motivation of Player X for revealing Player Y's payoffs?
+                    Player X decided to reveal because...</p>
+                    <p> {{ form.motivation_receiver_revealing }} </p>
+
 
                 {% endif %}
 
@@ -123,7 +137,7 @@
         <br>
         <br>
     </div>
-</div>
+    </div>
 
 <br>
 <br>
