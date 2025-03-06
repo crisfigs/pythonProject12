@@ -16,7 +16,10 @@
         flex: 1;
         padding: 10px; /* Optional: adds space inside each column */
     }
-
+    .center {
+        display: grid;
+        place-items: center;
+    }
 .column .center {
     font-size: 18px;
 }
@@ -171,8 +174,14 @@ center {
             <div class="card-body">
 
 
-                   <p>We will not reveal publicly which game you are actually playing.
-                    Before choosing A or B, Player X chooses whether to find out which game is being played. </p>
+
+                <p>We will not reveal initially which game you are actually playing. Thus, the payoffs of player Y are replaced by ?? as in the example below.</p>
+                    <br>
+                <div class="center">
+                    {% include '_templates/snippets/TableC_cheap.html' %}
+                    </div>
+                    <br>
+                   <p> Before choosing A or B, Player X chooses whether to find out which game is being played. </p>
                    <p> Player X can find out by clicking a REVEAL GAME button, or not find out by clicking a DON'T REVEAL button.
                     This choice will be anonymous: Player Y will not know if Player X knows which game is being played. Also, Player Y has no
                 opportunity to find out which game is being played. </p>
