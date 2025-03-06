@@ -338,12 +338,24 @@ class SummaryTask1(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.participant.vars['role_'] == "dictator"
+    def js_vars(player):
+        cc_code = player.session.config["cc_code"]
+        link = "https://app.prolific.co/submissions/complete?cc=" + str(cc_code)
+        return dict(
+            completionlink=link
+        )
 
 class SummaryTask2(Page):
     form_model = 'player'
     @staticmethod
     def is_displayed(player: Player):
         return player.participant.vars['role_'] == "receiver"
+    def js_vars(player):
+        cc_code = player.session.config["cc_code"]
+        link = "https://app.prolific.co/submissions/complete?cc=" + str(cc_code)
+        return dict(
+            completionlink=link
+        )
 
 page_sequence = [
 
