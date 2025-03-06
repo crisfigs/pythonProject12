@@ -157,7 +157,6 @@ dict(
            app_sequence=['Welcome','DWK_baseline', 'DWK_cheap', 'DWK_increasedloss', 'DWK_likelyloss'],
           num_demo_participants=2,
           cc_code="CCCODE",
-
      error_code="ECODE",
      ),
 dict(
