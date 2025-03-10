@@ -13,7 +13,6 @@ class C(BaseConstants):
     receiver_scenario2A = 60
     receiver_scenario1B = 60
     receiver_scenario2B = -20
-    participation_fee = 2  # in pounds
 
 
 class Group(BaseGroup):
@@ -174,13 +173,13 @@ class Player(BasePlayer):
 
     def set_payoffs(player):
         if player.task1 == "A" and player.participant.vars["role_"] == "dictator":
-            player.bonus_payoff = f"{0.02 * C.dictator_A:.2f}"
+            player.bonus_payoff = f"{ C.dictator_A/80:.2f}"
             #if player.scenario1 == 1:
              #   p2.bonus_payoff = f"{0.02 * C.receiver_scenario1A:.2f}"
             #else:
              #   p2.bonus_payoff = f"{0.02 * C.receiver_scenario2A:.2f}"
         elif player.task1 == "B" and player.participant.vars["role_"] == "dictator":
-            player.bonus_payoff = f"{0.02 * C.dictator_B:.2f}"
+            player.bonus_payoff = f"{ C.dictator_B/80:.2f}"
             #if p1.scenario1:
                # p2.bonus_payoff = f"{0.02 * C.receiver_scenario1B:.2f}"
             #else:

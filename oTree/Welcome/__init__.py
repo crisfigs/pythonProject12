@@ -10,7 +10,7 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
     TREATMENTS = ['DWK_baseline', 'DWK_cheap', 'DWK_increasedloss', 'DWK_likelyloss']
 
-    participation_fee = 1.05 # in pounds
+    participation_fee = 1.5 # in pounds
 
 
 
