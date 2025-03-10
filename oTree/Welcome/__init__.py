@@ -40,15 +40,14 @@ def creating_session(subsession: Subsession):
 
         # Get current counts for this player's treatment
         counts = treatment_counts[p.assigned_treatment]
-
         if p.field_maybe_none('role_') is None:
             # Assign role to balance within the treatment
-            if counts['dictators'] < counts['receivers']:
-                p.role_ = 'dictator'
-                counts['dictators'] += 1
-            else:
+            if counts['receivers'] < counts['dictators']:
                 p.role_ = 'receiver'
-                counts['receivers'] += 1
+                treatment_counts[p.assigned_treatment]['receivers'] += 1
+            else:
+                p.role_ = 'dictator'
+                treatment_counts[p.assigned_treatment]['dictators'] += 1
             # Store the role in participant.vars for access across apps
             p.participant.vars['role_'] = p.role_
 def recaptcha_valid(response_token):
