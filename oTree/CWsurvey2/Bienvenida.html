@@ -1,0 +1,54 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% load staticfiles otree_tags %}
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+¡Bienvenido!
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+
+
+
+
+    <p>Está participando en una encuesta realizada por investigadores de la Universidad de Ámsterdam y la Universidad de Maastricht (Países Bajos).</p>
+
+    <p>Al completar esta encuesta, podrá ganar dinero. Recibirá una <strong>compensación fija</strong> por su participación (independientemente de sus decisiones) y, además, podrá obtener un <strong>bono adicional</strong> que dependerá de sus respuestas. Se le indicará claramente en qué preguntas es posible ganar un bono.</p>
+
+    <p>El estudio se compone de cinco breves partes. En cada una de ellas, se le explicará claramente qué debe hacer.</p>
+        <p>En esta encuesta recopilaremos algunos datos demográficos. Además de su código de identificacion de Netquest, no se le pedirá que proporcione información personal con la que se le pueda identificar.
+            Su información y respuestas solo se utilizarán para los fines de este estudio, y los datos serán tratados con estricta confidencialidad. Al participar en este estudio, usted consiente que los datos se utilicen con este propósito.
+        </p>
+
+        <label for="prolific_id">Por favor, introduzca su código de identificacion de Netquest:</label>
+        <input required type="text" style="max-width:400px" class="form-control" id="prolific_id" name="prolific_id" autocomplete="off">
+        <br>
+
+        <p>Su participación en esta investigación es completamente voluntaria, y tiene derecho a retirar su consentimiento en cualquier momento cerrando su navegador. Recuerde que si no completa el estudio, no recibirá el pago por su participación.</p>
+        <label for="consent">Por favor, seleccione si da su consentimiento:</label>
+        <input required type="checkbox" id="consent" name="consent" autocomplete="off">
+        <br>
+        <br>
+        <p> Presione "Siguiente" para continuar.</p>
+
+    </div>
+</div>
+
+
+<br>
+        <button style="float: right;" type="submit" onclick="submitForm()" class="btn btn-primary">Siguiente</button>
+
+{% endblock %}
+
+
+

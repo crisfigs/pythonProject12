@@ -1,0 +1,155 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+
+<style>
+    .card {
+        font-size: 18px;
+    }
+
+.card2 {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+     font-size: 18px;
+
+    background-color: #fff3cd; /* same as Bootstrap's alert-warning */
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+        color: #856404; /* Bootstrap's alert-warning text color */
+
+}
+
+.card2:focus-within,
+.card2:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+</style>
+</style>
+    <link href="{% static 'heatmap.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+    Parte 3. Donación
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+         <p>Ahora es su turno de distribuir los 100 euros entre las tres organizaciones descritas.
+            Si usted es seleccionado al azar, sus asignaciones determinaran cómo se asignarán los fondos.</p>
+
+            <div class="container text-center mt-4">
+              <p class="lead">
+                Por favor, antes de continuar, distribuya los 100 € entre las dos organizaciones moviendo el control deslizante :
+              </p>
+
+              <div class="d-flex justify-content-center align-items-center mb-2" style="gap: 2rem;">
+                <span class="fw-bold">AVANZA</span>
+                <input type="range" min="0" max="100" value="" step="1" id="donationSlider" class="form-range w-50">
+                <span class="fw-bold">FAES</span>
+              </div>
+
+              <div class="mt-3">
+                <p>
+                  Fundación AVANZA: <strong><span id="avanzaValue"> </span> €</strong><br>
+                  Fundación FAES: <strong><span id="faesValue"> </span> €</strong>
+                </p>
+              </div>
+
+              <!-- Hidden inputs to store values if using a form -->
+              <input type="hidden" id="donation_faes" name="donation_faes" value="50">
+              <input type="hidden" id="donation_avanza" name="donation_avanza" value="50">
+            </div>
+            <br>
+            <br>
+            Recuerde:
+            <br>
+            <br>
+                <div class="row">
+                  <!-- Tarjeta AVANZA -->
+                  <div class="col-md-6 mb-4">
+                    <div class="card2 h-100 shadow-sm">
+                      <div class="card-body">
+                        <h5 class="card-title">Fundación AVANZA</h5>
+                        <p class="card-text">
+                          Laboratorio de Ideas Avanza es un think tank progresista que fomenta el debate sobre los grandes retos sociales. Promueve valores como la democracia social, la igualdad y los derechos humanos, trabajando por una sociedad más inclusiva y justa.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta FAES -->
+                  <div class="col-md-6 mb-4">
+                    <div class="card2 h-100 shadow-sm">
+                      <div class="card-body">
+                        <h5 class="card-title">Fundación FAES</h5>
+                        <p class="card-text">
+                          La Fundación FAES es un think tank liberal-conservador que promueve valores como la libertad, la economía de mercado y la unidad nacional. Defiende políticas públicas que refuercen la competitividad, el emprendimiento y el fortalecimiento de las instituciones en España.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+        </div>
+  </div>
+
+<br>
+<div style="float: right;">      <div class="text-end mt-4">
+  <button type="submit" class="btn btn-primary disabled">Siguiente</button>
+</div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+
+
+const slider = document.getElementById("donationSlider");
+const faesOutput = document.getElementById("faesValue");
+const avanzaOutput = document.getElementById("avanzaValue");
+
+const faesHidden = document.getElementById("donation_faes");
+const avanzaHidden = document.getElementById("donation_avanza");
+
+const submitBtn = document.querySelector("button[type='submit']");
+
+// Disable submit initially
+submitBtn.disabled = true;
+submitBtn.classList.add("disabled");
+
+let sliderTouched = false;
+
+slider.addEventListener("input", function () {
+  const avanzaAmount = parseInt(this.value);
+  const faesAmount = 100 - avanzaAmount;
+
+  faesOutput.textContent = faesAmount;
+  avanzaOutput.textContent = avanzaAmount;
+
+  faesHidden.value = faesAmount;
+  avanzaHidden.value = avanzaAmount;
+
+  // Enable submit only on first interaction
+  if (!sliderTouched) {
+    sliderTouched = true;
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("disabled");
+  }
+});
+
+</script>
+{% endblock %}

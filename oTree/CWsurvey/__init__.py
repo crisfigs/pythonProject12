@@ -325,7 +325,9 @@ class Player(BasePlayer):
     sad = make_field(label="Tristeza")
     fear = make_field(label="Miedo")
     anger = make_field(label="Rabia")
-    patriotism = make_field(label="Compasión")
+    patriotism = make_field(label="Patriotismo")
+    compassion= make_field(label="Compasión")
+
     guilt = make_field(label="Culpa")
     uncomfortable = make_field(label="Incomodidad")
     indifference = make_field(label="Indiferencia")
@@ -527,7 +529,7 @@ class Emociones(Page):
     form_model = 'player'
     def get_form_fields(player):
         e = ["happy", "sad", "fear", "anger", "patriotism", "guilt", "uncomfortable", "indifference",
-             "boredom", "misunderstanding", "nostalgia", "pride", "shame", "surprise"]
+             "boredom", "misunderstanding", "nostalgia", "pride", "shame", "surprise", "compassion"]
         random.shuffle(e)
         return e
 

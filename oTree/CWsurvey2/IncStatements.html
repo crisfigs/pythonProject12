@@ -1,0 +1,226 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{{ block styles }}
+<style>
+      .question-list {
+    list-style-position: inside;  /* ensures number is aligned with first text line */
+    padding-left: 0;              /* removes extra indent */
+  }
+
+
+  .question-label {
+    display: inline-block;
+    max-width: 90ch;  /* limit label width to ~60 characters */
+    line-height: 1.5;
+    vertical-align: top;
+  }
+     .card {
+        font-size: 18px;
+    }
+         .nav-tabs {
+        display: none;
+    }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+  }
+
+  .close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover {
+    color: black;
+  }
+
+</style>
+{{ endblock }}
+
+{{ block title }} {{ endblock }}
+{{ block content }}
+
+   <!-- Tab navigation -->
+    <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()">Tab 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2" onclick="topFunction()">Tab 2</a>
+        </li>
+    </ul>
+    <br>
+    <br>
+
+
+
+    <!-- Tab content -->
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Parte 4. Verdadero o falso </h3>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+            <p><strong>En esta sección verá varios enunciados.</strong> Para cada uno, deberá indicar qué tan probable cree que es verdadero, usando un número entre 0 y 100 %:</p>
+
+            <ul>
+              <li>0 = completamente seguro de que es falso</li>
+              <li>50 = completamente inseguro</li>
+              <li>100 = completamente seguro de que es verdadero</li>
+            </ul>
+
+            <p>Los enunciados se basan en fuentes de calidad (como la Organización Mundial de la Salud o el Instituto Nacional de Eestadístiica),
+                pero <strong>no todos reflejan con precisión lo que esas fuentes dijeron. Algunos pueden ser falsos.</strong></p>
+
+            <p><strong>Ejemplo:</strong>
+            <em>“Según Eurostat, más del 30 % de los nacimientos en Alemania en 2016 fueron fuera del matrimonio.”</em><br>
+            Este enunciado es <strong>verdadero</strong> si Eurostat reportó eso, y <strong>falso</strong> si no.
+            Se le pedirá que indique qué tan probable cree que es verdadero.</p>
+
+            <p><strong>Bono:</strong> Puede ganar hasta 1 € por un enunciado.
+            Cuanto más se acerque su respuesta a la realidad, mayor será su probabilidad de ganar.
+            Dada la <a href="#" onclick="openModal(); return false;">fórmula de pago</a>, la mejor estrategia es decir lo que realmente cree:</p>
+
+            <ul>
+              <li>Número alto si cree que es probablemente verdadero</li>
+              <li>Número bajo si cree que es probablemente falso</li>
+              <li>Cerca de 50 si no está seguro</li>
+            </ul>
+
+
+            No necesita entender la formula de pago en detalle pero sí es importante que tome en cuenta que <strong>responder con sinceridad es la mejor forma de ganar.</strong>
+            Al final de la encuesta, se le pagará en función de una de sus respuestas seleccionada al azar.</p>
+
+            <!-- Estructura del modal -->
+            <div id="myModal" class="modal">
+              <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+
+                <h2>Fórmula de pago</h2>
+                <p>La probabilidad de ganar depende de qué tan cerca esté su respuesta de la verdad. Se calcula con una fórmula matemática diseñada para premiar las respuestas sinceras.</p>
+                <p>Suponga que la afirmación es verdadera (R = 1) o falsa (R = 0). Su respuesta es un número entre 0 y 100 (r). La fórmula es:</p>
+                <p><strong>Probabilidad de ganar = 100 − 100 × (R − r/100)<sup>2</sup></strong></p>
+
+                <h4>Ejemplo:</h4>
+                <p><em>“Según Eurostat, más del 30 % de los nacimientos en Alemania en 2016 fueron fuera del matrimonio.”</em></p>
+                <p>Suponga que usted cree que esta frase es verdadera con un 63 % de probabilidad. La siguiente tabla muestra su probabilidad de ganar si reporta distintas respuestas:</p>
+
+                <table border="1" cellpadding="6" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Respuesta dada</th>
+                      <th>22</th>
+                      <th>35</th>
+                      <th><strong>63</strong></th>
+                      <th>89</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Probabilidad de ganar</td>
+                      <td>59,9 %</td>
+                      <td>68,9 %</td>
+                      <td><strong>76,7 %</strong></td>
+                      <td>69,9 %</td>
+                    </tr>
+                  </tbody>
+                </table>
+            <br>
+                <p><strong>Como ve, la estrategia que aumenta la probabilidad de ganar es informar lo que realmente cree.</strong></p>
+
+                  <p>Para calcular su pago por la evaluación de los enunciados, primero seleccionamos al azar una de las preguntas. Luego, calculamos su probabilidad de ganar en función de la respuesta correcta y de la respuesta que usted haya dado.</p>
+
+            <p>A continuación, un programa informático crea una urna virtual con bolas blancas y negras, donde el porcentaje de bolas blancas representa su probabilidad de ganar. Si el ordenador extrae una bola blanca, <strong>usted gana el bono</strong>.</p>
+
+            <p>Este procedimiento es <strong>justo y transparente</strong>, y garantiza que se le pague de acuerdo con la calidad de sus respuestas.</p>
+              </div>
+            </div>
+
+              </div>
+            </div>
+
+                    <br>
+                    <br>
+                    <div style="float: right;"><button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Siguiente</button></div>
+            </div>
+
+
+
+
+
+   <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Parte 4. Verdadero o falso </h3>
+            </div>
+            <br>
+             <div class="card">
+              <div class="card-body">
+<ol class="question-list">
+  {% for field in form %}
+    <li class="mb-4">
+      <span class="question-label">{{ field.label }}</span>
+      <div>
+        <small class="form-text text-muted">¿Qué tan probable cree que es que este enunciado sea verdadero?</small>
+        <small class="form-text text-muted">Indique un número entre 0 y 100.</small>
+        {{ field }}
+      </div>
+    </li>
+  {% endfor %}
+</ol>
+                             </div>
+        </div>
+            <br><br><br>
+                    <div style="float: left;">
+                    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Anterior</button>
+                    </div>
+                    <div style="float: right;">
+                    <button class="nexttab btn-primary btn next">Siguiente</button>
+                    </div>
+        </div>
+<script src="{% static 'prev_next_button.js' %}"></script>
+
+<script>
+
+  function openModal() {
+    document.getElementById("myModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+  }
+
+  // Cerrar al hacer clic fuera del contenido
+  window.onclick = function(event) {
+    var modal = document.getElementById("myModal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+{{ endblock }}

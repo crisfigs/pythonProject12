@@ -1,178 +1,240 @@
 {% extends "global/Page.html" %}
 
 {% block content %}
-<!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
+
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                /* Previous styles remain the same */
-                body {
-                    font-family: system-ui, -apple-system, sans-serif;
-                    margin: 0 auto;
-                    padding: 0px;
-                    color: #333;
-                    line-height: 1.6;
-                }
+    <style>
+    body {
+        font-family: system-ui, -apple-system, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        line-height: 1.6;
+        background-color: #fafafa;
+    }
 
-                .profile-container {
-                    display: flex;
-                    gap: 0px;
-                    margin-bottom: 40px;
-                    width: 100%; /* Make it take full width */
-                }
+    .container {
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 
-                .profile-image {
-                    width: 100%; /* Make image responsive to container */
-                    height: auto; /* Maintain aspect ratio */
-                }
-                .bio-text {
-                    color: #4a5568;
-                    font-size: 0.95em;
-                    line-height: 1.6;
-                    margin: 15px 0;
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 30px;
+    }
 
-                }
+    .profile-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 
-                /* All the rest of your previous styles remain exactly the same */
-                .profile-info h1 {
-                    margin: 0 0 5px 0;
-                    color: #555;
-                }
+    .bio-text {
+        color: #4a5568;
+        font-size: 1em;
+        line-height: 1.6;
+        margin: 15px 0;
+    }
 
-                .profile-info p {
-                    margin: 0px 0;
-                }
+    .profile-info h1 {
+        margin: 0 0 5px 0;
+        color: #555;
+    }
 
+    .profile-info p {
+        margin: 5px 0;
+    }
 
+    .contact-info {
+        margin-top: 20px;
+    }
 
-                .contact-info {
-                    margin-top: 20px;
-                }
+    section {
+        margin-bottom: 40px;
+    }
 
-                section {
-                    margin-bottom: 40px;
-                }
+    h2 {
+        color: #444;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 30px;
+    }
 
-                h2 {
-                    color: #555;
-                    border-bottom: 1px solid #eee;
-                    padding-bottom: 10px;
-                }
+    .name-header {
+        color: #2b5797;
+        margin-bottom: 30px;
+        font-size: 2.2em;
+        font-weight: 600;
+        text-align: center;
+    }
 
-                .paper-item {
-                    margin-bottom: 25px;
-                    padding-left: 20px;
-                    border-left: 3px solid #eee;
-                }
+    .paper-item {
+        margin-bottom: 25px;
+        padding-left: 20px;
+        border-left: 3px solid #2b5797;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
 
-                .paper-title {
-                    color: #2b5797;
-                    text-decoration: none;
-                    font-weight: 500;
-                    display: block;
-                    margin-bottom: 5px;
-                }
+    .paper-title {
+        color: #2b5797;
+        text-decoration: none;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
 
-                .paper-title:hover {
-                    text-decoration: underline;
-                }
+    .paper-title:hover {
+        text-decoration: underline;
+    }
 
-                .abstract-toggle {
-                    color: #666;
-                    cursor: pointer;
-                    display: inline-block;
-                    margin: 8px 0;
-                    user-select: none;
-                }
+    .abstract-toggle {
+        color: #666;
+        cursor: pointer;
+        display: inline-block;
+        margin: 8px 0;
+        user-select: none;
+        background-color: #f5f5f5;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
 
-                .abstract-toggle:hover {
-                    color: #2b5797;
-                }
+    .abstract-toggle:hover {
+        color: #2b5797;
+        background-color: #eee;
+    }
 
-                .abstract-content {
-                    display: none;
-                    padding: 10px;
-                    background: #f8f9fa;
-                    border-radius: 4px;
-                    margin: 10px 0;
-                    font-size: 0.95em;
-                    color: #444;
-                }
+    .abstract-content {
+        display: none;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        margin: 10px 0;
+        font-size: 0.95em;
+        color: #444;
+        border-left: 3px solid #ddd;
+    }
 
-                .abstract-toggle::before {
-                    content: '▶ ';
-                    font-size: 0.8em;
-                    display: inline-block;
-                    transition: transform 0.2s;
-                }
+    .abstract-toggle::before {
+        content: '▶ ';
+        font-size: 0.8em;
+        display: inline-block;
+        transition: transform 0.2s;
+    }
 
-                .abstract-toggle.active::before {
-                    transform: rotate(90deg);
-                }
+    .abstract-toggle.active::before {
+        transform: rotate(90deg);
+    }
 
-                .abstract-toggle.active + .abstract-content {
-                    display: block;
-                }
+    .abstract-toggle.active + .abstract-content {
+        display: block;
+    }
 
-                .authors {
-                    color: #666;
-                    font-size: 0.95em;
-                    margin-bottom: 5px;
-                }
+    .authors {
+        color: #666;
+        font-size: 0.95em;
+        margin-bottom: 8px;
+    }
 
-                .journal {
-                    font-style: italic;
-                    color: #444;
-                }
+    .journal {
+        font-style: italic;
+        color: #444;
+    }
 
-                .tag {
-                    background: #f0f0f0;
-                    padding: 2px 8px;
-                    border-radius: 12px;
-                    font-size: 0.8em;
-                    margin-right: 5px;
-                    color: #666;
-                    display: inline-block;
-                    margin-top: 5px;
-                }
+    .tag {
+        background: #f0f0f0;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        margin-right: 5px;
+        color: #666;
+        display: inline-block;
+        margin-top: 8px;
+        margin-bottom: 3px;
+    }
 
-                .link-button {
-                    display: inline-block;
-                    padding: 4px 12px;
-                    background: #f5f5f5;
-                    text-decoration: none;
-                    color: #666;
-                    border-radius: 4px;
-                    margin-right: 10px;
-                    font-size: 0.9em;
-                    margin-top: 8px;
-                }
+    .link-button {
+        display: inline-block;
+        padding: 6px 14px;
+        background: #f5f5f5;
+        text-decoration: none;
+        color: #666;
+        border-radius: 4px;
+        margin-right: 10px;
+        font-size: 0.9em;
+        margin-top: 10px;
+        transition: background-color 0.2s;
+    }
 
-                .link-button:hover {
-                    background: #eee;
-                }
-            .column1 {
-                float: left;
-                width: 30%; /* Adjust width as needed */
-                padding: 0 15px; /* Add some padding inside columns */
-                box-sizing: border-box; /* Make sure padding doesn't affect total width */
-            }
+    .link-button:hover {
+        background: #e0e0e0;
+    }
 
-            .column2 {
-                float: left;
-                width: 70%; /* Adjust width as needed */
-                padding: 0 15px; /* Add some padding inside columns */
-                box-sizing: border-box; /* Make sure padding doesn't affect total width */
-            }
-                    /* Clear floats after the columns */
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+
+    .column1 {
+        flex: 0 0 25%;
+        max-width: 25%;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .column2 {
+        flex: 0 0 75%;
+        max-width: 75%;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    /* Responsive design for tablets */
+    @media (max-width: 992px) {
+        .column1 {
+            flex: 0 0 30%;
+            max-width: 30%;
         }
-            </style>
+        .column2 {
+            flex: 0 0 70%;
+            max-width: 70%;
+        }
+    }
+
+    /* Responsive design for mobile devices */
+    @media (max-width: 768px) {
+        .row {
+            flex-direction: column;
+        }
+        .column1, .column2 {
+            flex: 0 0 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        .profile-image {
+            max-width: 50%;
+            margin: 0 auto;
+            display: block;
+        }
+        .contact-info {
+            text-align: center;
+        }
+    }
+</style>
+
+
         </head>
 
 
@@ -193,8 +255,8 @@
                             <img src="{% static 'cristina.jpg' %}"alt="Profile photo" class="profile-image">
 
                   <div class="contact-info">
-                    <p>📍 Address Line 1, City, Country</p>
-                    <p>📧 email@university.edu</p>
+                    <p>📍 Roetersstraat 11, 1018 WB Amsterdam</p>
+                    <p>📧 c.figueroa@uva.nl</p>
                     <a href="#" class="link-button">CV</a>
                 </div>
         </div>
@@ -205,7 +267,11 @@
 
         <div class="column2">
             <p class="bio-text">
-                    Welcome! I am a  at [University Name]. My research focuses on experimental and behavioral economics, with a particular interest in understanding how individuals make decisions in various economic contexts. I use laboratory and field experiments to study social networks, market behavior, and decision-making under uncertainty.
+                Welcome! I am a PhD Candidate at CREED at the University of Amsterdam.
+                My supervisors are Joel van der Weele and Jeroen van de Ven.
+                My research focuses on experimental and behavioral economics, as well as applied microeconomic theory.
+
+                In general I am interested in how people make decisions amidst emotions, identity relevant contexts and contexts of normative uncertainty.
                 </p>
 
             <br>
@@ -214,37 +280,83 @@
 
             <section>
             <h2>Working Papers</h2>
-            <div class="paper-item">
-                <a href="#" class="paper-title">The Effect of Social Networks on Economic Decision Making</a>
-                <p class="authors">With John Smith, Jane Doe</p>
-                <p>Under review</p>
-                <div class="abstract-toggle">Abstract</div>
-                <div class="abstract-content">
+                            <div class="paper-item">
+                    <a href="https://papers.tinbergen.nl/25023.pdf" class="paper-title" target="_blank">Altruism as a Self Control Problem</a>
+                        <p class="authors">
+                          With <a href="https://www.jantsje.nl" target="_blank">Jantsje Mol</a>,
+                          <a href="https://sites.google.com/site/ivansoraperra/home" target="_blank">Ivan Soraperra</a>, and
+                          <a href="https://www.joelvanderweele.eu" target="_blank">Joel van der Weele</a>.
+                        </p>
+                     <p>Under review</p>
+                    <div class="abstract-toggle">Abstract</div>
+                    <div class="abstract-content">
+                        Social preferences depend on emotional states like compassion and anger. Since emotions are fleeting and subject to manipulation, they may generate demand for commitment. We investigate the use of commitment strategies in an online experiment (n = 1,400), where subjects decide to watch or avoid videos before engaging in a charitable giving task. We find that a video with emotional content increases giving, but is also avoided more than non-emotional videos. We estimate a structural model of state-dependent social preferences, and show evidence for sophisticated commitment to selfishness and altruism. We argue that giving can be fruitfully analyzed as a self-control problem.
+                    </div>
+                    <div>
+                        <span class="tag">Giving</span>
+                        <span class="tag">Experiment</span>
+                        <span class="tag">Empathy</span>
+                        <span class="tag">Self-Control</span>
+                        <span class="tag">Sophistication</span>
+                    </div>
+                    <a href="https://papers.tinbergen.nl/25023.pdf" class="link-button" target="_blank">PDF</a>
+                    <a href="mailto:c.figueroa@uva.nl" class="link-button">Slides (upon request)</a>
+                    <a href="mailto:c.figueroa@uva.nl" class="link-button">Experiment Code</a>
                 </div>
-                <div>
-                    <span class="tag"></span>
-                    <span class="tag"></span>
+        </section>
+
+
+              <div class="paper-item">
+                    <a href="" class="paper-title" target="_blank">Inconvenient Truths: A Note on Information Avoidance and the Price of Fairness</a>
+                    <p class="authors">With Joel van der Weele.</p>
+                    <p>Under review</p>
+                    <div class="abstract-toggle">Abstract</div>
+                    <div class="abstract-content">
+                            Previous literature has shown that people are often reluctant to learn whether individually
+                            profitable actions have negative consequences for others. In an experimental allocation deci-
+                            sion, we vary the ‘inconvenience’ of becoming informed about the payoffs of another player
+                            by changing the costs and benefits of choosing the fair outcome. Lowering the cost of fairness
+                            turns out to have a multiplier effect, raising both altruistic choices of informed subjects and
+                            the fraction of subjects that chooses to become informed. Thus, in situations of uncertainty,
+                            subsidizing altruistic choices to decision makers is an effective tool for raising social welfare.
+                            By contrast, variations in the size of recipients’ potential benefit have a smaller and insignif-
+                            icant effect on ignorance and fair choices.
+                    </div>
+                    <div>
+                        <span class="tag">Willful Ignorance</span>
+                        <span class="tag">Prosocial Behaviour</span>
+                        <span class="tag">Experiment</span>
+                        <span class="tag">Dictator Games</span>
+                    </div>
+                    <a href="" class="link-button" target="_blank">PDF</a>
+                    <a href="mailto:c.figueroa@uva.nl" class="link-button"> Experiment Code</a>
                 </div>
-                <a href="#" class="link-button">PDF</a>
-                <a href="#" class="link-button">Slides (upon request)</a>
-            </div>
         </section>
 
             <section>
             <h2>Work in Progress</h2>
             <div class="paper-item">
-                <a href="#" class="paper-title">Understanding Risk Preferences in Online Markets</a>
-                <p class="authors">With Sarah Johnson</p>
+                <a href="#" class="paper-title">Does the Bell Still Toll? The effect of Narratives about Past Conflict on present day political preferences: Evidence from Spain</a>
+                <p class="authors">With Egor Bronnikov</p>
                 <p>Data collection in progress</p>
                 <div class="abstract-toggle">Abstract</div>
                 <div class="abstract-content">
-                    This study examines how individuals make decisions under uncertainty in online marketplaces. We combine experimental data with field observations to understand how risk preferences vary across different market contexts and how platform design can influence risk-taking behavior.
                 </div>
                 <div>
-                    <span class="tag">Risk Analysis</span>
-                    <span class="tag">Online Markets</span>
+                        <span class="tag">Narratives</span>
+                        <span class="tag">Political Preferences</span>
+                        <span class="tag">Identity</span>
+                        <span class="tag">Memory</span>
+                        <span class="tag">Beliefs</span>
                 </div>
             </div>
+
+                <div class="paper-item">
+                <a href="#" class="paper-title">Emotions and Competing Narratives</a>
+                                    <p class="authors">With Ricardo Serrano-Padial and Marco Angrisani</p>
+
+
+
         </section>
 
 

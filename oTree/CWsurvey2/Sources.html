@@ -1,0 +1,126 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{{block styles }}
+   <style>
+
+.card {
+        font-size: 18px;
+    }
+
+  .likert-table td {
+    width: 80px;
+  }
+   </style>
+
+
+{{ endblock }}
+
+
+
+
+{% block title %}
+Parte 5. Memoria Histórica
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+            <p>Finalmente, le pedimos que responda a las siguientes preguntas antes de continuar.</p>
+                <br>
+            <p>1. En primer lugar, indique qué tan importante ha sido cada una de las siguientes fuentes en la formación de su opinión o interpretación sobre la Guerra Civil Española y la época del Franquismo.
+            Por favor, utilice una escala que va desde "Nada importante" hasta "Muy importante".</p>
+
+
+             <div class="table-responsive my-4">
+  <table class="table table-bordered align-middle text-center likert-table">
+    <thead class="table-light">
+      <tr>
+        <th rowspan="2">Fuente</th>
+        <th colspan="5">Importancia asignada</th>
+      </tr>
+      <tr>
+        {% for i in range(5) %}
+          <th>
+            {% if i == 0 %}
+              <div style="font-size: 0.75rem;">Nada<br> Importante</div>
+              <div>{{ i }}</div>
+            {% elif i == 4 %}
+              <div style="font-size: 0.75rem;">Muy<br> Importante</div>
+              <div>{{ i }}</div>
+            {% else %}
+              {{ i }}
+            {% endif %}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{% form.transmission_family.label %}</th>
+        {% for choice in form.transmission_family %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">{% form.transmission_friends.label %}</th>
+        {% for choice in form.transmission_friends %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">{% form.transmission_school.label %}</th>
+        {% for choice in form.transmission_school %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">{% form.transmission_media.label %}</th>
+        {% for choice in form.transmission_media %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row"> {% form.transmission_socialmedia.label %}</th>
+        {% for choice in form.transmission_socialmedia %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+    <div class="mb-4">
+      {{ formfield player.emotional_connection_family }}
+    </div>
+
+    <div class="mb-4">
+      {{ formfield player.credibility_family_vs_school }}
+    </div>
+
+    <div class="mb-4">
+      {{ formfield player.follow_political_news }}
+    </div>
+
+    <div class="mb-4">
+      {{ formfield player.political_participation_current }}
+    </div>
+
+    <div class="mb-4">
+      {{ formfield player.political_participation_future }}
+    </div>
+        </div>
+      </div>
+    <br>
+        <button style="float: right;" type="submit" class="btn btn-primary">Siguiente</button>
+
+<script>
+
+</script>
+{% endblock %}
+

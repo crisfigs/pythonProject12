@@ -1,0 +1,66 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{{ block styles }}
+<style>
+
+.card {
+        font-size: 18px;
+    }
+  th {
+    width: 400px; /* Adjust width */
+    height: 50px; /* Adjust height */
+  }
+
+</style>
+{{ endblock }}
+
+{% block title %}
+Parte 4. Confianza en instituciones
+{% endblock %}{{ block content }}
+
+ <div class="card">
+     <div class="card-body">
+
+         <p>¿Podría indicarnos qué nivel de confianza tiene usted en cada una de las siguientes instituciones?</p>
+
+<p>Por favor, indique su nivel de confianza en las siguientes instituciones utilizando la escala de 5 puntos:</p>
+
+         <br>
+         <div class="parent"> <table class="table table-striped">
+                {{ for field in form }}
+                        <tr>
+                        <th>{{ field.label }}</th>
+                            {{ for choice in field }}
+                        <td>{{ choice }}</td>
+                        {{ endfor }}
+
+
+        </tr>
+    {{ endfor }}
+<br>
+
+<br>
+
+</table>
+             <div class="child"><div style="position:absolute;left: 405px;top: 115px">Ninguna</div> </div>
+             <div class="child"><div style="position:absolute;left: 405px;top: 140px">Confianza</div> </div>
+             <div class="child"><div style="position:absolute;left: 515px;top: 140px">Poca</div> </div>
+             <div class="child"><div style="position:absolute;left: 600px;top: 115px">Ni confío </div> </div>
+             <div class="child"><div style="position:absolute;left: 590px;top: 140px">ni desconfío</div> </div>
+
+             <div class="child"><div style="position:absolute;left: 710px;top: 140px">Bastante</div> </div>
+             <div class="child"><div style="position:absolute;right: 70px;top: 115px"> Mucha</div> </div>
+            <div class="child"><div style="position:absolute;right: 60px;top: 140px"> Confianza</div> </div>
+
+
+         </div>
+
+
+
+     </div></div>
+<br>
+
+<div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
+</div>
+{{ endblock }}
