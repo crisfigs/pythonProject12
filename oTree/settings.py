@@ -241,4 +241,4 @@ CHANNEL_ROUTING = {
 }
 INSTALLED_APPS = ['otree']
 
-DEBUG = True
+DEBUG = False
