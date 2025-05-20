@@ -24,14 +24,14 @@
         <div class="card-body">
 
       <p>
-      En esta parte del estudio, se le pedirá que distribuya una donación de <strong>100 euros</strong> entre dos organizaciones.
-      Puede asignar el monto de la manera que desee, siempre y cuando la suma total sea exactamente <strong>100 euros</strong>.
+      En esta parte del estudio, se le pedirá que distribuya una donación de <strong>100 €</strong> entre dos organizaciones.
+      Puede asignar el monto de la manera que desee, siempre y cuando la suma total sea exactamente <strong>100 €</strong>.
     </p>
 
     <p>
       Al final del estudio, el ordenador agrupará a todas las personas participantes en <strong>grupos de 100</strong>.
       En cada grupo, se seleccionará <strong>una persona al azar</strong>.
-      El equipo de investigación distribuirá entonces una donación de un total de <strong>100 euros</strong> entre las dos organizaciones,
+      El equipo de investigación distribuirá entonces una donación de un total de <strong>100 €</strong> entre las dos organizaciones,
       según las preferencias de asignación de cada uno de los participantes seleccionados al azar.
     </p>
 
@@ -57,36 +57,4 @@
 <div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
 </div>
 
-{% endblock %}
-{% block scripts %}
-<script>
-// Function to update the remaining amount
-function updateRemainingAmount() {
-    const inputs = document.querySelectorAll('input[type="number"]');
-    let total = 0;
-    inputs.forEach(input => {
-        total += parseInt(input.value || 0);
-    });
-    const remaining = 100 - total;
-    const remainingBox = document.getElementById("remainingAmount");
-    remainingBox.textContent = `Cantidad restante por distribuir: ${remaining} euros`;
-
-    // Change the color to red if over-allocated
-    if (remaining < 0) {
-        remainingBox.style.color = "red";
-    } else {
-        remainingBox.style.color = "green";
-    }
-}
-
-// Add event listeners to all number inputs
-window.onload = function() {
-    const inputs = document.querySelectorAll('input[type="number"]');
-    inputs.forEach(input => {
-        input.addEventListener("input", updateRemainingAmount);
-    });
-    // Initialize the remaining amount on page load
-    updateRemainingAmount();
-};
-</script>
 {% endblock %}

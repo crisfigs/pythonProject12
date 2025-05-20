@@ -79,8 +79,9 @@ Cuestionario Sociodemográfico
             {{ form.level_studies}}<br>
                 {{ form.employment_situation.label }}<br>
             {{ form.employment_situation}}<br>
+        <p> En política se habla normalmente de “izquierda” y “derecha”. En una escala donde “0” es la izquierda y “10” la derecha... </p>
 
-                    {{ form.political_spectrum.label }}
+        {{ form.political_spectrum.label }}
                         <table>
                              <tr>
                                 {{ for choice in form.political_spectrum}}

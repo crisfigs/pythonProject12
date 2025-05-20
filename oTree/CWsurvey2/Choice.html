@@ -3,10 +3,7 @@
 
 
 {% block styles %}
-<style>
-    .card {
-        font-size: 18px;
-    }
+
 
 <style>
     .card {
@@ -32,7 +29,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
-</style>
+
 </style>
     <link href="{% static 'heatmap.css' %}" rel="stylesheet">
 
@@ -47,7 +44,7 @@
 
     <div class="card">
         <div class="card-body">
-         <p>Ahora es su turno de distribuir los 100 euros entre las tres organizaciones descritas.
+         <p>Ahora es su turno de distribuir los 100 € entre las tres organizaciones descritas.
             Si usted es seleccionado al azar, sus asignaciones determinaran cómo se asignarán los fondos.</p>
 
             <div class="container text-center mt-4">
@@ -57,7 +54,7 @@
 
               <div class="d-flex justify-content-center align-items-center mb-2" style="gap: 2rem;">
                 <span class="fw-bold">AVANZA</span>
-                <input type="range" min="0" max="100" value="" step="1" id="donationSlider" class="form-range w-50">
+                <input type="range" min="0" max="100" value="" step="1" id="donationSlider" class="form-range w-75">
                 <span class="fw-bold">FAES</span>
               </div>
 
@@ -69,8 +66,8 @@
               </div>
 
               <!-- Hidden inputs to store values if using a form -->
-              <input type="hidden" id="donation_faes" name="donation_faes" value="50">
-              <input type="hidden" id="donation_avanza" name="donation_avanza" value="50">
+              <input type="hidden" id="donation_faes" name="donation_faes" value="">
+              <input type="hidden" id="donation_avanza" name="donation_avanza" value="">
             </div>
             <br>
             <br>

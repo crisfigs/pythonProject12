@@ -24,12 +24,28 @@
 {% block content %}
 <div class="card">
     <div class="card-body">
-    {% formfields %}
+           <div class="mb-4">
+                Usted eligió hacer una donación de <strong>AVANZA: {{ donation_avanza }} €</strong> y <strong>FAES: {{ donation_faes }} €</strong>.
+                ¿Podría contarnos brevemente por qué tomó esta decisión?
+
+            {{ formfield player.q_feedback_why }}
+                </div>
+
+                 <div class="mb-4">
+            {{ formfield player.q_feedback}}
+                </div>
+
+                 <div class="mb-4">
+            {{ formfield player.q_feedback_pilot  }}
+                </div>
+
+
     </div>
       </div>
 <br>
 <br>
  <div style="float: right;">
-<button type="button" class="btn btn-primary btn-right btn-lg" onclick="completed()" > Ir a Netquest </button>
+<div style="float: right;">        <button type="submit" class="btn btn-primary">Ir a Netquest</button>
+</div>
  </div>
 {% endblock %}

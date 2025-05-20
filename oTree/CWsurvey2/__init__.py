@@ -19,8 +19,7 @@ class Subsession(BaseSubsession):
 
 
 class Player(BasePlayer):
-    treatnumber = models.IntegerField()
-    treatnumber2 = models.IntegerField()
+
     sum_correct = models.IntegerField()
     number = models.IntegerField()
     control_number = models.IntegerField()
@@ -68,7 +67,7 @@ class Player(BasePlayer):
                                           [3, 'Unos con los nacionales y otros con los republicanos'],
                                           [4, 'Con ninguno de los dos' ],
                                           [5, 'No sabe']], widget=widgets.RadioSelect)
-    memory = models.LongStringField(label="5. Por favor, recuerde cualquier historia sobre la Guerra Civil Española o el Franqwuismo que haya sido compartida en su familia. Resúmala brevemente en unas frases. Si las memorias incluyen acciones, indique, en la medida de lo posible, qué bando fue responsable (republicanos/nacionales).")
+    memory = models.LongStringField(label="5. Por favor, recuerde cualquier historia sobre la Guerra Civil Española o el Franquismo que haya vivido o haya sido compartida en su familia. Resúmala brevemente en unas frases. Si las memorias incluyen acciones, indique, en la medida de lo posible, qué bando fue responsable (republicanos/nacionales).")
 
     # Persona 1 – Consecuencias múltiples (cada una como BooleanField)
     p1_died_in_combat = models.BooleanField(label="Falleció en combate", blank=True, initial=False)
@@ -124,35 +123,9 @@ class Player(BasePlayer):
         choices=[[0, ''],
                  [1, ''],
                  [2, ''], [3, ''], [4, ''], [5, ''], [6, '']], widget=widgets.RadioSelectHorizontal)
-    #Current alignment with side
-    current_alignment = models.StringField(
-        choices=[
-            "El bando republicano",
-            "El bando nacional",
-            "Ambos por igual",
-            "Ninguno de los dos",
-            "No lo sé / Prefiero no responder"
-        ],
-        label="9. ¿Con qué bando de la Guerra Civil Española se siente usted más alineado hoy en día?",
-        widget=widgets.RadioSelect)
 
 
-    family_closeness = models.StringField(label="10. ¿Qué tan cercano/a se siente a su familia?",
-                                           choices=[[1, "Nada cercano/a"],
-                                                    [2, "Poco cercano/a"],
-                                                    [3, "Medianamente cercano/a"],
-                                                    [4, "Bastante cercano/a"],
-                                                    [5, "Muy cercano/a"]])
-    family_alignment = models.StringField(
-        label="11. ¿En qué medida siente que está ideológica o políticamente alineado/a con su familia?",
-        choices=[
-            [1, "Nada alineado/a"],
-            [2, "Poco alineado/a"],
-            [3, "Medianamente alineado/a"],
-            [4, "Bastante alineado/a"],
-            [5, "Completamente alineado/a"]
-        ]
-    )
+
 
 
     #Trust
@@ -375,13 +348,15 @@ class Player(BasePlayer):
 
 
     ##Political preferences
-    political_spectrum = models.IntegerField(label = '5. En política se habla normalmente de “izquierda” y “derecha”. En una escala donde “0” es la izquierda y “10” la derecha, ¿dónde se ubicaría usted?',
+    political_spectrum = models.IntegerField(label = '5. ...¿dónde se ubicaría usted?',
                                              choices=[ [0, '0 \n Izquierda'],
                                                        [1, '1'],
                                                        [2, '2'],[3, '3'],[4, '4'], [5, '5'],[6, '6'],
-                                                       [7, '7'], [8, '8'],[9, '9'],[10, '10 \n Derecha']], widget=widgets.RadioSelectHorizontal)
+                                                       [7, '7'], [8, '8'],[9, '9'],[10, '10 \n Derecha']
+
+                                                       ], widget=widgets.RadioSelectHorizontal)
     political_spectrum_mother = models.IntegerField(
-        label='6. ¿Y dónde colocaría a su madre?',
+        label='6. ...¿Y dónde colocaría a su madre?',
         choices=[[0, '0 \n Izquierda'],
                  [1, '1'],
                  [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
@@ -389,7 +364,7 @@ class Player(BasePlayer):
         )
 
     political_spectrum_father = models.IntegerField(
-        label='7. ¿Y a su padre?',
+        label='7. ...¿Y a su padre?',
         choices=[[0, '0 \n Izquierda'],
                  [1, '1'],
                  [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
@@ -654,6 +629,34 @@ class Player(BasePlayer):
                  [2, 'Algo'],
                  [3, 'Bastante'],
                  [4, 'Mucho']])
+    family_closeness = models.StringField(label="10. ¿Qué tan cercano/a se siente a su familia?",
+                                           choices=[[1, "Nada cercano/a"],
+                                                    [2, "Poco cercano/a"],
+                                                    [3, "Medianamente cercano/a"],
+                                                    [4, "Bastante cercano/a"],
+                                                    [5, "Muy cercano/a"]])
+    family_alignment = models.StringField(
+        label="11. ¿En qué medida siente que está ideológica o políticamente alineado/a con su familia?",
+        choices=[
+            [1, "Nada alineado/a"],
+            [2, "Poco alineado/a"],
+            [3, "Medianamente alineado/a"],
+            [4, "Bastante alineado/a"],
+            [5, "Completamente alineado/a"]
+        ]
+    )
+    # Current alignment with side
+    current_alignment = models.StringField(
+        choices=[
+            "El bando republicano",
+            "El bando nacional",
+            "Ambos por igual",
+            "Ninguno de los dos",
+            "No lo sé / Prefiero no responder"
+        ],
+        label="12. ¿Con qué bando de la Guerra Civil Española se siente usted más alineado hoy en día?",
+        widget=widgets.RadioSelect)
+
 
     #Feedback questions
     q_feedback = models.LongStringField(label="Este es el final de la encuesta. Si tiene comentarios, por favor déjelos aquí.",
@@ -661,6 +664,9 @@ class Player(BasePlayer):
     q_feedback_pilot = models.LongStringField(
         label="Si encontró alguna instrucción poco clara o confusa, por favor háganoslo saber aquí.",
         blank=True)
+
+    q_feedback_why= models.LongStringField(
+        label="")
 
     def set_error_message1(player, value):
             correct_answers = {
@@ -769,14 +775,7 @@ def pregunta_4_choices(player):
 
 class Bienvenida(Page):
     form_model = 'player'
-    def vars_for_template(player: Player):
-        player.treatnumber = random.choices([1,2,3], weights=(1,0,0), k=1)[0]
-        player.treatnumber2 = random.choices([1,2], weights=(1,0), k=1)[0]
 
-        return {
-            'treatnumber': player.treatnumber,
-            'treatnumber2': player.treatnumber2
-        }
 class Sociodemograficas(Page):
     form_model = 'player'
     form_fields = [ "age", "gender", "level_studies", "employment_situation",
@@ -788,7 +787,7 @@ class Memoria(Page): #"transmission_binary","transmission_no"
     form_model = 'player'
     form_fields = ["family_shared_stories",
                    "who_shared_stories_grandpa", "who_shared_stories_parents","who_shared_stories_other",
-                   "who_shared_stories_noone",'story_detail_level', "familyside",'memory',"family_closeness","family_alignment",
+                   "who_shared_stories_noone",'story_detail_level', "familyside",'memory',
                    'p1_died_in_combat', 'p1_died_in_bombing', 'p1_assesinated', 'p1_dissapeared', 'p1_jail',
                    'p1_leftspain','p1_hiding', 'p1_lostjob', 'p1_another', 'p1_nothing',
                    'p2_died_in_combat', 'p2_died_in_bombing', 'p2_assesinated', 'p2_dissapeared', 'p2_jail',
@@ -798,10 +797,9 @@ class Memoria(Page): #"transmission_binary","transmission_no"
                    'p1_responsible_nationals', 'p1_responsible_republicans', 'p1_responsible_doesntknow',
                    'p1_responsible_nothing','p2_responsible_nationals', 'p2_responsible_republicans', 'p2_responsible_doesntknow',
                    'p2_responsible_nothing','p3_responsible_nationals', 'p3_responsible_republicans', 'p3_responsible_doesntknow',
-                   'p3_responsible_nothing', 'current_alignment', 'family_memory_alignment'
+                   'p3_responsible_nothing', 'family_memory_alignment'
                    ]
-    def is_displayed(player: Player):
-        return player.treatnumber2 == 1
+
 
 
 
@@ -810,8 +808,7 @@ class Text1(Page):
     form_fields = ["pregunta_1",'pregunta_2', 'pregunta_3' , 'pregunta_4']
     def error_message(player,value):
         return player.set_error_message1(value)
-    def is_displayed(player: Player):
-        return player.treatnumber == 1
+
 class IntroChoice(Page):
     pass
 
@@ -852,12 +849,19 @@ class Choice(Page):
     form_fields = ['donation_faes', 'donation_avanza']
 
 
-class Emociones(Page):
+class Emociones2(Page):
     form_model = 'player'
     def get_form_fields(player):
         e = ["happy", "sad", "fear", "anger", "patriotism", "guilt", "uncomfortable", "indifference",
              "boredom", "misunderstanding", "nostalgia", "pride", "shame", "surprise", "compassion",'envy',
              'irritation', 'contempt']
+        random.shuffle(e)
+        return e
+class Emociones(Page):
+    form_model = 'player'
+    def get_form_fields(player):
+        e = ["happy", "sad", "fear", "anger", "patriotism", "guilt", "uncomfortable", "indifference",
+            "misunderstanding", "nostalgia", "pride", "shame", "surprise", "compassion",'contempt']
         random.shuffle(e)
         return e
 
@@ -902,8 +906,8 @@ class Sources(Page):
     form_model = 'player'
     form_fields = ['transmission_school', 'transmission_family', 'transmission_friends',
                    'transmission_media', 'transmission_socialmedia','emotional_connection_family',
-                   'credibility_family_vs_school','follow_political_news','political_participation_current',
-                   'political_participation_future']
+                   'credibility_family_vs_school','family_alignment','family_closeness','follow_political_news','political_participation_current',
+                   'political_participation_future','current_alignment']
 
 class Debriefing(Page):
     form_model = 'player'
@@ -912,7 +916,14 @@ class Debriefing(Page):
 
 class Fin(Page):
     form_model = 'player'
-    form_fields = ['q_feedback', 'q_feedback_pilot']
+    form_fields = ['q_feedback', 'q_feedback_pilot','q_feedback_why']
+    def vars_for_template(player):
+        return {
+            "donation_faes": player.donation_faes,
+            "donation_avanza": player.donation_avanza,
+        }
+class Fin2(Page):
+    form_model = 'player'
 
     def js_vars(player):
         cc_code = player.session.config["cc_code"]
@@ -933,9 +944,8 @@ page_sequence = [Bienvenida,
                  Choice,
                  Emociones,
                  Percepciones,
-                 AP,
                  IncStatements,
-                 Trust,
                  Sources,
                  Debriefing,
-                 Fin]
+                 Fin,
+                 Fin2]
