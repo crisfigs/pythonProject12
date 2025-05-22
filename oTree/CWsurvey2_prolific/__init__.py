@@ -595,7 +595,7 @@ class Player(BasePlayer):
                                                        [2, 'Algo'],
                                                        [3, 'Bastante'],
                                                        [4, 'Muy']], widget=widgets.RadioSelectHorizontal)
-    transmission_family = models.IntegerField(label='La familia o parientes: ',
+    transmission_family = models.IntegerField(label='La familia o parientes',
                                               choices=[[0, 'Nada'],
                                                        [1, 'Poco'],
                                                        [2, 'Algo'],
@@ -620,7 +620,7 @@ class Player(BasePlayer):
                                                       [2, 'Algo'],
                                                       [3, 'Bastante'],
                                                       [4, 'Muy']], widget=widgets.RadioSelectHorizontal)
-    transmission_books = models.IntegerField(label='Libros y películas',
+    transmission_books = models.IntegerField(label='Entretenimiento (libros, películas etc.)',
                                              choices=[[0, 'Nada'],
                                                       [1, 'Poco'],
                                                       [2, 'Algo'],
