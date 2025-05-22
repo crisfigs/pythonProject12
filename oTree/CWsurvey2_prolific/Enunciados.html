@@ -1,0 +1,64 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{{ block styles }}
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+    .card {
+        font-size: 18px;
+    }
+         .question-list {
+    list-style-position: inside;  /* ensures number is aligned with first text line */
+    padding-left: 0;              /* removes extra indent */
+  }
+
+
+  .question-label {
+    display: inline-block;
+    max-width: 90ch;  /* limit label width to ~60 characters */
+    line-height: 1.5;
+    vertical-align: top;
+  }
+</style>
+{{ endblock }}
+
+{% block title %}
+    Parte 4. Encuesta Final
+{% endblock %}
+
+{{ block content }}
+<h4>Opinión</h4>
+
+
+
+ <div class="card">
+     <div class="card-body">
+
+
+         <p>En esta pantalla le mostramos varios enunciados sobre la situación actual en España.
+Por favor, indique en qué medida está de acuerdo con ellos.
+<br>
+<ol class="question-list">
+  {% for field in form %}
+    <li class="mb-4">
+      <span class="question-label">{{ field.label }}</span>
+      <div>
+        {{ field }}
+      </div>
+    </li>
+  {% endfor %}
+</ol>
+
+Una vez haya completado estas preguntas, por favor, pulse "Siguiente" para continuar.
+                             </div>
+        </div>
+
+<br>
+
+<div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
+</div>
+{{ endblock }}

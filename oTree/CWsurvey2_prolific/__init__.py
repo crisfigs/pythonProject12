@@ -2,7 +2,7 @@ from otree.api import *
 
 import random
 class C(BaseConstants):
-    NAME_IN_URL = 'CWsurvey2'
+    NAME_IN_URL = 'CWsurvey2_prolific'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     participation_fee = 2 # in pounds
@@ -19,7 +19,7 @@ class Subsession(BaseSubsession):
 
 
 class Player(BasePlayer):
-    pid = models.StringField()
+    prolific_id = models.StringField()
     organization_order = models.StringField()
 
 
@@ -843,13 +843,8 @@ def pregunta_4_choices(player):
     return choices
 
 
-class Bienvenida(Page):
-    form_model = 'player'
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        player.pid = player.participant.label
-#        print(f"Retrieved pid from URL: {player.pid}")
-
+class Bienvenida2(Page):
+    pass
 
 
 class Sociodemograficas(Page):
@@ -876,12 +871,11 @@ class Memoria(Page): #"transmission_binary","transmission_no"
 
 
 
-
-class Text1(Page):
+class Text2(Page):
     form_model = 'player'
     form_fields = ["pregunta_1",'pregunta_2', 'pregunta_3' , 'pregunta_4']
     def error_message(player,value):
-        return player.set_error_message1(value)
+        return player.set_error_message2(value)
 
 class IntroChoice(Page):
     pass
@@ -1018,10 +1012,10 @@ class Fin2(Page):
 
 
 
-page_sequence = [Bienvenida,
+page_sequence = [Bienvenida2,
                  Sociodemograficas,
                  Memoria,
-                 Text1,
+                 Text2,
                  IntroChoice,
                  IntroChoice_Organizations,
                  IntroChoice_Organizations_position,

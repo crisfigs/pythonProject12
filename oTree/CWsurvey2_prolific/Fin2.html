@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+{% block styles%}
+    <style>
+        .card {
+        font-size: 18px;
+        }
+    </style>
+{% endblock %}
+{% block scripts%}
+<script>
+
+        let completionlink = js_vars.completionlink;
+        function completed() {
+            console.log("clicking the button")
+            window.location.href =completionlink;
+        }
+
+</script>
+{% endblock %}
+
+{%  block title %} Final {% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+           <button type="button" class="btn btn-primary btn-right btn-lg" onclick="completed()" > Ir a Prolific </button>
+
+    </div>
+      </div>
+<br>
+<br>
+
+{% endblock %}
