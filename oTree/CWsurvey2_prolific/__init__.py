@@ -803,44 +803,44 @@ class Player(BasePlayer):
             return None  # Return None if all answers are correct
 
 
-    def pregunta_1_choices(player):
-        import random
-        choices = [[1, 'El fracaso de la Segunda República para gobernar responsablemente y mantener el orden.'],
-                   [2, 'La rebelión nacionalista contra un gobierno legítimo y democrático.'],
-                   [3,'Las divisiones políticas, sociales y económicas arraigadas, exacerbadas por visiones irreconciliables para España.'],
-                   [4, 'La intervención de potencias extranjeras que avivaron las tensiones.']]
-        random.shuffle(choices)
-        return choices
+def pregunta_1_choices(player):
+    import random
+    choices = [[1, 'El fracaso de la Segunda República para gobernar responsablemente y mantener el orden.'],
+               [2, 'La rebelión nacionalista contra un gobierno legítimo y democrático.'],
+                [3,'Las divisiones políticas, sociales y económicas arraigadas, exacerbadas por visiones irreconciliables para España.'],
+               [4, 'La intervención de potencias extranjeras que avivaron las tensiones.']]
+    random.shuffle(choices)
+    return choices
 
-    def pregunta_2_choices(player):
-        import random
-        choices=[
-                [1, 'Los Republicanos, a través de ejecuciones masivas y violencia radical.'],
-                [2, 'Los Nacionales, a través de su represión sistemática y campañas de bombardeo.'],
-                [3, 'Ambos bandos, ya que se cometieron atrocidades por ambas facciones.'],
-                [4, 'La intervención extranjera, que exacerbó las bajas.']]
-        random.shuffle(choices)
-        return choices
+def pregunta_2_choices(player):
+    import random
+    choices=[
+        [1, 'Los Republicanos, a través de ejecuciones masivas y violencia radical.'],
+        [2, 'Los Nacionales, a través de su represión sistemática y campañas de bombardeo.'],
+            [3, 'Ambos bandos, ya que se cometieron atrocidades por ambas facciones.'],
+            [4, 'La intervención extranjera, que exacerbó las bajas.']]
+    random.shuffle(choices)
+    return choices
 
-    def pregunta_3_choices(player):
-        import random
-        choices = [
-            [1, 'una fuerza estabilizadora y unificadora que corrigió el caos de la era republicana.'],
-            [2, 'una dictadura represiva que sofocó las libertades individuales y la expresión cultural.'],
-            [3, 'un régimen autoritario que consiguió orden pero sacrificó las libertades democráticas. '],
-            [4,'un gobierno de transición en el camino de España hacia la democracia moderna.']]
-        random.shuffle(choices)
-        return choices
+def pregunta_3_choices(player):
+    import random
+    choices = [
+        [1, 'una fuerza estabilizadora y unificadora que corrigió el caos de la era republicana.'],
+        [2, 'una dictadura represiva que sofocó las libertades individuales y la expresión cultural.'],
+        [3, 'un régimen autoritario que consiguió orden pero sacrificó las libertades democráticas. '],
+        [4,'un gobierno de transición en el camino de España hacia la democracia moderna.']]
+    random.shuffle(choices)
+    return choices
 
-    def pregunta_4_choices(player):
-        import random
-        choices = [
-            [1, 'La España moderna sufre tensiones separatistas, en contraste con la época de estabilidad y orgullo nacional de Franco.'],
-            [2, 'La España moderna prospera como una sociedad democrática centrada en la libertad, a diferencia del régimen represivo de Franco. '],
-            [3, 'La España moderna es un país que todavía lucha con las tensiones regionales y el legado de la Guerra Civil y el Franquismo.'],
-            [4, 'La España moderna ha alcanzado plena unidad y prosperidad, dejando atrás las divisiones de la Guerra Civil.']]
-        random.shuffle(choices)
-        return choices
+def pregunta_4_choices(player):
+    import random
+    choices = [
+        [1, 'La España moderna sufre tensiones separatistas, en contraste con la época de estabilidad y orgullo nacional de Franco.'],
+        [2, 'La España moderna prospera como una sociedad democrática centrada en la libertad, a diferencia del régimen represivo de Franco. '],
+        [3, 'La España moderna es un país que todavía lucha con las tensiones regionales y el legado de la Guerra Civil y el Franquismo.'],
+        [4, 'La España moderna ha alcanzado plena unidad y prosperidad, dejando atrás las divisiones de la Guerra Civil.']]
+    random.shuffle(choices)
+    return choices
 
 
 class Bienvenida2(Page):
