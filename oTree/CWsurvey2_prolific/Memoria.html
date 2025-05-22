@@ -20,7 +20,6 @@
         padding: 10px;
         border-radius: 5px;
         border: 1px solid #999;
-                    placeholder="Por favor, escriba sus memorias familiares aquí. Le agradecemos que comparta con nosotros.">
 
     }
 
@@ -380,7 +379,7 @@ Puede mencionar hasta a tres personas. Marque todas las opciones que corresponda
                     {% for choice in form.family_memory_alignment %}
                         <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
                             {{ choice}}
-                            <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                            <div style="margin-top: 0.3em; font-size: 1em; line-height: 1.2;">
                                 {% if forloop.counter == 6 %}
                                     5<br>Igualmente favorable/desfavorable a ambos
                                 {% else %}
