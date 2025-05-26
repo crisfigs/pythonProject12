@@ -187,24 +187,51 @@ div.labelWrap2 {
     <div class="mb-4">
       <label>{{ form.political_spectrum_narrative.label }}</label><br>
 
-                        <!-- Bullet scale -->
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4em;">
-                {% for choice in form.political_spectrum_narrative %}
-                        <div style="text-align: center;">
-                           <div class="buttonWrap">{{ choice }}</div>
-                                <div class="labelWrap2">{{ choice.label }}</div>
-                        </div>
-                {% endfor %}
-            </div>
-
-
-
+         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.political_spectrum_narrative%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Izquierda
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Derecha
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
     </div>
+</div>
 
     <div class="mb-4">
       <label>{{ form.agreement.label }}</label>
-      {{ form.agreement }}
-    </div>
+
+
+        <!-- Wrap all choices in a horizontal flex container -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.agreement  %}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Para nada
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Completamente
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+        </div>    </div>
+
+
 
     <div class="mb-4">
       <label>{{ form.agreement_others.label }}</label>
@@ -217,29 +244,130 @@ div.labelWrap2 {
 
     <div class="mb-4">
       <label>{{ form.stigma_nationalists.label }}</label>
-      {{ form.stigma_nationalists }}
+
+                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.stigma_nationalists%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Nada estigmatizado
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Extremadamente etigmatizado
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
     </div>
 
     <div class="mb-4">
       <label>{{ form.stigma_republicans.label }}</label>
-      {{ form.stigma_republicans }}
+                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.stigma_republicans%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Nada estigmatizado
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Extremadamente etigmatizado
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
     </div>
 
     <div class="mb-4">
       <label>{{ form.learned_something.label }}</label>
-      {{ form.learned_something }}
+                         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.learned_something%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                      0<br> Totalmente en desacuerdo
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Totalmente de acuerdo
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
     </div>
-  </div>
-</div>
+    </div>
 
 
+
+    </div>
+    </div>
 
             <br>
             <br>
-    <button style="float: right;" type="submit" class="btn btn-primary">Siguiente</button>
+    <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
 
 <script>
+ function validateForm() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+    let errorMessages = [];
 
+
+    // 2. Other required fields
+    const requiredFields = [
+        { name: 'political_spectrum_narrative'},
+        { name: 'agreement'},
+        { name: 'agreement_others'},
+        { name: 'stigma_nationalists'},
+        { name: 'stigma_republicans'},
+        { name:  'learned_something'}
+
+    ];
+
+    requiredFields.forEach(field => {
+        const elements = form.querySelectorAll(`[name="${field.name}"]`);
+        let isValid = false;
+
+        if (elements.length > 1) {
+            // Probably radio group
+            isValid = Array.from(elements).some(el => el.checked);
+        } else if (elements.length === 1) {
+            const el = elements[0];
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                isValid = el.checked;
+            } else {
+                isValid = el.value.trim() !== '';
+            }
+        }
+
+        if (!isValid) {
+            errorMessages.push(`- ${field.label}`);
+            allFilled = false;
+        }
+    });
+
+    // 3. Final message
+    if (!allFilled) {
+        alert("Por favor, completa todas las preguntas antes de continuar" );
+        return false;
+    }
+
+    form.submit();
+
+}
 </script>
 {% endblock %}
 

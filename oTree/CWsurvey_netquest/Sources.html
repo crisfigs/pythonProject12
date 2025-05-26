@@ -105,8 +105,27 @@
 
 
     <div class="mb-4">
-      {{ formfield player.emotional_connection_family }}
-    </div>
+      {{ form.emotional_connection_family.label }}
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.emotional_connection_family%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Nada
+                {% elif forloop.counter == 3 %}
+                  2<br>
+                {% elif forloop.counter == 5 %}
+                  4<br> Mucho
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div></div>
+
+
 
     <div class="mb-4">
       {{ formfield player.credibility_family_vs_school }}
@@ -115,13 +134,71 @@
 
 
             <div class="mb-4">
-                {{ formfield player.family_closeness}}
+                {{ form.family_closeness.label}}
+                            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.family_closeness%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Nada cercano
+                {% elif forloop.counter == 3 %}
+                  2<br>
+                {% elif forloop.counter == 5 %}
+                  4<br> Muy cercano
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
             </div>
 
 
+            <div class="mb-4">
+                {{ form.family_alignment.label}}
+                                            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.family_alignment%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Nada alineado
+                {% elif forloop.counter == 3 %}
+                  2<br>
+                {% elif forloop.counter == 5 %}
+                  4<br> Completamente alineado
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
+            </div>
+
 
     <div class="mb-4">
-      {{ formfield player.political_participation_future }}
+      {{ form.political_participation_future.label }}
+                                                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.political_participation_future%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Nada dispuesto
+                {% elif forloop.counter == 3 %}
+                  2<br>
+                {% elif forloop.counter == 5 %}
+                  4<br> Muy dispuesto
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
     </div>
 
 
@@ -130,10 +207,64 @@
         </div>
       </div>
     <br>
-        <button style="float: right;" type="submit" class="btn btn-primary">Siguiente</button>
+ <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
 
 <script>
+ function validateForm() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+    let errorMessages = [];
 
+
+    // 2. Other required fields
+    const requiredFields = [
+        { name: 'transmission_school'},
+        { name:'transmission_family'},
+        { name: 'transmission_friends'},
+        { name:  'transmission_media'},
+        { name: 'transmission_books'},
+        { name: 'transmission_socialmedia'},
+        { name: 'emotional_connection_family'},
+        { name: 'transmission_socialmedia'},
+        { name: 'credibility_family_vs_school'},
+        { name: 'family_closeness'},
+        { name: 'family_alignment'},
+        { name:'political_participation_future'}
+    ];
+
+
+    requiredFields.forEach(field => {
+        const elements = form.querySelectorAll(`[name="${field.name}"]`);
+        let isValid = false;
+
+        if (elements.length > 1) {
+            // Probably radio group
+            isValid = Array.from(elements).some(el => el.checked);
+        } else if (elements.length === 1) {
+            const el = elements[0];
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                isValid = el.checked;
+            } else {
+                isValid = el.value.trim() !== '';
+            }
+        }
+
+        if (!isValid) {
+            errorMessages.push(`- ${field.label}`);
+            allFilled = false;
+        }
+    });
+
+    // 3. Final message
+    if (!allFilled) {
+        alert("Por favor, completa todas las preguntas antes de continuar" );
+        return false;
+    }
+
+    form.submit();
+
+}
 </script>
 {% endblock %}
 

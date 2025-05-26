@@ -64,7 +64,7 @@ class Player(BasePlayer):
                                           [3, 'Unos con los nacionales y otros con los republicanos'],
                                           [4, 'Con ninguno de los dos' ],
                                           [5, 'No sabe']], widget=widgets.RadioSelect)
-    memory = models.LongStringField(label="5. Por favor, recuerde cualquier historia sobre la Guerra Civil Española o el Franquismo que haya vivido o haya sido compartida en su familia. Resúmala brevemente en unas frases. Si las memorias incluyen acciones, indique, en la medida de lo posible, qué bando fue responsable (republicanos/nacionales).")
+    memory = models.LongStringField(label="5. Por favor, recuerde cualquier historia sobre la Guerra Civil Española o el Franquismo que haya vivido o haya sido compartida en su familia. Resúmala brevemente en unas frases. Si las memorias incluyen acciones, indique, en la medida de lo posible, qué bando fue responsable (Republicanos/Nacionales).")
 
     # Persona 1 – Consecuencias múltiples (cada una como BooleanField)
     p1_died_in_combat = models.BooleanField(label="Falleció en combate", blank=True, initial=False)
@@ -519,14 +519,13 @@ class Player(BasePlayer):
                                                       widget=widgets.RadioSelectHorizontal
                                                       )
 
-    agreement = models.IntegerField(label="2. ¿En qué medida considera que el texto representa fielmente los acontecimientos históricos reales?",
-                                       choices=[[1, 'En ninguna medida'],
-                                          [2, 'En poca medida'],
-                                          [3, 'En medida neutral '],
-                                          [4, 'En buena medida' ],
-                                          [5, 'En gran medida']])
-
-
+    agreement = models.IntegerField(label="2. ¿Considera que el texto representa fielmente los acontecimientos históricos reales?",
+                                    choices=[[0, '0: En ninguna medida'],
+                                             [1, '1'],
+                                             [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                                             [7, '7'], [8, '8'], [9, '9'], [10, '10: En gran medida']],
+                                    widget=widgets.RadioSelectHorizontal
+                                    )
 
     agreement_others = models.IntegerField(
         label="3. ¿Qué proporción de los participantes en este estudio cree usted que estará mayormente de acuerdo con que el texto representa fielmente hechos históricos reales?",
@@ -535,33 +534,27 @@ class Player(BasePlayer):
     )
     stigma_nationalists = models.IntegerField(
         label="4. ¿Cree usted que expresar apoyo al bando nacionalista está socialmente estigmatizado (es decir, no es políticamente correcto) en la España actual?",
-        choices=[
-            [1, "Nada estigmatizado"],
-            [2, "Poco estigmatizado"],
-            [3, "Moderadamente estigmatizado"],
-            [4, "Muy estigmatizado"],
-            [5, "Extremadamente estigmatizado"],
-        ]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
     stigma_republicans = models.IntegerField(
         label="5. ¿Cree usted que expresar apoyo al bando republicano está socialmente estigmatizado (es decir, no es políticamente correcto) en la España actual?",
-        choices=[
-            [1, "Nada estigmatizado"],
-            [2, "Poco estigmatizado"],
-            [3, "Moderadamente estigmatizado"],
-            [4, "Muy estigmatizado"],
-            [5, "Extremadamente estigmatizado"],
-        ]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
     learned_something = models.IntegerField(
         label='6. Indique hasta qué punto está usted de acuerdo o en desacuerdo con la siguiente afirmación: "He aprendido algo nuevo gracias al texto que acabo de leer."',
-        choices=[
-            [1, "Totalmente en desacuerdo"],
-            [2, "En desacuerdo"],
-            [3, "Ni de acuerdo ni en desacuerdo"],
-            [4, "De acuerdo"],
-            [5, "Totalmente de acuerdo"],
-        ]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
     #Affectivepolarizationv
     def make_field4(label):
@@ -631,11 +624,11 @@ class Player(BasePlayer):
     emotional_connection_family = models.IntegerField(
         label="2. ¿En qué medida han influido las historias familiares en su conexión emocional con eventos históricos como la Guerra Civil Española?",
 
-        choices=[[0, 'Nada'],
-                 [1, 'Poco'],
-                 [2, 'Algo'],
-                 [3, 'Bastante'],
-                 [4, 'Mucho']])
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'],
+                 [3, '3'],
+                 [4, '4']], widget=widgets.RadioSelectHorizontal)
 
     credibility_family_vs_school = models.IntegerField(
         label="3. Cuando las historias familiares y la educación escolar ofrecen versiones distintas de un hecho histórico, ¿a cuál tiende usted a dar más credibilidad?",
@@ -649,42 +642,43 @@ class Player(BasePlayer):
 
     follow_political_news = models.IntegerField(
         label="¿Sigue usted las noticias políticas o los acontecimientos actuales?",
-        choices=[[0, 'Nada'],
-                 [1, 'Poco'],
-                 [2, 'Algo'],
-                 [3, 'Bastante'],
-                 [4, 'Mucho']])
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'],
+                 [3, '3'],
+                 [4, '4']], widget=widgets.RadioSelectHorizontal)
+
     political_participation_current = models.IntegerField(
         label="¿Participa usted en acciones políticas (por ejemplo, protestas, firmas de peticiones o campañas)?",
-        choices=[[0, 'Nada'],
-                 [1, 'Poco'],
-                 [2, 'Algo'],
-                 [3, 'Bastante'],
-                 [4, 'Mucho']])
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'],
+                 [3, '3'],
+                 [4, '4']], widget=widgets.RadioSelectHorizontal)
 
     political_participation_future = models.IntegerField(
-        label="5. En el futuro, ¿qué tan dispuesto/a estaría a participar en actividades políticas (como firmar una petición, asistir a una protesta o colaborar en una campaña)?",
-        choices=[[0, 'Nada'],
-                 [1, 'Poco'],
-                 [2, 'Algo'],
-                 [3, 'Bastante'],
-                 [4, 'Mucho']])
+        label="6. En el futuro, ¿qué tan dispuesto/a estaría a participar en actividades políticas (como firmar una petición, asistir a una protesta o colaborar en una campaña)?",
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'],
+                 [3, '3'],
+                 [4, '4']], widget=widgets.RadioSelectHorizontal)
+
     family_closeness = models.StringField(label="4. ¿Qué tan cercano/a se siente a su familia?",
-                                           choices=[[1, "Nada cercano/a"],
-                                                    [2, "Poco cercano/a"],
-                                                    [3, "Medianamente cercano/a"],
-                                                    [4, "Bastante cercano/a"],
-                                                    [5, "Muy cercano/a"]])
+                                          choices=[[0, '0'],
+                                                   [1, '1'],
+                                                   [2, '2'],
+                                                   [3, '3'],
+                                                   [4, '4']], widget=widgets.RadioSelectHorizontal)
+
     family_alignment = models.StringField(
         label="5. ¿En qué medida siente que está ideológica o políticamente alineado/a con su familia?",
-        choices=[
-            [1, "Nada alineado/a"],
-            [2, "Poco alineado/a"],
-            [3, "Medianamente alineado/a"],
-            [4, "Bastante alineado/a"],
-            [5, "Completamente alineado/a"]
-        ]
-    )
+
+            choices = [[0, '0'],
+                       [1, '1'],
+                       [2, '2'],
+                       [3, '3'],
+                       [4, '4']], widget = widgets.RadioSelectHorizontal)
 
 
     #Feedback questions
@@ -908,11 +902,11 @@ class Memoria(Page): #"transmission_binary","transmission_no"
 
 
 
-class Text2(Page):
+class Text1(Page):
     form_model = 'player'
     form_fields = ["pregunta_1",'pregunta_2', 'pregunta_3' , 'pregunta_4']
     def error_message(player,value):
-        return player.set_error_message2(value)
+        return player.set_error_message1(value)
 
 class IntroChoice(Page):
     pass
@@ -1021,7 +1015,7 @@ class Sources(Page):
     form_fields = ['transmission_school', 'transmission_family', 'transmission_friends',
                    'transmission_media',
                    'transmission_books', 'transmission_socialmedia','emotional_connection_family',
-                   'credibility_family_vs_school','family_closeness',
+                   'credibility_family_vs_school','family_closeness','family_alignment',
                    'political_participation_future']
 
 class Debriefing(Page):
@@ -1044,7 +1038,7 @@ class Fin(Page):
 page_sequence = [Bienvenida,
                  Sociodemograficas,
                  Memoria,
-                 Text2,
+                 Text1,
                  IntroChoice,
                  IntroChoice_Organizations,
                  IntroChoice_Organizations_position,
