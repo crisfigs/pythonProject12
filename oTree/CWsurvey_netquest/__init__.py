@@ -2,7 +2,7 @@ from otree.api import *
 
 import random
 class C(BaseConstants):
-    NAME_IN_URL = 'CWsurvey2_prolific'
+    NAME_IN_URL = 'CWsurvey_netquest'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     participation_fee = 2 # in pounds
@@ -19,7 +19,7 @@ class Subsession(BaseSubsession):
 
 
 class Player(BasePlayer):
-    prolific_id = models.StringField()
+    pid = models.StringField()
     organization_order = models.StringField()
 
 
@@ -48,12 +48,12 @@ class Player(BasePlayer):
     who_shared_stories_other = models.BooleanField(label="Otros parientes", blank=True, initial=False)
     who_shared_stories_noone = models.BooleanField(label="Nadie", blank=True, initial=False)
     story_detail_level = models.StringField(
-        label="3. ¿Qué nivel de detalle tenían esas historias?",
+        label="3.¿Qué nivel de detalle tenían esas historias familiares?",
         choices=[
             "Muy detalladas, con nombres y eventos específicos",
             "Algo detalladas, experiencias generales de la familia",
             "Poco detalladas, solo menciones breves",
-            "No he escuchado ninguna historia"
+            "No he escuchado ninguna historia familiar"
         ],
         widget=widgets.RadioSelect
     )
@@ -663,7 +663,7 @@ class Player(BasePlayer):
                  [4, 'Mucho']])
 
     political_participation_future = models.IntegerField(
-        label="6. En el futuro, ¿qué tan dispuesto/a estaría a participar en actividades políticas (como firmar una petición, asistir a una protesta o colaborar en una campaña)?",
+        label="5. En el futuro, ¿qué tan dispuesto/a estaría a participar en actividades políticas (como firmar una petición, asistir a una protesta o colaborar en una campaña)?",
         choices=[[0, 'Nada'],
                  [1, 'Poco'],
                  [2, 'Algo'],
@@ -701,85 +701,74 @@ class Player(BasePlayer):
 
     immigration_crime = models.IntegerField(
         label='La inmigración es una de las principales causas del aumento de la criminalidad y la inestabilidad social en nuestro país.',
-        choices= [[1, "Totalmente en desacuerdo"],
-        [2, "En desacuerdo"],
-        [3, "Ni de acuerdo ni en desacuerdo"],
-        [4, "De acuerdo"],
-        [5, "Totalmente de acuerdo"]]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10,'10']],
+        widget=widgets.RadioSelectHorizontal
     )
-
     welfare_dependency = models.IntegerField(
         label='Los programas de asistencia social del gobierno crean dependencia y desalientan el trabajo duro.',
-        choices= [[1, "Totalmente en desacuerdo"],
-        [2, "En desacuerdo"],
-        [3, "Ni de acuerdo ni en desacuerdo"],
-        [4, "De acuerdo"],
-        [5, "Totalmente de acuerdo"]]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
-
 
     traditional_values = models.IntegerField(
         label='Los valores familiares tradicionales están en peligro y necesitan una mayor protección.',
-        choices= [[1, "Totalmente en desacuerdo"],
-        [2, "En desacuerdo"],
-        [3, "Ni de acuerdo ni en desacuerdo"],
-        [4, "De acuerdo"],
-        [5, "Totalmente de acuerdo"]]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
-
 
     gender_diversity = models.IntegerField(
         label='El énfasis en cuestiones de género y diversidad ha ido demasiado lejos y está dañando a la sociedad.',
-        choices= [[1, "Totalmente en desacuerdo"],
-        [2, "En desacuerdo"],
-        [3, "Ni de acuerdo ni en desacuerdo"],
-        [4, "De acuerdo"],
-        [5, "Totalmente de acuerdo"]]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
+
     justice1 = models.IntegerField(
         label='La transición a la democracia en España fue demasiado suave con los responsables de la represión durante la dictadura de Franco.',
-        choices=[
-            [1, "Totalmente en desacuerdo"],
-            [2, "En desacuerdo"],
-            [3, "Ni de acuerdo ni en desacuerdo"],
-            [4, "De acuerdo"],
-            [5, "Totalmente de acuerdo"]
-        ]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
 
     justice2 = models.IntegerField(
         label='Los actuales esfuerzos por recuperar la memoria histórica y eliminar los símbolos franquistas generan una división innecesaria en la sociedad española.',
-        choices=[
-            [1, "Totalmente en desacuerdo"],
-            [2, "En desacuerdo"],
-            [3, "Ni de acuerdo ni en desacuerdo"],
-            [4, "De acuerdo"],
-            [5, "Totalmente de acuerdo"]
-        ]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
 
     justice3 = models.IntegerField(
         label='Las víctimas de la represión franquista no han recibido suficiente justicia ni reconocimiento en España.',
-        choices=[
-            [1, "Totalmente en desacuerdo"],
-            [2, "En desacuerdo"],
-            [3, "Ni de acuerdo ni en desacuerdo"],
-            [4, "De acuerdo"],
-            [5, "Totalmente de acuerdo"]
-        ]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
 
     justice4 = models.IntegerField(
         label='España debería seguir investigando y procesando los crímenes cometidos durante la Guerra Civil y la dictadura franquista.',
-        choices=[
-            [1, "Totalmente en desacuerdo"],
-            [2, "En desacuerdo"],
-            [3, "Ni de acuerdo ni en desacuerdo"],
-            [4, "De acuerdo"],
-            [5, "Totalmente de acuerdo"]
-        ]
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+        widget=widgets.RadioSelectHorizontal
     )
-
 
     def set_error_message1(player, value):
             correct_answers = {
@@ -886,9 +875,12 @@ def pregunta_4_choices(player):
     return choices
 
 
-class Bienvenida2(Page):
+class Bienvenida(Page):
     form_model = 'player'
-    form_fields = ["prolific_id"]
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        player.pid = player.participant.label
+#        print(f"Retrieved pid from URL: {player.pid}")
 
 
 class Sociodemograficas(Page):
@@ -912,6 +904,7 @@ class Memoria(Page): #"transmission_binary","transmission_no"
                    'p3_responsible',
                     'family_memory_alignment','current_alignment'
                    ]
+
 
 
 
@@ -1028,7 +1021,7 @@ class Sources(Page):
     form_fields = ['transmission_school', 'transmission_family', 'transmission_friends',
                    'transmission_media',
                    'transmission_books', 'transmission_socialmedia','emotional_connection_family',
-                   'credibility_family_vs_school','family_alignment','family_closeness',
+                   'credibility_family_vs_school','family_closeness',
                    'political_participation_future']
 
 class Debriefing(Page):
@@ -1041,15 +1034,14 @@ class Fin(Page):
     form_fields = ['q_feedback', 'q_feedback_pilot']
 
     def js_vars(player):
-        cc_code = player.session.config["cc_code"]
-        link = "https://app.prolific.co/submissions/complete?cc=" + str(cc_code)
+        pid = player.pid
+        link = "https://transit.nicequest.com/transit/participation?tp=co_0&c=ok&ticket=" + str(pid)
         return dict(
             completionlink=link
         )
 
 
-
-page_sequence = [Bienvenida2,
+page_sequence = [Bienvenida,
                  Sociodemograficas,
                  Memoria,
                  Text2,
@@ -1057,6 +1049,7 @@ page_sequence = [Bienvenida2,
                  IntroChoice_Organizations,
                  IntroChoice_Organizations_position,
                  Choice,
+                 Why,
                  Emociones,
                  Percepciones,
                  IncStatements,

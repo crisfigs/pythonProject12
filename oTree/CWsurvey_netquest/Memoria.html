@@ -239,8 +239,7 @@ Parte 1. Memorias Familiares
             <br>
             <br>
 
-            6. Según su conocimiento, ¿algún miembro de su familia u otro pariente experimentó alguna de las siguientes consecuencias como resultado de la Guerra Civil Española o de la dictadura de Franco?
-Puede mencionar hasta a tres personas. Marque todas las opciones que correspondan para cada caso.
+            6. Según su conocimiento, ¿algún miembro de su familia u otro pariente experimentó alguna de las siguientes consecuencias como resultado de la Guerra Civil Española o de la dictadura de Franco?  Puede mencionar hasta a tres personas. Marque todas las opciones que correspondan para cada caso.
             <div class="checkbox-grid2">
                 <div class="checkbox-column2">
                     <h3>Persona 1</h3>
@@ -372,106 +371,128 @@ Puede mencionar hasta a tres personas. Marque todas las opciones que corresponda
             <br>
             <br>
             {{ form.family_memory_alignment.label }} <br>
-<small class="form-text text-muted">
-  Use la siguiente escala del <strong>0</strong> al <strong>10</strong>:<br>
-  <strong>0</strong> = completamente favorable al Bando Republicano<br>
-  <strong>5</strong> = punto medio o neutral<br>
-  <strong>10</strong> = completamente favorable al Bando Nacional
-</small>         <br>
+            <small class="form-text text-muted">
+              Use la siguiente escala del <strong>0</strong> al <strong>10</strong>:<br>
+              <strong>0</strong> = completamente favorable al Bando Republicano<br>
+              <strong>5</strong> = punto medio o neutral<br>
+              <strong>10</strong> = completamente favorable al Bando Nacional
+            </small>
             <br>
-
+            <br>
                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3em;">
                     {% for choice in form.family_memory_alignment %}
-                                            {% if forloop.counter <= 11 %}
-
-                        <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
-                            {{ choice}}
-                            <div style="margin-top: 0.3em; font-size: 1em; line-height: 1.2;">
-                                {% if forloop.counter == 1 %}
-                                0<br> Bando Republicano
-                                {% elif forloop.counter == 6 %}
-                                    5<br>
-                                {% elif forloop.counter == 11 %}
-                                10<br>  Bando Nacional
-                                {% else %}
-                                    {{ choice.label }}
-                                {% endif %}
-                             {% endif %}
-                            </div>
-                        </label>
-                    {% endfor %}
-                </div>
-         <!-- No aplica-->
-            <div style="display: flex; justify-content: center; margin-top: 1em;">
-                     {% for choice in form.family_memory_alignment %}
-                        {% if forloop.counter == 12 %}
-                            <label style="color: #888; font-size: 0.9em; font-style: italic;">
+                        {% if forloop.counter <= 11 %}
+                            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+                                {{ choice }}
+                                <div style="margin-top: 0.3em; font-size: 1em; line-height: 1.2;">
+                                    {% if forloop.counter == 1 %}
+                                        0<br> Bando Republicano
+                                    {% elif forloop.counter == 6 %}
+                                        5<br>
+                                    {% elif forloop.counter == 11 %}
+                                        10<br> Bando Nacional
+                                    {% else %}
+                                        {{ choice.label }}
+                                    {% endif %}
+                                </div>
+                            </label>
+                        {% elif forloop.counter == 12 %}
+                            <!-- Special "No aplica" formatting -->
+                            <label style="color: #888; font-size: 0.9em; font-style: italic; display: flex; flex-direction: column; align-items: center; width: 100%; margin-top: 1em; text-align: center;">
                                 {{ choice }}
                                 {{ choice.label }}
                             </label>
                         {% endif %}
                     {% endfor %}
+                </div>
+                <br>
+
+
+
+
+
+            <div class="mb-4">
+                {{ form.current_alignment.label}}
+            {{ form.current_alignment }}
             </div>
 
 
-
-<br>
-
-                {{ form.current_alignment.label}}
-
-        {{ form.current_alignment }}
         </div>
     </div>
 
 
             <br>
             <br>
-    <button style="float: right;" type="submit" class="btn btn-primary">Siguiente</button>
+    <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("form");
+function validateForm() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+    let errorMessages = [];
 
-  form.addEventListener("submit", function (event) {
-    // Define groups to validate (array of arrays of checkbox name prefixes)
-    const groups = [
-      {
-        label: "2. ¿Quién en su familia compartió historias?",
-        prefixList: ["who_shared_stories_"]
-      },
-      {
-        label: "6. Consecuencias para Persona 1",
-        prefixList: ["p1_died", "p1_assesinated", "p1_dissapeared", "p1_jail", "p1_leftspain", "p1_hiding", "p1_lostjob", "p1_another", "p1_nothing"]
-      },
-      {
-        label: "6. Consecuencias para Persona 2",
-        prefixList: ["p2_died", "p2_assesinated", "p2_dissapeared", "p2_jail", "p2_leftspain", "p2_hiding", "p2_lostjob", "p2_another", "p2_nothing"]
-      },
-      {
-        label: "6. Consecuencias para Persona 3",
-        prefixList: ["p3_died", "p3_assesinated", "p3_dissapeared", "p3_jail", "p3_leftspain", "p3_hiding", "p3_lostjob", "p3_another", "p3_nothing"]
-      }
+    // 1. Group checkbox validation (Persona 1, 2, 3)
+    const personaGroups = [
+        { label: "Pregunta 6. Consecuencias para Persona 1", prefix: "p1_" },
+        { label: "Pregunta 6. Consecuencias para Persona 2", prefix: "p2_" },
+        { label: "Pregunta 6. Consecuencias para Persona 3", prefix: "p3_" },
+        { label: "Pregunta 2", prefix: "who_shared_stories" }
     ];
 
-    let valid = true;
-
-    groups.forEach(group => {
-      const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'))
-        .filter(cb => group.prefixList.some(prefix => cb.name.startsWith(prefix)));
-
-      const isChecked = checkboxes.some(cb => cb.checked);
-
-      if (!isChecked) {
-        alert(`Por favor, selecciona al menos una opción en la sección: ${group.label}`);
-        valid = false;
-      }
+    personaGroups.forEach(group => {
+        const checkboxes = Array.from(form.querySelectorAll(`input[type="checkbox"][name^="${group.prefix}"]`));
+        const anyChecked = checkboxes.some(cb => cb.checked);
+        if (!anyChecked) {
+            errorMessages.push(`- ${group.label}`);
+            allFilled = false;
+        }
     });
 
-    if (!valid) {
-      event.preventDefault(); // Prevent submission if any group is invalid
+
+    // 2. Other required fields
+    const requiredFields = [
+        { name: "family_shared_stories", label: "Pregunta 1" },
+        { name: "story_detail_level", label: "Pregunta 3" },
+        { name: "familyside", label: "Pregunta 4" },
+        { name: "memory", label: "Pregunta 5" },
+        { name: "p1_responsible", label: "Pregunta 7. ¿Qué bando fue responsable? (Persona 1)" },
+        { name: "p2_responsible", label: "Pregunta 7. ¿Qué bando fue responsable? (Persona 2)" },
+        { name: "p3_responsible", label: "Pregunta 7. ¿Qué bando fue responsable? (Persona 3)" },
+        { name: "family_memory_alignment", label: "Pregunta 8" },
+        { name: "current_alignment", label: "Pregunta 9" }
+    ];
+
+    requiredFields.forEach(field => {
+        const elements = form.querySelectorAll(`[name="${field.name}"]`);
+        let isValid = false;
+
+        if (elements.length > 1) {
+            // Probably radio group
+            isValid = Array.from(elements).some(el => el.checked);
+        } else if (elements.length === 1) {
+            const el = elements[0];
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                isValid = el.checked;
+            } else {
+                isValid = el.value.trim() !== '';
+            }
+        }
+
+        if (!isValid) {
+            errorMessages.push(`- ${field.label}`);
+            allFilled = false;
+        }
+    });
+
+    // 3. Final message
+    if (!allFilled) {
+        alert("Por favor, completa las siguientes preguntas antes de continuar:\n\n" + errorMessages.join('\n'));
+        return false;
     }
-  });
-});
+
+    form.submit();
+}
 </script>
 {% endblock %}
 

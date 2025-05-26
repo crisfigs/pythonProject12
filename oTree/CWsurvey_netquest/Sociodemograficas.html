@@ -226,7 +226,7 @@ Cuestionario Sociodemográfico
 
 
 <br>
-        <button style="float: right;" type="submit" onclick="submitForm()" class="btn btn-primary">Siguiente</button>
+    <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
 <script>
     // Get DOM elements
     const immigrationRadios = document.querySelectorAll('input[name="immigration_background"]');
@@ -317,6 +317,35 @@ Cuestionario Sociodemográfico
         }
     });
 });
+    function validateForm() {
+    let form = document.querySelector('form');
+    let inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+
+    inputs.forEach(input => {
+        const type = input.type;
+        const name = input.name;
+        const isVisible = input.offsetParent !== null;
+
+        if (!isVisible) return; // Skip hidden inputs
+
+        if ((type === 'radio' || type === 'checkbox')) {
+            const group = form.querySelectorAll(`input[name="${name}"]`);
+            const anyChecked = Array.from(group).some(i => i.checked);
+            if (!anyChecked) {
+                allFilled = false;
+            }
+        } else if (!input.value) {
+            allFilled = false;
+        }
+    });
+
+    if (!allFilled) {
+        alert('Por favor, responda a todas las preguntas antes de continuar.');
+    } else {
+        form.submit();
+    }
+}
 </script>
 
 

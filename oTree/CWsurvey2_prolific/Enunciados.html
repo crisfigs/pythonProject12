@@ -44,14 +44,40 @@ Por favor, indique en qué medida está de acuerdo con ellos.
 <br>
 <ol class="question-list">
   {% for field in form %}
+   {% if forloop.counter <= 4%}
+
     <li class="mb-4">
       <span class="question-label">{{ field.label }}</span>
       <div>
         {{ field }}
       </div>
     </li>
+      {% endif %}
   {% endfor %}
 </ol>
+     <br>
+         <p>Los siguiente enunciados tratan sobre la justicia respecto de los acontecimiento de la Guerra Civil y La dictadura Franquista.
+         Por favor, indique en qué medida está de acuerdo con ellos.</p>
+         <br>
+
+     <ol class="question-list">
+  {% for field in form %}
+   {% if forloop.counter > 4%}
+
+    <li class="mb-4">
+      <span class="question-label">{{ field.label }}</span>
+      <div>
+        {{ field }}
+      </div>
+    </li>
+      {% endif %}
+  {% endfor %}
+</ol>
+
+
+
+
+
 
 Una vez haya completado estas preguntas, por favor, pulse "Siguiente" para continuar.
                              </div>

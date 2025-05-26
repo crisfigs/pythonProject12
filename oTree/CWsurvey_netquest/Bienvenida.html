@@ -1,0 +1,67 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% load staticfiles otree_tags %}
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+¡Bienvenido!
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+
+
+<p>Está participando en una encuesta realizada por investigadores de la Universidad de Ámsterdam y la Universidad de Maastricht (Países Bajos).</p>
+
+
+
+<h5>Compensación</h5> En este estudio recibirá una compensación monetaria. Podrá obtener:
+<ul>
+  <li><strong>Compensación fija</strong> por su participación, independientemente de sus decisiones.</li>
+  <li><strong>Bono adicional</strong> según sus respuestas, indicado claramente en las preguntas correspondientes.</li>
+</ul>
+
+
+
+<h5>Contenido de la encuesta</h5>
+<p>La encuesta se compone de <strong>3 breves partes</strong> y una 4 parte ques es una encuesta final. En cada una se le explicará claramente qué debe hacer.</p>
+
+
+
+<h5>Privacidad y uso de los datos</h5>
+<ul>
+  <li>En esta encuesta recopilaremos algunos datos socio-demográficos.</li>
+  <li>No se le pedirá información personal identificable, aparte de su <strong>código de identificación de Netquest</strong>.</li>
+  <li>Sus respuestas serán tratadas con <strong>estricta confidencialidad</strong> y se utilizarán exclusivamente con fines de investigación.</li>
+</ul>
+
+
+
+
+<div style="border-left: 4px solid #4CAF50; background-color: #f9fff9; padding: 10px 15px; margin-top: 20px; font-size: 0.95em; border-radius: 6px;">
+  <p><strong>Este estudio ha sido aprobado por el Comité de Ética de la Universidad de Ámsterdam</strong> (número de referencia: <em>[XXXX]</em>), garantizando que cumple con los estándares éticos de investigación.</p>
+</div>
+
+
+<p>Presione "Siguiente" para continuar.</p>
+
+
+    </div>
+</div>
+
+
+<br>
+        <button style="float: right;" type="submit" onclick="submitForm()" class="btn btn-primary">Siguiente</button>
+
+{% endblock %}
+
+
+
