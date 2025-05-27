@@ -467,7 +467,7 @@ class Player(BasePlayer):
                                                  min=0, max=100)
     belief_gender_trends = models.IntegerField(label="Scientific American afirma que el aumento de menores que buscan atención de afirmación de género se debe más a tendencias sociales que a necesidad médica.",
                                                min=0, max=100)
-    belief_white_red_terror = models.IntegerField(label="Un estudio de investigadores de la Universidad de California estima que unas 150.000 personas fueron asesinadas por nacionalistas durante el Terror Blanco, y hasta 50.000 por republicanos durante el Terror Rojo.",
+    belief_white_red_terror = models.IntegerField(label="Un estudio de investigadores de la Universidad de California en Merced y la Universidad de Brown estima que unas 150.000 personas fueron asesinadas por nacionalistas durante el Terror Blanco, y hasta 50.000 por republicanos durante el Terror Rojo.",
                                                   min=0, max=100)
     belief_franco_growth = models.IntegerField(label="Según la revista académica Quarterly Journal of Economics, una revista especializada en economía, el régimen de Franco tuvo el mayor crecimiento económico en la historia reciente de España.",
                                                min=0, max=100)
@@ -533,19 +533,19 @@ class Player(BasePlayer):
         max=100
     )
     stigma_nationalists = models.IntegerField(
-        label="4. ¿Cree usted que expresar apoyo al bando nacionalista está socialmente estigmatizado (es decir, no es políticamente correcto) en la España actual?",
-        choices=[[0, '0'],
+        label="4. ¿Cree usted que expresar apoyo al bando nacionalista está socialmente aceptado en la España actual?",
+        choices=[[0, '0: Nada'],
                  [1, '1'],
                  [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
-                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10: Totalmente']],
         widget=widgets.RadioSelectHorizontal
     )
     stigma_republicans = models.IntegerField(
-        label="5. ¿Cree usted que expresar apoyo al bando republicano está socialmente estigmatizado (es decir, no es políticamente correcto) en la España actual?",
-        choices=[[0, '0'],
+        label="5. ¿Cree usted que expresar apoyo al bando republicano está socialmente aceptado en la España actual?",
+        choices=[[0, '0: Nada'],
                  [1, '1'],
                  [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
-                 [7, '7'], [8, '8'], [9, '9'], [10, '10']],
+                 [7, '7'], [8, '8'], [9, '9'], [10, '10: Totalmente']],
         widget=widgets.RadioSelectHorizontal
     )
     learned_something = models.IntegerField(
@@ -623,22 +623,40 @@ class Player(BasePlayer):
 
     emotional_connection_family = models.IntegerField(
         label="2. ¿En qué medida han influido las historias familiares en su conexión emocional con eventos históricos como la Guerra Civil Española?",
-
         choices=[[0, '0'],
                  [1, '1'],
                  [2, '2'],
                  [3, '3'],
-                 [4, '4']], widget=widgets.RadioSelectHorizontal)
+                 [4, '4'],
+                 [5, '5'],
+                 [6, '6'],
+                 [7, '7'],
+                 [8, '8'],
+                 [9, '9'],
+                 [10, '10']],
+        widget=widgets.RadioSelectHorizontal)
 
     credibility_family_vs_school = models.IntegerField(
         label="3. Cuando las historias familiares y la educación escolar ofrecen versiones distintas de un hecho histórico, ¿a cuál tiende usted a dar más credibilidad?",
-        choices=[
-            [0, 'Solo a la familia'],
-            [1, 'Más a la familia'],
-            [2, 'A ambos por igual'],
-            [3, 'Más a la escuela'],
-            [4, 'Solo a la escuela'],
-        ])
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'],
+                 [3, '3'],
+                 [4, '4'],
+                 [5, '5'],
+                 [6, '6'],
+                 [7, '7'],
+                 [8, '8'],
+                 [9, '9'],
+                 [10, '10']],
+        widget=widgets.RadioSelectHorizontal)
+       # choices=[
+        #    [0, 'Solo a la familia'],
+         #   [1, 'Más a la familia'],
+          #  [2, 'A ambos por igual'],
+           # [3, 'Más a la escuela'],
+            #[4, 'Solo a la escuela'],
+        #])
 
     follow_political_news = models.IntegerField(
         label="¿Sigue usted las noticias políticas o los acontecimientos actuales?",
@@ -646,7 +664,14 @@ class Player(BasePlayer):
                  [1, '1'],
                  [2, '2'],
                  [3, '3'],
-                 [4, '4']], widget=widgets.RadioSelectHorizontal)
+                 [4, '4'],
+                 [5, '5'],
+                 [6, '6'],
+                 [7, '7'],
+                 [8, '8'],
+                 [9, '9'],
+                 [10, '10']],
+        widget=widgets.RadioSelectHorizontal)
 
     political_participation_current = models.IntegerField(
         label="¿Participa usted en acciones políticas (por ejemplo, protestas, firmas de peticiones o campañas)?",
@@ -654,7 +679,14 @@ class Player(BasePlayer):
                  [1, '1'],
                  [2, '2'],
                  [3, '3'],
-                 [4, '4']], widget=widgets.RadioSelectHorizontal)
+                 [4, '4'],
+                 [5, '5'],
+                 [6, '6'],
+                 [7, '7'],
+                 [8, '8'],
+                 [9, '9'],
+                 [10, '10']],
+        widget=widgets.RadioSelectHorizontal)
 
     political_participation_future = models.IntegerField(
         label="6. En el futuro, ¿qué tan dispuesto/a estaría a participar en actividades políticas (como firmar una petición, asistir a una protesta o colaborar en una campaña)?",
@@ -662,24 +694,42 @@ class Player(BasePlayer):
                  [1, '1'],
                  [2, '2'],
                  [3, '3'],
-                 [4, '4']], widget=widgets.RadioSelectHorizontal)
+                 [4, '4'],
+                 [5, '5'],
+                 [6, '6'],
+                 [7, '7'],
+                 [8, '8'],
+                 [9, '9'],
+                 [10, '10']],
+        widget=widgets.RadioSelectHorizontal)
 
-    family_closeness = models.StringField(label="4. ¿Qué tan cercano/a se siente a su familia?",
+    family_closeness = models.StringField(label="4. ¿Qué tan cercano/a se siente a su familia (padres y hermanos)?",
                                           choices=[[0, '0'],
                                                    [1, '1'],
                                                    [2, '2'],
                                                    [3, '3'],
-                                                   [4, '4']], widget=widgets.RadioSelectHorizontal)
-
+                                                   [4, '4'],
+                                                   [5, '5'],
+                                                   [6, '6'],
+                                                   [7, '7'],
+                                                   [8, '8'],
+                                                   [9, '9'],
+                                                   [10, '10']],
+                                          widget=widgets.RadioSelectHorizontal)
     family_alignment = models.StringField(
-        label="5. ¿En qué medida siente que está ideológica o políticamente alineado/a con su familia?",
-
-            choices = [[0, '0'],
-                       [1, '1'],
-                       [2, '2'],
-                       [3, '3'],
-                       [4, '4']], widget = widgets.RadioSelectHorizontal)
-
+        label="5. ¿En qué medida siente que está ideológica o políticamente alineado/a con su familia (padres y hermanos)?",
+        choices=[[0, '0'],
+                 [1, '1'],
+                 [2, '2'],
+                 [3, '3'],
+                 [4, '4'],
+                 [5, '5'],
+                 [6, '6'],
+                 [7, '7'],
+                 [8, '8'],
+                 [9, '9'],
+                 [10, '10']],
+        widget=widgets.RadioSelectHorizontal)
 
     #Feedback questions
     q_feedback = models.LongStringField(label="Este es el final de la encuesta. Si tiene comentarios, por favor déjelos aquí.",

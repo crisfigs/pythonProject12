@@ -113,10 +113,9 @@
               <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
                 {% if forloop.counter == 1%}
                       0<br> Nada
-                {% elif forloop.counter == 3 %}
-                  2<br>
-                {% elif forloop.counter == 5 %}
-                  4<br> Mucho
+
+                {% elif forloop.counter == 11 %}
+                  10<br> Mucho
                 {% else %}
                   {{ choice.label }}
                 {% endif %}
@@ -128,7 +127,23 @@
 
 
     <div class="mb-4">
-      {{ formfield player.credibility_family_vs_school }}
+      {{ form.credibility_family_vs_school.label }}
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.credibility_family_vs_school%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Sólo a la<br> Familia
+                {% elif forloop.counter == 11 %}
+                  10<br> Sólo a la<br> Educación Escolar
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
     </div>
 
 
@@ -142,10 +157,9 @@
               <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
                 {% if forloop.counter == 1%}
                       0<br> Nada cercano
-                {% elif forloop.counter == 3 %}
-                  2<br>
-                {% elif forloop.counter == 5 %}
-                  4<br> Muy cercano
+
+                {% elif forloop.counter == 11 %}
+                  10<br> Muy cercano
                 {% else %}
                   {{ choice.label }}
                 {% endif %}
@@ -165,10 +179,8 @@
               <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
                 {% if forloop.counter == 1%}
                       0<br> Nada alineado
-                {% elif forloop.counter == 3 %}
-                  2<br>
-                {% elif forloop.counter == 5 %}
-                  4<br> Completamente alineado
+                {% elif forloop.counter == 11 %}
+                  10<br> Completamente alineado
                 {% else %}
                   {{ choice.label }}
                 {% endif %}
@@ -188,10 +200,8 @@
               <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
                 {% if forloop.counter == 1%}
                       0<br> Nada dispuesto
-                {% elif forloop.counter == 3 %}
-                  2<br>
-                {% elif forloop.counter == 5 %}
-                  4<br> Muy dispuesto
+                {% elif forloop.counter == 11 %}
+                  10<br> Muy dispuesto
                 {% else %}
                   {{ choice.label }}
                 {% endif %}

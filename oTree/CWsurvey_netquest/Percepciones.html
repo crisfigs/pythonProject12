@@ -239,6 +239,9 @@ div.labelWrap2 {
         Puede ganar un bono de 0,10 € si su estimación está dentro de ±10 puntos porcentuales del valor real.
       </small> <br>
       <small class="form-text text-muted">De una estimación (entre 0 a 100%):</small>
+            <div id="agreement_others-error" style="color: red; display: none;">
+                Por favor, introduzca un número válido entre 0 y 100.
+            </div>
       {{ form.agreement_others }}
     </div>
 
@@ -251,11 +254,11 @@ div.labelWrap2 {
               {{ choice }}
               <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
                 {% if forloop.counter == 1 %}
-                  0<br> Nada estigmatizado
+                  0<br> Nada Aceptado
                 {% elif forloop.counter == 6 %}
                   5<br>
                 {% elif forloop.counter == 11 %}
-                  10<br> Extremadamente etigmatizado
+                  10<br> Totalmente Aceptado
                 {% else %}
                   {{ choice.label }}
                 {% endif %}
@@ -273,11 +276,11 @@ div.labelWrap2 {
               {{ choice }}
               <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
                 {% if forloop.counter == 1 %}
-                  0<br> Nada estigmatizado
+                  0<br> Nada Aceptado
                 {% elif forloop.counter == 6 %}
                   5<br>
                 {% elif forloop.counter == 11 %}
-                  10<br> Extremadamente etigmatizado
+                  10<br> Totalmente Aceptado
                 {% else %}
                   {{ choice.label }}
                 {% endif %}
@@ -319,6 +322,19 @@ div.labelWrap2 {
     <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const ageInput = document.querySelector('[name="agreement_others"]');
+    const errorDiv = document.getElementById('agreement_others-error');
+
+    ageInput.addEventListener('input', function () {
+        const value = parseInt(ageInput.value, 10);
+        if (isNaN(value) || value < 0 || value > 100) {
+            errorDiv.style.display = 'block';
+        } else {
+            errorDiv.style.display = 'none';
+        }
+    });
+});
  function validateForm() {
     const form = document.querySelector('form');
     const inputs = form.querySelectorAll('input, select, textarea');

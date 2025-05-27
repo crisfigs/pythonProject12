@@ -179,7 +179,7 @@
 
    <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
             <div class="card-header bg-transparent mainheader">
-                <h4 class="card-title font-weight-bold">Verdadero o falso </>
+                <h4 class="card-title font-weight-bold">Verdadero o falso </h4>
             </div>
             <br>
              <div class="card">
@@ -191,12 +191,14 @@
       <div>
         <small class="form-text text-muted">¿Qué tan probable cree que es que este enunciado sea verdadero?</small>
         <small class="form-text text-muted">Indique un número entre 0 y 100.</small>
+        <div id="number-error-{{ field.name }}" style="color: red; display: none;">
+          Por favor, introduzca un número válido entre 0 y 100.
+        </div>
         {{ field }}
       </div>
     </li>
   {% endfor %}
-</ol>
-                             </div>
+</ol>                     </div>
         </div>
             <br><br><br>
                     <div style="float: left;">
@@ -233,6 +235,32 @@
 </script>
 
     <script>
+ document.addEventListener('DOMContentLoaded', function () {
+    const requiredFields = [
+        'belief_immigration_crime',
+        'belief_religious_abuse',
+        'belief_abortion_deaths',
+        'belief_gender_trends',
+        'belief_white_red_terror',
+        'belief_franco_growth',
+        'belief_franco_kidnapping'
+    ];
+
+    requiredFields.forEach(fieldName => {
+        const input = document.querySelector(`[name="${fieldName}"]`);
+        const errorDiv = document.getElementById(`number-error-${fieldName}`);
+        if (!input || !errorDiv) return;
+
+        input.addEventListener('input', function () {
+            const value = parseFloat(input.value);
+            if (isNaN(value) || value < 0 || value > 100) {
+                errorDiv.style.display = 'block';
+            } else {
+                errorDiv.style.display = 'none';
+            }
+        });
+    });
+});
 function validateForm() {
     const form = document.querySelector('form');
     const inputs = form.querySelectorAll('input, select, textarea');
