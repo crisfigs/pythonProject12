@@ -21,7 +21,7 @@ class Subsession(BaseSubsession):
 class Player(BasePlayer):
     pid = models.StringField()
     organization_order = models.StringField()
-
+    random_number= models.IntegerField()
 
     # Allocations
     donation_faes = models.IntegerField()
@@ -528,7 +528,7 @@ class Player(BasePlayer):
                                     )
 
     agreement_others = models.IntegerField(
-        label="3. ¿Qué proporción de los participantes en este estudio cree usted que estará mayormente de acuerdo con que el texto representa fielmente hechos históricos reales?",
+        label="3. ¿Qué proporción de los participantes en este estudio cree usted que está mayormente de acuerdo con que el texto representa fielmente hechos históricos reales (es decir, que han respondido con un valor superior a 5 en la pregunta anterior)?",
         min=0,
         max=100
     )
@@ -925,6 +925,8 @@ class Bienvenida(Page):
     def before_next_page(player: Player, timeout_happened):
         player.pid = player.participant.label
 #        print(f"Retrieved pid from URL: {player.pid}")
+        player.random_number = random.choices([0, 1], weights=(1 / 2, 1 / 2), k=1)[0]
+
 
 
 class Sociodemograficas(Page):

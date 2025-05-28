@@ -192,7 +192,7 @@
         <small class="form-text text-muted">¿Qué tan probable cree que es que este enunciado sea verdadero?</small>
         <small class="form-text text-muted">Indique un número entre 0 y 100.</small>
         <div id="number-error-{{ field.name }}" style="color: red; display: none;">
-          Por favor, introduzca un número válido entre 0 y 100.
+          Por favor, introduzca un número entero entre 0 y 100.
         </div>
         {{ field }}
       </div>
@@ -304,7 +304,7 @@ function validateForm() {
 
     // 3. Final message
     if (!allFilled) {
-        alert("Por favor, completa todas las preguntas antes de continuar" );
+        alert("Por favor, complete todas las preguntas antes de continuar" );
         return false;
     }
 

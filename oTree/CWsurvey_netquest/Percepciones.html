@@ -240,7 +240,7 @@ div.labelWrap2 {
       </small> <br>
       <small class="form-text text-muted">De una estimación (entre 0 a 100%):</small>
             <div id="agreement_others-error" style="color: red; display: none;">
-                Por favor, introduzca un número válido entre 0 y 100.
+                Por favor, introduzca un número entero entre 0 y 100.
             </div>
       {{ form.agreement_others }}
     </div>
@@ -377,7 +377,7 @@ div.labelWrap2 {
 
     // 3. Final message
     if (!allFilled) {
-        alert("Por favor, completa todas las preguntas antes de continuar" );
+        alert("Por favor, complete todas las preguntas antes de continuar" );
         return false;
     }
 
