@@ -1,0 +1,48 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+{% block styles%}
+    <style>
+        .card {
+        font-size: 18px;
+        }
+    </style>
+{% endblock %}
+{% block scripts%}
+<script>
+
+        let completionlink = js_vars.completionlink;
+        function completed() {
+            console.log("clicking the button")
+            window.location.href =completionlink;
+        }
+
+</script>
+{% endblock %}
+
+{%  block title %} Final {% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+
+
+                 <div class="mb-4">
+            {{ formfield player.q_feedback}}
+                </div>
+
+                 <div class="mb-4">
+            {{ formfield player.q_feedback_pilot  }}
+                </div>
+
+
+    </div>
+      </div>
+<br>
+<br>
+    <div class="card-body">
+           <button type="button" class="btn btn-primary btn-right btn-lg" onclick="completed()" > Ir a Netquest </button>
+
+    </div>
+</div>
+ </div>
+{% endblock %}

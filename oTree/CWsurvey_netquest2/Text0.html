@@ -1,0 +1,149 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% load otree %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+     .card {
+        font-size: 18px;
+    }
+         .nav-tabs {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+    <!-- Tab navigation -->
+    <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()">Tab 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2" onclick="topFunction()">Tab 2</a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link" id="part3-tab" data-toggle="tab" href="#part3" role="tab" aria-controls="part3" onclick="topFunction()">Tab 3</a>
+        </li>
+    </ul>
+    <br>
+    <br>
+
+    <!-- Tab content -->
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Parte 1. Lectura</h3>
+            </div>
+
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <p>A continuación, le presentamos un texto sobre un acontecimiento reciente de la historia mundial.
+                        Por favor, léalo con atención.
+                       Después de leer el texto, le haremos algunas preguntas relacionadas.
+                        El texto está basado en el contenido de una enciclopedia.
+                </div>
+            </div>
+
+                    <br>
+                    <div style="float: right;">                         <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Siguiente</button>
+</div>
+            </div>
+
+
+        <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Parte 1. Texto: Guerra Civil Española</h3>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <p>Por favor, lea el siguiente texto con atención antes de proseguir.</p>
+                    <br>
+
+                    <div class="alert alert-warning" role="alert">
+                        <ul>
+                            <li> El papel es un material delgado producido al prensar fibras húmedas —típicamente pulpa de celulosa derivada de la madera, trapos o pastos— y secarlas en láminas flexibles. Es esencial para la escritura, la impresión, el embalaje y muchos otros usos.</li>
+                            <br>
+                             <li> La fabricación de papel fue inventada en China alrededor del año 105 d.C., y se le atribuye tradicionalmente al funcionario de la corte Cai Lun. Usó una mezcla de corteza de morera, trapos viejos y otras fibras vegetales para crear una pulpa que luego fue prensada y secada en láminas. Esto ofreció una alternativa más práctica y asequible al bambú o la seda.</li>
+                            <br>
+                            <li> La técnica de fabricación del papel se fue difundiendo gradualmente a otras partes de Asia y al Mediterráneo a través de intercambios comerciales y culturales. A medida que el conocimiento del método se extendía, se fue adaptando con materiales y herramientas locales.</li>
+                            <br>
+                            <li>Hacia el siglo XII, los europeos comenzaron a producir papel, con molinos que aparecieron en Italia y España. Con el tiempo, el papel se convirtió en el medio preferido para escribir y documentar, reemplazando al pergamino debido a su menor costo y facilidad de producción.</li>
+                            <br>
+                            <li> La invención de máquinas como la prensa Fourdrinier en el siglo XIX permitió la fabricación continua de papel. Combinado con el cambio del uso de trapos a pulpa de madera, esto marcó el inicio de la producción moderna a gran escala de papel.</li>
+                        </ul>
+
+                    </div>
+                        <p>Una vez haya leído el texto, haga click en "Siguiente" para continuar.</p>
+                </div>
+            </div>
+
+            <br><br><br>
+
+            <div style="float: right;">
+                        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Siguiente</button>
+            </div>
+        </div>
+
+
+            <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
+                <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Parte 1. Preguntas basadas en el texto</h3>
+                </div>
+            <br>
+
+                    <div class="card">
+                        <div class="card-body">
+         <p>
+             Antes de continuar, y para garantizar que ha seguido las instrucciones y ha leído el texto,
+             le pedimos que responda a las siguientes preguntas basándose exclusivamente en el contenido del texto que acaba de leer.
+             Por favor, lea cada pregunta cuidadosamente y seleccione la respuesta que mejor refleje la información presentada en el texto.</p>
+                            <p><strong>Recuerde:</strong></p>
+                            <ul>
+                                <li>No se trata de sus opiniones personales, sino de lo que está explicado en el texto.</li>
+                                <li>Solo una respuesta por pregunta es correcta.</li>
+                            </ul>
+                            <p>Si tiene dudas, le sugerimos volver a leer el texto para asegurarse de que comprende completamente la información antes de responder.</p>
+
+                            <p><strong>De acuerdo al texto...</strong> </p>
+                                   {{ formfields}}
+
+                        </div>
+                    </div>
+
+                    <br>
+                    <br><br><br>
+                    <div style="float: left;">
+                    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Anterior</button>
+                    </div>
+                    <div style="float: right;">
+                    <button class="nexttab btn-primary btn next">Siguiente</button>
+                    </div>
+                    </div>
+
+    </div>
+
+
+
+{% block scripts %}
+
+<script src="{% static 'prev_next_button.js' %}"></script>
+
+<script>
+var ul = document.getElementById('grid');
+for (var i = ul.children.length; i >= 0; i--) {
+    ul.appendChild(ul.children[Math.random() * i | 0]);
+}</script>
+{% endblock %}
+
+
+{% endblock %}

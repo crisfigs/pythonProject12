@@ -189,6 +189,20 @@ dict(
           error_code="ECODE"
      ),
 dict(
+          name= 'CWsurvey2_netquest1',
+          app_sequence=['CWsurvey_netquest1'],
+          num_demo_participants=2,
+          cc_code="CCCODE",
+          error_code="ECODE"
+     ),
+dict(
+          name= 'CWsurvey2_netquest2',
+          app_sequence=['CWsurvey_netquest2'],
+          num_demo_participants=2,
+          cc_code="CCCODE",
+          error_code="ECODE"
+     ),
+dict(
           name= 'CWsurvey2_netquest3',
           app_sequence=['CWsurvey_netquest3'],
           num_demo_participants=2,

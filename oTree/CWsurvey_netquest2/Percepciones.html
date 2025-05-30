@@ -1,0 +1,389 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{{ block styles }}
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, sans-serif;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  output {
+    margin: 1em;
+    opacity: 0.4;
+  }
+
+  .card {
+    font-size: 18px;
+  }
+
+  table {
+    width: 100%;
+    justify-content: center; /* Center the content horizontally */
+    border-collapse: collapse; /* Optional: Remove table cell spacing */
+  }
+
+  tr {
+    justify-content: center; /* Center items horizontally */
+  }
+
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 1em;
+  }
+
+  .custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+    position: relative;
+    padding-left: 30px;
+  }
+
+  .custom-checkbox input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+  }
+
+  .custom-checkbox .checkmark {
+    position: absolute;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #e6e6e6;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .custom-checkbox input:checked ~ .checkmark {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .checkbox-grid2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .checkbox-column2 {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .checkbox-column2 h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .custom-checkbox2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .custom-checkbox2 input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
+
+  .likert-table {
+    text-align: center;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .likert-table th,
+  .likert-table td {
+    padding: 10px;
+    vertical-align: middle;
+  }
+
+  .likert-header {
+    font-size: 0.9rem;
+    line-height: 1.2;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    font-weight: bold;
+  }
+  div.labelWrap,
+div.buttonWrap {
+    display: block;
+    text-align: center;
+    margin: 0.5em auto;
+}
+
+div.labelWrap2 {
+    display: block;
+    text-align: center;
+    margin: 0em auto;
+    word-wrap: break-word; /* Allow text to break within words */
+    white-space: normal; /* Enable text wrapping */
+    max-width: 400px; /* Limit the width to force wrapping (adjust as needed) */
+    width:70px;
+    line-height: 1.2; /* Adjust line spacing for better readability */
+}
+</style>
+
+
+{{ endblock }}
+
+
+
+
+{% block title %}
+    Parte 3. Encuesta Final
+{% endblock %}
+
+{% block content%}
+    <h4>Percepciones sobre el texto</h4>
+
+
+
+   <div class="card">
+  <div class="card-body">
+    <div class="mb-4">
+      <label>{{ form.political_spectrum_narrative.label }}</label><br>
+
+         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.political_spectrum_narrative%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Izquierda
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Derecha
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
+</div>
+
+    <div class="mb-4">
+      <label>{{ form.agreement.label }}</label>
+
+
+        <!-- Wrap all choices in a horizontal flex container -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.agreement  %}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Para nada
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Completamente
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+        </div>    </div>
+
+
+
+    <div class="mb-4">
+      <label>{{ form.agreement_others.label }}</label>
+              <small class="form-text text-muted">
+        Puede ganar un bono de 1 Korus si su estimación está dentro de ±10 puntos porcentuales del valor real.
+      </small> <br>
+      <small class="form-text text-muted">De una estimación (entre 0 a 100%):</small>
+            <div id="agreement_others-error" style="color: red; display: none;">
+                Por favor, introduzca un número entero entre 0 y 100.
+            </div>
+      {{ form.agreement_others }}
+    </div>
+
+    <div class="mb-4">
+      <label>{{ form.stigma_nationalists.label }}</label>
+
+                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.stigma_nationalists%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Nada Aceptado
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Totalmente Aceptado
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
+    </div>
+
+    <div class="mb-4">
+      <label>{{ form.stigma_republicans.label }}</label>
+                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.stigma_republicans%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Nada Aceptado
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Totalmente Aceptado
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
+    </div>
+
+    <div class="mb-4">
+      <label>{{ form.learned_something.label }}</label>
+                         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.learned_something%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                      0<br> Totalmente en desacuerdo
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Totalmente de acuerdo
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
+    </div>
+
+
+
+    </div>
+    </div>
+
+            <br>
+            <br>
+    <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const ageInput = document.querySelector('[name="agreement_others"]');
+    const errorDiv = document.getElementById('agreement_others-error');
+
+    ageInput.addEventListener('input', function () {
+        const value = parseInt(ageInput.value, 10);
+        if (isNaN(value) || value < 0 || value > 100) {
+            errorDiv.style.display = 'block';
+        } else {
+            errorDiv.style.display = 'none';
+        }
+    });
+});
+ function validateForm() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+    let errorMessages = [];
+
+
+    // 2. Other required fields
+    const requiredFields = [
+        { name: 'political_spectrum_narrative'},
+        { name: 'agreement'},
+        { name: 'agreement_others'},
+        { name: 'stigma_nationalists'},
+        { name: 'stigma_republicans'},
+        { name:  'learned_something'}
+
+    ];
+
+    requiredFields.forEach(field => {
+        const elements = form.querySelectorAll(`[name="${field.name}"]`);
+        let isValid = false;
+
+        if (elements.length > 1) {
+            // Probably radio group
+            isValid = Array.from(elements).some(el => el.checked);
+        } else if (elements.length === 1) {
+            const el = elements[0];
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                isValid = el.checked;
+            } else {
+                isValid = el.value.trim() !== '';
+            }
+        }
+
+        if (!isValid) {
+            errorMessages.push(`- ${field.label}`);
+            allFilled = false;
+        }
+    });
+
+    // 3. Final message
+    if (!allFilled) {
+        alert("Por favor, complete todas las preguntas antes de continuar" );
+        return false;
+    }
+
+    form.submit();
+
+}
+</script>
+{% endblock %}
+

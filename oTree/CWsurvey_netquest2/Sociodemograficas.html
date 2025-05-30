@@ -1,0 +1,356 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% load staticfiles otree_tags %}
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+    .card {
+        font-size: 18px;
+    }
+
+table {
+    width: 100%;
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: center; /* Center the content horizontally */
+    gap: 1em; /* Optional: Add spacing between items */
+    border-collapse: collapse; /* Optional: Remove table cell spacing */
+}
+
+tr {
+    display: flex; /* Flexbox on rows to align children horizontally */
+    justify-content: center; /* Center items horizontally */
+}
+
+td.buttonGroup {
+    width: auto; /* Adjust width to fit content */
+    display: flex; /* Flexbox for inner alignment */
+    flex-direction: column; /* Stack label and button vertically */
+    align-items: center; /* Center align the content */
+}
+
+
+div.labelWrap {
+    display: block;
+    text-align: center;
+    margin: 0.5em auto;
+    word-wrap: break-word; /* Allow text to break within words */
+    white-space: normal; /* Enable text wrapping */
+    max-width: 400px; /* Limit the width to force wrapping (adjust as needed) */
+    width:120px;
+    line-height: 1.2; /* Adjust line spacing for better readability */
+}
+
+div.labelWrap,
+div.buttonWrap {
+    display: block;
+    text-align: center;
+    margin: 0.5em auto;
+}
+
+div.labelWrap2 {
+    display: block;
+    text-align: center;
+    margin: 0em auto;
+    word-wrap: break-word; /* Allow text to break within words */
+    white-space: normal; /* Enable text wrapping */
+    max-width: 400px; /* Limit the width to force wrapping (adjust as needed) */
+    width:70px;
+    line-height: 1.2; /* Adjust line spacing for better readability */
+}
+.separated-option {
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid #ccc;
+    font-style: italic;
+}
+</style>
+{% endblock %}
+
+{% block title %}
+Cuestionario Sociodemográfico
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <p>Antes de comenzar, le pedimos que conteste a las siguientes preguntas sobre información sociodemográfica.</p>
+        {{ form.age.label }} <br>
+    <div id="age-error" style="color: red; display: none;">
+    Por favor, introduzca una edad válida entre 0 y 100.
+</div>
+         {{ form.age}}<br>
+
+        {{ form.gender.label }}<br>
+            {{ form.gender}}<br>
+                {{ form.level_studies.label }}<br>
+            {{ form.level_studies}}<br>
+                {{ form.employment_situation.label }}<br>
+            {{ form.employment_situation}}<br>
+        <p> En política se habla normalmente de “izquierda” y “derecha”. En una escala donde “0” es la izquierda y “10” la derecha... </p>
+
+        {{ form.political_spectrum.label }}
+
+         <br>
+         <br>
+
+                <!-- Bullet scale -->
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4em;">
+                {% for choice in form.political_spectrum %}
+                    {% if forloop.counter <= 11 %}
+                        <div style="text-align: center;">
+                           <div class="buttonWrap">{{ choice }}</div>
+                                <div class="labelWrap2">{{ choice.label }}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- "Prefiero no responder" aligned right: flex-end -->
+            <div style="display: flex; justify-content: center; margin-top: 1em;">
+                     {% for choice in form.political_spectrum %}
+                        {% if forloop.counter == 12 %}
+                            <label style="color: #888; font-size: 0.9em; font-style: italic;">
+                                {{ choice }}
+                                {{ choice.label }}
+                            </label>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+
+
+    <br>
+    <br>
+                            {{ form.political_spectrum_mother.label }}
+                <!-- Bullet scale -->
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4em;">
+                {% for choice in form.political_spectrum_mother %}
+                    {% if forloop.counter <= 11 %}
+                        <div style="text-align: center;">
+                           <div class="buttonWrap">{{ choice }}</div>
+                                <div class="labelWrap2">{{ choice.label }}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- "Prefiero no responder" aligned right: flex-end -->
+            <div style="display: flex; justify-content: center; margin-top: 1em;">
+                     {% for choice in form.political_spectrum_mother %}
+                        {% if forloop.counter == 12 %}
+                            <label style="color: #888; font-size: 0.9em; font-style: italic;">
+                                {{ choice }}
+                                {{ choice.label }}
+                            </label>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+         <br>
+         <br>
+                            {{ form.political_spectrum_father.label }}
+                <!-- Bullet scale -->
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4em;">
+                {% for choice in form.political_spectrum_father %}
+                    {% if forloop.counter <= 11 %}
+                        <div style="text-align: center;">
+                           <div class="buttonWrap">{{ choice }}</div>
+                                <div class="labelWrap2">{{ choice.label }}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- "Prefiero no responder" aligned right: flex-end -->
+            <div style="display: flex; justify-content: center; margin-top: 1em;">
+                     {% for choice in form.political_spectrum_father %}
+                        {% if forloop.counter == 12 %}
+                            <label style="color: #888; font-size: 0.9em; font-style: italic;">
+                                {{ choice }}
+                                {{ choice.label }}
+                            </label>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+         <br>
+         <br>
+        {{ form.vote2023.label }} <br>
+         {{ form.vote2023}}<br>
+
+
+
+        <div id="vote2023_otro_group" style="display: none;">
+              {{ form.vote2023_otro.label }} <br>
+         {{ form.vote2023_otro}}
+ <br>
+            </div>
+
+                {{ form.religiosity.label }}<br>
+            {{ form.religiosity}}<br>
+        {{ form.province.label }}<br>
+            {{ form.province}}<br>
+            {{ form.immigration_background.label }}<br>
+            {{ form.immigration_background}}<br>
+
+             <div id="birth_self_group" style="display: none;">
+                {{ form.birth_self.label }}<br>
+                {{ form.birth_self }}
+                 <br>
+            </div>
+
+            <div id="birth_parents_group" style="display: none;">
+                {{ form.birth_parents.label }}<br>
+                {{ form.birth_parents}}
+                <br>
+            </div>
+
+            <div id="spanish_ascendance_group" style="display: none;">
+                {{ form.spanish_ascendance.label }}<br>
+                {{ form.spanish_ascendance }}
+                <br>
+
+            </div>
+
+                 {{ form.income_level.label }} <br>
+         {{ form.income_level}}<br>
+
+
+
+
+
+        <p> Presione "Siguiente" para empezar con el estudio.</p>
+
+    </div>
+</div>
+
+
+<br>
+    <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
+<script>
+    // Get DOM elements
+    const immigrationRadios = document.querySelectorAll('input[name="immigration_background"]');
+    const birthParentsRadios = document.querySelectorAll('input[name="birth_parents"]');
+    const vote2023Select = document.querySelector('select[name="vote2023"]');
+
+    const birthSelfGroup = document.getElementById("birth_self_group");
+    const birthParentsGroup = document.getElementById("birth_parents_group");
+    const spanishAscendanceGroup = document.getElementById("spanish_ascendance_group");
+    const vote2023OtroGroup = document.getElementById("vote2023_otro_group");
+
+    // Toggle immigration-based fields
+    function toggleImmigrationFields() {
+        const selected = document.querySelector('input[name="immigration_background"]:checked');
+        const show = selected && selected.value === "Sí";
+
+        birthSelfGroup.style.display = show ? "block" : "none";
+        birthParentsGroup.style.display = show ? "block" : "none";
+        spanishAscendanceGroup.style.display = "none"; // always reset this on immigration change
+
+        if (!show) {
+            clearInputs(birthSelfGroup);
+            clearInputs(birthParentsGroup);
+            clearInputs(spanishAscendanceGroup);
+        }
+    }
+
+    // Show Spanish ascendance only if both parents were born abroad
+    function toggleSpanishAscendance() {
+        const selected = document.querySelector('input[name="birth_parents"]:checked');
+        const show = selected && selected.value === "Ambos nacieron en el extranjero";
+        spanishAscendanceGroup.style.display = show ? "block" : "none";
+
+        if (!show) {
+            clearInputs(spanishAscendanceGroup);
+        }
+    }
+
+    // Toggle text input when "Otro" is selected in vote dropdown
+    function toggleVoteOtro() {
+        const selectedValue = vote2023Select?.value;
+        const show = selectedValue === "Otro";
+        vote2023OtroGroup.style.display = show ? "block" : "none";
+
+        if (!show) {
+            clearInputs(vote2023OtroGroup);
+        }
+    }
+
+    // Clears inputs in a hidden container
+    function clearInputs(container) {
+        const inputs = container.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            if (input.type === 'radio' || input.type === 'checkbox') {
+                input.checked = false;
+            } else {
+                input.value = '';
+            }
+        });
+    }
+
+    // Add event listeners
+    immigrationRadios.forEach(r => r.addEventListener('change', () => {
+        toggleImmigrationFields();
+        toggleSpanishAscendance();
+    }));
+
+    birthParentsRadios.forEach(r => r.addEventListener('change', toggleSpanishAscendance));
+
+    vote2023Select?.addEventListener('change', toggleVoteOtro);
+
+    // On page load
+    window.addEventListener('load', () => {
+        toggleImmigrationFields();
+        toggleSpanishAscendance();
+        toggleVoteOtro();
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+    const ageInput = document.querySelector('[name="age"]');
+    const errorDiv = document.getElementById('age-error');
+
+    ageInput.addEventListener('input', function () {
+        const value = parseInt(ageInput.value, 10);
+        if (isNaN(value) || value < 0 || value > 100) {
+            errorDiv.style.display = 'block';
+        } else {
+            errorDiv.style.display = 'none';
+        }
+    });
+});
+    function validateForm() {
+    let form = document.querySelector('form');
+    let inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+
+    inputs.forEach(input => {
+        const type = input.type;
+        const name = input.name;
+        const isVisible = input.offsetParent !== null;
+
+        if (!isVisible) return; // Skip hidden inputs
+
+        if ((type === 'radio' || type === 'checkbox')) {
+            const group = form.querySelectorAll(`input[name="${name}"]`);
+            const anyChecked = Array.from(group).some(i => i.checked);
+            if (!anyChecked) {
+                allFilled = false;
+            }
+        } else if (!input.value) {
+            allFilled = false;
+        }
+    });
+
+    if (!allFilled) {
+        alert('Por favor, responda a todas las preguntas antes de continuar.');
+    } else {
+        form.submit();
+    }
+}
+</script>
+
+
+
+{% endblock %}
+
+
+

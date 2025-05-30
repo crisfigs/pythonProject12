@@ -1,0 +1,499 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{{ block styles }}
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, sans-serif;
+  }
+      textarea {
+        width: 100%;
+        height: 250px; /* or try 300px if you want it even taller */
+        font-size: 1em;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #999;
+
+    }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  output {
+    margin: 1em;
+    opacity: 0.4;
+  }
+
+  .card {
+    font-size: 18px;
+  }
+
+  table {
+    width: 100%;
+    justify-content: center; /* Center the content horizontally */
+    border-collapse: collapse; /* Optional: Remove table cell spacing */
+  }
+
+  tr {
+    justify-content: center; /* Center items horizontally */
+  }
+
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 1em;
+  }
+
+  .custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+    position: relative;
+    padding-left: 30px;
+  }
+
+  .custom-checkbox input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+  }
+
+  .custom-checkbox .checkmark {
+    position: absolute;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #e6e6e6;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .custom-checkbox input:checked ~ .checkmark {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .checkbox-grid2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .checkbox-column2 {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .checkbox-column2 h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .custom-checkbox2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .custom-checkbox2 input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
+
+  .likert-table {
+    text-align: center;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .likert-table th,
+  .likert-table td {
+    padding: 10px;
+    vertical-align: middle;
+  }
+
+  .likert-header {
+    font-size: 0.9rem;
+    line-height: 1.2;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    font-weight: bold;
+  }
+  div.labelWrap,
+div.buttonWrap {
+    display: block;
+    text-align: center;
+    margin: 0.5em auto;
+}
+
+div.labelWrap2 {
+    display: block;
+    text-align: center;
+    margin: 0em auto;
+    word-wrap: break-word; /* Allow text to break within words */
+    white-space: normal; /* Enable text wrapping */
+    max-width: 80px; /* Limit the width to force wrapping (adjust as needed) */
+    width:70px;
+    line-height: 1.2; /* Adjust line spacing for better readability */
+}
+</style>
+
+
+{{ endblock }}
+
+
+
+
+{% block title %}
+Parte 1. Memorias Familiares
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+         <p>En esta sección, le haremos algunas preguntas sobre su familia y sobre cualquier historia o recuerdo que pueda tener—ya sea vivido o escuchado—acerca de momentos clave de la historia de España, como la Guerra Civil o la dictadura de Franco.</p>
+           <p> No hay respuestas correctas o incorrectas. Simplemente nos interesan sus experiencias personales y los recuerdos que se han transmitido a través de su familia y parientes.</p>
+            <br>
+            <br>
+            {{ form.family_shared_stories.label }} <br>
+            {{ form.family_shared_stories}}
+            <br>
+            <p>2. ¿Quién en su familia compartió historias sobre la Guerra Civil Española y la dictadura de Franco?<br>
+                <em>(Marque todas las que correspondan)</em></p>
+            <div class="checkbox-group">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="who_shared_stories_grandpa" name="who_shared_stories_grandpa" value="True">
+                    <span class="checkmark"></span> Abuelos
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="who_shared_stories_parents" name="who_shared_stories_parents" value="True">
+                    <span class="checkmark"></span> Padres
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="who_shared_stories_other" name="who_shared_stories_other" value="True">
+                    <span class="checkmark"></span> Otros parientes
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="who_shared_stories_noone" name="who_shared_stories_noone" value="True">
+                    <span class="checkmark"></span>
+                        Nadie
+                </label>
+            </div>
+
+             <br>
+             <br>
+            {{ form.story_detail_level.label }} <br>
+            {{ form.story_detail_level}}
+            <br>
+            {{ form.familyside.label }} <br>
+            {{ form.familyside}}
+            <br>
+            {{ form.memory.label }} <br>
+                <small style="color: gray;">
+                Gracias por compartir. Sabemos que no siempre es fácil hablar de estos temas, y valoramos mucho su confianza.
+        </small>
+            <div style="margin-top: 10px;">
+                {{ form.memory }}
+            </div>
+
+            <br>
+            <br>
+
+            6. Según su conocimiento, ¿algún miembro de su familia u otro pariente experimentó alguna de las siguientes consecuencias como resultado de la Guerra Civil Española o de la dictadura de Franco?  Puede mencionar hasta a tres personas. <br>
+            <em>Marque las opciones que correspondan para cada caso.</em>
+            <div class="checkbox-grid2">
+                <div class="checkbox-column2">
+                    <h3>Persona 1</h3>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_died_in_combat" name="p1_died_in_combat" value="True"> Falleció en combate
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_died_in_bombing" name="p1_died_in_bombing" value="True"> Murió en un bombardeo
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_assesinated" name="p1_assesinated" value="True"> Fue asesinado
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_dissapeared" name="p1_dissapeared" value="True"> Desapareció
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_jail" name="p1_jail" value="True"> Ingresó en prisión
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_leftspain" name="p1_leftspain" value="True"> Tuvo que salir de España
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_hiding" name="p1_hiding" value="True"> Tuvo que esconderse
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_lostjob" name="p1_lostjob" value="True"> Le echaron de su trabajo
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_another" name="p1_another" value="True"> Otra situación
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p1_nothing" name="p1_nothing" value="True"> No aplica
+                    </label>
+                </div>
+
+                <div class="checkbox-column2">
+                    <h3>Persona 2</h3>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_died_in_combat" name="p2_died_in_combat" value="True"> Falleció en combate
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_died_in_bombing" name="p2_died_in_bombing" value="True"> Murió en un bombardeo
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_assesinated" name="p2_assesinated" value="True"> Fue asesinado
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_dissapeared" name="p2_dissapeared" value="True"> Desapareció
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_jail" name="p2_jail" value="True"> Ingresó en prisión
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_leftspain" name="p2_leftspain" value="True"> Tuvo que salir de España
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_hiding" name="p2_hiding" value="True"> Tuvo que esconderse
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_lostjob" name="p2_lostjob" value="True"> Le echaron de su trabajo
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_another" name="p2_another" value="True"> Otra situación
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p2_nothing" name="p2_nothing" value="True"> No aplica
+                    </label>
+                </div>
+
+                <div class="checkbox-column2">
+                    <h3>Persona 3</h3>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_died_in_combat" name="p3_died_in_combat" value="True"> Falleció en combate
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_died_in_bombing" name="p3_died_in_bombing" value="True"> Murió en un bombardeo
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_assesinated" name="p3_assesinated" value="True"> Fue asesinado
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_dissapeared" name="p3_dissapeared" value="True"> Desapareció
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_jail" name="p3_jail" value="True"> Ingresó en prisión
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_leftspain" name="p3_leftspain" value="True"> Tuvo que salir de España
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_hiding" name="p3_hiding" value="True"> Tuvo que esconderse
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_lostjob" name="p3_lostjob" value="True"> Le echaron de su trabajo
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_another" name="p3_another" value="True"> Otra situación
+                    </label>
+                    <label class="custom-checkbox2">
+                      <input type="checkbox" id="p3_nothing" name="p3_nothing" value="True"> No aplica
+                    </label>
+                </div>
+            </div>
+            <br>
+            <br>
+            7. Según lo que usted sabe, ¿qué bando fue principalmente responsable de lo que le ocurrió a esta persona?
+            <em>Por favor, responda según corresponda para cada persona en la pregunta anterior.</em>
+
+            <div class="checkbox-grid2">
+                  <div class="checkbox-column2">
+                    <h3>Persona 1</h3>
+                   {{ form.p1_responsible }}
+                  </div>
+
+
+
+                  <div class="checkbox-column2">
+                    <h3>Persona 2</h3>
+                    {{ form.p2_responsible }}
+                  </div>
+
+                  <div class="checkbox-column2">
+                    <h3>Persona 3</h3>
+                      {{ form.p3_responsible }}
+                  </div>
+
+            </div>
+            <br>
+            <br>
+            <br>
+            {{ form.family_memory_alignment.label }} <br>
+            <small class="form-text text-muted">
+              Use la siguiente escala del <strong>0</strong> al <strong>10</strong>:<br>
+              <strong>0</strong> = completamente favorable al Bando Republicano<br>
+              <strong>5</strong> = punto medio o neutral<br>
+              <strong>10</strong> = completamente favorable al Bando Nacional
+            </small>
+            <br>
+            <br>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3em;">
+                    {% for choice in form.family_memory_alignment %}
+                        {% if forloop.counter <= 11 %}
+                            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+                                {{ choice }}
+                                <div style="margin-top: 0.3em; font-size: 1em; line-height: 1.2;">
+                                    {% if forloop.counter == 1 %}
+                                        0<br> Bando Republicano
+                                    {% elif forloop.counter == 6 %}
+                                        5<br>
+                                    {% elif forloop.counter == 11 %}
+                                        10<br> Bando Nacional
+                                    {% else %}
+                                        {{ choice.label }}
+                                    {% endif %}
+                                </div>
+                            </label>
+                        {% elif forloop.counter == 12 %}
+                            <!-- Special "No aplica" formatting -->
+                            <label style="color: #888; font-size: 0.9em; font-style: italic; display: flex; flex-direction: column; align-items: center; width: 100%; margin-top: 1em; text-align: center;">
+                                {{ choice }}
+                                {{ choice.label }}
+                            </label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <br>
+
+
+
+
+
+            <div class="mb-4">
+                {{ form.current_alignment.label}}
+            {{ form.current_alignment }}
+            </div>
+
+
+        </div>
+    </div>
+
+
+            <br>
+            <br>
+    <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
+
+<script>
+function validateForm() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+    let errorMessages = [];
+
+    // 1. Group checkbox validation (Persona 1, 2, 3)
+    const personaGroups = [
+        { label: "Pregunta 6. Consecuencias para Persona 1", prefix: "p1_" },
+        { label: "Pregunta 6. Consecuencias para Persona 2", prefix: "p2_" },
+        { label: "Pregunta 6. Consecuencias para Persona 3", prefix: "p3_" },
+        { label: "Pregunta 2", prefix: "who_shared_stories" }
+    ];
+
+    personaGroups.forEach(group => {
+        const checkboxes = Array.from(form.querySelectorAll(`input[type="checkbox"][name^="${group.prefix}"]`));
+        const anyChecked = checkboxes.some(cb => cb.checked);
+        if (!anyChecked) {
+            errorMessages.push(`- ${group.label}`);
+            allFilled = false;
+        }
+    });
+
+
+    // 2. Other required fields
+    const requiredFields = [
+        { name: "family_shared_stories", label: "Pregunta 1" },
+        { name: "story_detail_level", label: "Pregunta 3" },
+        { name: "familyside", label: "Pregunta 4" },
+        { name: "memory", label: "Pregunta 5" },
+        { name: "p1_responsible", label: "Pregunta 7. ¿Qué bando fue responsable? (Persona 1)" },
+        { name: "p2_responsible", label: "Pregunta 7. ¿Qué bando fue responsable? (Persona 2)" },
+        { name: "p3_responsible", label: "Pregunta 7. ¿Qué bando fue responsable? (Persona 3)" },
+        { name: "family_memory_alignment", label: "Pregunta 8" },
+        { name: "current_alignment", label: "Pregunta 9" }
+    ];
+
+    requiredFields.forEach(field => {
+        const elements = form.querySelectorAll(`[name="${field.name}"]`);
+        let isValid = false;
+
+        if (elements.length > 1) {
+            // Probably radio group
+            isValid = Array.from(elements).some(el => el.checked);
+        } else if (elements.length === 1) {
+            const el = elements[0];
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                isValid = el.checked;
+            } else {
+                isValid = el.value.trim() !== '';
+            }
+        }
+
+        if (!isValid) {
+            errorMessages.push(`- ${field.label}`);
+            allFilled = false;
+        }
+    });
+
+    // 3. Final message
+    if (!allFilled) {
+        alert("Por favor, completa las siguientes preguntas antes de continuar:\n\n" + errorMessages.join('\n'));
+        return false;
+    }
+
+    form.submit();
+}
+</script>
+{% endblock %}
+

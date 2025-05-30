@@ -1,0 +1,103 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{{block styles }}
+   <style>
+
+.card {
+        font-size: 18px;
+    }
+
+  .likert-table td {
+    width: 80px;
+  }
+   </style>
+
+
+{{ endblock }}
+
+
+
+
+{% block title %}
+Parte final: De-briefing
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="card">
+  <div class="card-body">
+    <h3 class="mb-3"></h3>
+
+    <p>Parte de este estudio se basa en interpretaciones sobre la Guerra Civil Española, un evento histórico complejo y a veces, aún disputado.
+        La guerra, que tuvo lugar entre 1936 y 1939, ha podido ser objeto de debate entre historiadores, políticos y la ciudadanía.
+        Estamos interesados en estudiar si estas interpretaciones, a veces encontradas, pueden resultar en divisiones. </p>
+
+    <p>En este estudio, se le presentó una de esas interpretaciones.<strong> Queremos enfatizar que el texto que leyó fue construido intencionalmente con fines de investigación, y no refleja necesariamente hechos históricos ni la opinión de los investigadores o de la población española.</strong></p>
+
+    <h5 class="mt-4">Fuentes sobre la Guerra Civil Española</h5>
+    <p>Si desea saber más sobre la Guerra Civil Española, le recomendamos los siguientes recursos:</p>
+
+    <p><strong>Recursos en línea:</strong></p>
+    <ul>
+      <li><a href="https://www.vscw.ca/" target="_blank">Museo Virtual de la Guerra Civil Española</a></li>
+      <li><a href="https://www.britannica.com/event/Spanish-Civil-War" target="_blank">Artículo de la Enciclopedia Britannica sobre la Guerra Civil Española</a></li>
+      <li><a href="https://encyclopedia.ushmm.org/content/en/article/spanish-civil-war" target="_blank">Artículo en la Enciclopedia del Holocausto sobre la Guerra Civil Española</a></li>
+    </ul>
+
+    <p><strong>Recursos impresos:</strong></p>
+    <ul>
+      <li><em>La Guerra Civil Española</em>, de Hugh Thomas</li>
+      <li><em>La batalla por España</em>, de Antony Beevor</li>
+    </ul>
+
+    <h5 class="mt-4">Enunciados reales</h5>
+    <p>A continuación, puede consultar información sobre los enunciados que vio durante el estudio, junto con enlaces a las fuentes originales. En esa parte del estudio, se le pidió que estimara la probabilidad de que cada afirmación fuera verdadera, pudiendo ganar hasta 0,10 € por una respuesta acertada.</p>
+
+    <ul>
+      <li><strong>Criminalidad e inmigración:</strong> Los datos del Instituto Nacional de Estadística (INE) muestran que, en términos absolutos, la mayoría de las condenas corresponden a ciudadanos españoles. Aunque la tasa de condenas por cada 1.000 habitantes es más alta entre los extranjeros, esta diferencia está influida por diversos factores socioeconómicos y no implica una relación directa entre inmigración y criminalidad.
+        <br><a href="https://www.ine.es/jaxi/Tabla.htm?L=0&file=v01001.px&path=%2Ft00%2Fmujeres_hombres%2Ftablas_1%2Fl0%2F" target="_blank">Fuente</a>
+      </li>
+
+      <li><strong>Abuso en instituciones:</strong> Un estudio de 2014 que analizó testimonios de 1.050 víctimas en Alemania encontró que el 48 % había sido abusado en instituciones religiosas (católicas y protestantes), mientras que el 52 % lo fue en instituciones no religiosas. Es decir, el abuso fue más frecuente en entornos no religiosos.
+        <br><a href="https://pubmed.ncbi.nlm.nih.gov/24669770/" target="_blank">Fuente</a>
+      </li>
+
+      <li><strong>Restricciones al aborto y salud:</strong> Algunas investigaciones respaldan la idea de que ilegalizar el aborto aumenta las muertes maternas y las complicaciones graves de salud. Estos efectos dependen de factores como la calidad del sistema sanitario y el acceso a alternativas médicas seguras.
+        <br><a href="https://www.aeaweb.org/articles?id=10.1257%2Fpol.20220208" target="_blank">Fuente 1</a>,
+        <a href="https://www.who.int/news-room/fact-sheets/detail/abortion" target="_blank">Fuente 2</a>
+      </li>
+
+        <li><strong>Atención médica relacionada con la identidad de género en menores:</strong> Aunque se ha observado un aumento en el número de menores que solicitan este tipo de atención, la evidencia actual no respalda de forma sólida la idea de que dicho aumento se deba principalmente a influencias sociales. La investigación señala, en cambio, la necesidad médica y los beneficios para la salud mental. No obstante, aún se requiere más investigación para comprender plenamente las causas de este fenómeno.
+          <br><a href="https://www.scientificamerican.com/article/evidence-undermines-rapid-onset-gender-dysphoria-claims/" target="_blank">Fuente</a>
+        </li>
+
+
+
+      <li><strong>Muertes durante la Guerra Civil:</strong> Un estudio de Tur y Valencia estima que unas 150.000 personas fueron asesinadas por las fuerzas nacionalistas durante el Terror Blanco, y hasta 50.000 por los republicanos durante el Terror Rojo. Estas cifras pueden variar según la fuente.
+        <br><a href="https://www.economics.harvard.edu/files/economics/files/extended_abstract.pdf" target="_blank">Fuente</a>
+      </li>
+
+      <li><strong>Crecimiento económico bajo el franquismo:</strong> Los investigadores no conocen ningún paper en QJE que afirme que España experimentó su mayor crecimiento económico durante el régimen franquista. Sin embargo,
+           entre 1959 y 1974, se conoce que en España se dió el "milagro económico español". Durante estos años, España experimentó una expansión económica significativa, con un crecimiento promedio del PIB del 6,5% anual, convirtiéndose en la segunda economía de más rápido crecimiento en el mundo después de Japón
+        <br><a href="https://academic.oup.com/qje" target="_blank">Fuente 1</a>,
+          <a href="https://en.wikipedia.org/wiki/Spanish_miracle" target="_blank">Fuente 2</a>
+
+      </li>
+
+      <li><strong>Niños robados durante el franquismo:</strong> La revista New York Times Magazine informa que madres biológicas fueron engañadas por monjas, quienes les dijeron que sus hijos habían nacido muertos. En realidad, los bebés fueron entregados en secreto a familias católicas acomodadas.
+        <br><a href="https://www.nytimes.com/2022/09/27/magazine/spain-stolen-babies.html" target="_blank">Fuente</a>
+      </li>
+    </ul>
+  </div>
+</div>
+    <br>
+        <button style="float: right;" type="submit" class="btn btn-primary">Siguiente</button>
+
+<script>
+
+</script>
+{% endblock %}
+

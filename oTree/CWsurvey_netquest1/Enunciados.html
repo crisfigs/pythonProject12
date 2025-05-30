@@ -1,0 +1,178 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{{ block styles }}
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+    .card {
+        font-size: 18px;
+    }
+         .question-list {
+    list-style-position: inside;  /* ensures number is aligned with first text line */
+    padding-left: 0;              /* removes extra indent */
+  }
+
+
+  .question-label {
+    display: inline-block;
+    max-width: 90ch;  /* limit label width to ~60 characters */
+    line-height: 1.5;
+    vertical-align: top;
+  }
+</style>
+{{ endblock }}
+
+{% block title %}
+    Parte 4. Encuesta Final
+{% endblock %}
+
+{{ block content }}
+<h4>Opinión</h4>
+
+
+
+ <div class="card">
+     <div class="card-body">
+
+
+         <p>En esta pantalla le mostramos varios enunciados sobre la situación actual en España.
+Por favor, indique en qué medida está de acuerdo con ellos.
+<br>
+<ol class="question-list">
+  {% for field in form %}
+    {% if forloop.counter <= 4 %}
+      <li class="mb-4">
+        <span class="question-label">{{ field.label }}</span><br>
+
+        <!-- Wrap all choices in a horizontal flex container -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in field %}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Totalmente en desacuerdo
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Totalmente de acuerdo
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+        </div>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ol>
+
+
+
+     <br>
+         <p>Los siguiente enunciados tratan sobre la justicia respecto de los acontecimiento de la Guerra Civil y La dictadura Franquista.
+         Por favor, indique en qué medida está de acuerdo con ellos.</p>
+         <br>
+
+<ol class="question-list">
+  {% for field in form %}
+    {% if forloop.counter > 4 %}
+      <li class="mb-4">
+        <span class="question-label">{{ field.label }}</span><br>
+
+        <!-- Wrap all choices in a horizontal flex container -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in field %}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1 %}
+                  0<br> Totalmente en desacuerdo
+                {% elif forloop.counter == 6 %}
+                  5<br>
+                {% elif forloop.counter == 11 %}
+                  10<br> Totalmente de acuerdo
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+        </div>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ol>
+
+
+
+
+
+
+Una vez haya completado estas preguntas, por favor, pulse "Siguiente" para continuar.
+                             </div>
+        </div>
+
+<br>
+
+<div style="float: right;">        <button type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
+</div>
+
+  <script>
+function validateForm() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+    let errorMessages = [];
+
+
+    // 2. Other required fields
+    const requiredFields = [
+        { name: 'immigration_crime'},
+        { name: 'welfare_dependency'},
+        { name: 'traditional_values'},
+        { name: 'gender_diversity'},
+        { name: 'justice1'},
+        { name:  'justice2'},
+        { name: 'justice3'},
+        { name:  'justice4'}
+
+    ];
+
+    requiredFields.forEach(field => {
+        const elements = form.querySelectorAll(`[name="${field.name}"]`);
+        let isValid = false;
+
+        if (elements.length > 1) {
+            // Probably radio group
+            isValid = Array.from(elements).some(el => el.checked);
+        } else if (elements.length === 1) {
+            const el = elements[0];
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                isValid = el.checked;
+            } else {
+                isValid = el.value.trim() !== '';
+            }
+        }
+
+        if (!isValid) {
+            errorMessages.push(`- ${field.label}`);
+            allFilled = false;
+        }
+    });
+
+    // 3. Final message
+    if (!allFilled) {
+        alert("Por favor, completa todas las preguntas antes de continuar" );
+        return false;
+    }
+
+    form.submit();
+}
+</script>
+{{ endblock }}
