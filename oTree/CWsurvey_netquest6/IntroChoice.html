@@ -1,0 +1,60 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+
+
+</style>
+{% endblock %}
+
+
+{% block title %}
+   Parte 2.  Donación
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+
+      <p>
+      En esta parte del estudio, se le pedirá que distribuya una donación de <strong>100 €</strong> entre dos organizaciones.
+      Puede asignar el monto de la manera que desee, siempre y cuando la suma total sea exactamente <strong>100 €</strong>.
+    </p>
+
+    <p>
+      Al final del estudio, el ordenador agrupará a todas las personas participantes en <strong>grupos de 100</strong>.
+      En cada grupo, se seleccionará <strong>una persona al azar</strong>.
+      El equipo de investigación distribuirá entonces una donación de un total de <strong>100 €</strong> entre las dos organizaciones,
+      según las preferencias de asignación de cada uno de los participantes seleccionados al azar.
+    </p>
+
+    <p>
+      Esto significa que <strong>su elección podría ser seleccionada</strong> para determinar la donación real.
+      Por eso, le pedimos que <strong>piense detenidamente</strong> cómo desea repartir el dinero entre las dos organizaciones.
+    </p>
+
+    <p>
+      Después de tomar su decisión, le haremos algunas <strong>preguntas breves de seguimiento</strong>.
+    </p>
+
+    <p>
+      Por favor, lea cuidadosamente la descripción de cada organización antes de decidir su asignación.
+    </p>
+    </div>
+    <br>
+
+
+  </div>
+    </div>
+<br>
+<div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
+</div>
+
+{% endblock %}

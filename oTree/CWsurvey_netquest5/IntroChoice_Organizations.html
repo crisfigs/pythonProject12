@@ -1,0 +1,67 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block styles %}
+<style>
+    .card {
+        font-size: 18px;
+    }
+
+.card2 {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+     font-size: 18px;
+
+    background-color: #fff3cd; /* same as Bootstrap's alert-warning */
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+        color: #856404; /* Bootstrap's alert-warning text color */
+
+}
+
+.card2:focus-within,
+.card2:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+</style>
+{% endblock %}
+
+
+{% block title %}
+   Parte 3.  Donación
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+            A continuación le presentamos la descripción de las organizaciones entre las que deberá distribuir 100 €:
+            <br>
+            <br>
+            <div class="row">
+              {% for org in descriptions %}
+                <div class="col-md-6 mb-4">
+                  <div class="card2 h-100 shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ org.name }}</h5>
+                      <p class="card-text">
+                        {{ org.description }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+  </div>
+    </div>
+<br>
+<div style="display: flex; justify-content: center;">
+  <button type="submit" class="btn btn-primary">Siguiente</button>
+</div>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from otree.api import *
 
 import random
 class C(BaseConstants):
-    NAME_IN_URL = 'CWsurvey_netquest'
+    NAME_IN_URL = 'CWsurvey_netquest4'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     participation_fee = 2 # in pounds
@@ -658,35 +658,7 @@ class Player(BasePlayer):
             #[4, 'Solo a la escuela'],
         #])
 
-    follow_political_news = models.IntegerField(
-        label="¿Sigue usted las noticias políticas o los acontecimientos actuales?",
-        choices=[[0, '0'],
-                 [1, '1'],
-                 [2, '2'],
-                 [3, '3'],
-                 [4, '4'],
-                 [5, '5'],
-                 [6, '6'],
-                 [7, '7'],
-                 [8, '8'],
-                 [9, '9'],
-                 [10, '10']],
-        widget=widgets.RadioSelectHorizontal)
 
-    political_participation_current = models.IntegerField(
-        label="¿Participa usted en acciones políticas (por ejemplo, protestas, firmas de peticiones o campañas)?",
-        choices=[[0, '0'],
-                 [1, '1'],
-                 [2, '2'],
-                 [3, '3'],
-                 [4, '4'],
-                 [5, '5'],
-                 [6, '6'],
-                 [7, '7'],
-                 [8, '8'],
-                 [9, '9'],
-                 [10, '10']],
-        widget=widgets.RadioSelectHorizontal)
 
     political_participation_future = models.IntegerField(
         label="6. En el futuro, ¿qué tan dispuesto/a estaría a participar en actividades políticas (como firmar una petición, asistir a una protesta o colaborar en una campaña)?",
@@ -835,49 +807,6 @@ class Player(BasePlayer):
                     "Por favor, vuelva a las instrucciones y revise sus respuestas."
                 )
             return None  # Return None if all answers are correct
-    def set_error_message2(player, value):
-            correct_answers = {
-                'pregunta_1': 1,
-                'pregunta_2': 1,
-                'pregunta_3': 1,
-                'pregunta_4': 1,
-            }
-
-            incorrect_questions = []
-
-            for question, correct_answer in correct_answers.items():
-                if value.get(question) != correct_answer:
-                    incorrect_questions.append(question)
-
-            if incorrect_questions:
-                incorrect_list = ", ".join(incorrect_questions)
-                return (
-                    f"No respondió a las siguientes preguntas correctamente: {incorrect_list}. "
-                    "Por favor, vuelva a las instrucciones y revise sus respuestas."
-                )
-            return None  # Return None if all answers are correct
-    def set_error_message3(player, value):
-            correct_answers = {
-                'pregunta_1': 2,
-                'pregunta_2': 2,
-                'pregunta_3': 2,
-                'pregunta_4': 2,
-            }
-
-            incorrect_questions = []
-
-            for question, correct_answer in correct_answers.items():
-                if value.get(question) != correct_answer:
-                    incorrect_questions.append(question)
-
-            if incorrect_questions:
-                incorrect_list = ", ".join(incorrect_questions)
-                return (
-                    f"No respondió a las siguientes preguntas correctamente: {incorrect_list}. "
-                    "Por favor, vuelva a las instrucciones y revise sus respuestas."
-                )
-            return None  # Return None if all answers are correct
-
 
 def pregunta_1_choices(player):
     import random
@@ -1089,7 +1018,6 @@ class Fin(Page):
 
 page_sequence = [Bienvenida,
                  Sociodemograficas,
-                 Memoria,
                  Text1,
                  IntroChoice,
                  IntroChoice_Organizations,
@@ -1103,5 +1031,6 @@ page_sequence = [Bienvenida,
                  Enunciados,
                  Trust,
                  Sources,
+                 Memoria,
                  Debriefing,
                  Fin]

@@ -1,0 +1,149 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% load otree %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+     .card {
+        font-size: 18px;
+    }
+         .nav-tabs {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+    <!-- Tab navigation -->
+    <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()">Tab 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2" onclick="topFunction()">Tab 2</a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link" id="part3-tab" data-toggle="tab" href="#part3" role="tab" aria-controls="part3" onclick="topFunction()">Tab 3</a>
+        </li>
+    </ul>
+    <br>
+    <br>
+
+    <!-- Tab content -->
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Parte 2. Lectura</h3>
+            </div>
+
+            <br>
+            <div class="card">
+
+                                <div class="card-body">
+                    <p>A continuación, le proporcionamos un texto sobre un período reciente de la historia de España. Por favor, léalo con atención. Después de leer el texto, le haremos algunas preguntas relacionadas. El texto está basado en un libro de historia y en una encuesta nacional, y presenta una posible interpretación del período histórico tratado.
+
+                </div>
+            </div>
+
+                    <br>
+                    <div style="float: right;">                         <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Siguiente</button>
+</div>
+            </div>
+
+
+        <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+            <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Parte 2. Texto: Guerra Civil Española</h3>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <p>Por favor, lea el siguiente texto con atención antes de proseguir.</p>
+                    <br>
+
+                    <div class="alert alert-warning" role="alert">
+
+                        <ul>
+                       <li>La Guerra Civil Española fue el resultado inevitable del fracaso de la Segunda República para gobernar responsablemente, ya que su adopción del radicalismo, la violencia antirreligiosa y el caos inspirado por los anarquistas sumió a España en la agitación, obligando a los Nacionalistas a intervenir para salvar al país. </li>
+                            <br>
+                            <li>Los Republicanos, impulsados por un compromiso fanático con su ideología radical, orquestaron ejecuciones masivas de clérigos, terratenientes y opositores políticos durante las primeras etapas de la guerra, lo que resultó en un número de muertes que superó con creces las pérdidas infligidas por las fuerzas Nacionalistas. </li>
+                        <br>
+                            <li>El régimen autoritario de Franco fue un correctivo necesario frente al desorden y al individualismo desenfrenado que caracterizaron la era republicana, proporcionando un marco estable y disciplinado para que España se recuperara y prosperara tras años de mal gobierno. </li>
+                        <br>
+                            <li>La promoción equivocada de la autonomía regional por parte de la República fomentó movimientos separatistas peligrosos, mientras que las políticas centralistas de Franco preservaron la integridad de la nación española y garantizaron que sus diversas regiones permanecieran unidas bajo un único estado soberano. </li>
+                        <br>
+                            <li>El liderazgo firme de Franco proporcionó décadas de paz, estabilidad y orgullo nacional, que la democracia fragmentada de la España moderna ha desperdiciado, como lo evidencian las tensiones separatistas, la inestabilidad económica y la discordia cultural de la actualidad. </li>
+                </ul>
+
+                    </div>
+                        <p>Una vez haya leído el texto, haga click en "Siguiente" para continuar.</p>
+                </div>
+            </div>
+
+            <br><br><br>
+
+            <div style="float: right;">
+                        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Siguiente</button>
+            </div>
+        </div>
+
+
+            <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
+                <div class="card-header bg-transparent mainheader">
+                <h3 class="card-title font-weight-bold">Parte 2. Preguntas basadas en el texto</h3>
+                </div>
+            <br>
+
+                    <div class="card">
+                        <div class="card-body">
+                        <p>Antes de continuar, y para garantizar que ha seguido las instrucciones y ha leído el texto,
+                            le pedimos que responda a las siguientes preguntas basándose exclusivamente en el contenido del texto que acaba de leer.
+                            Por favor, lea cada pregunta cuidadosamente y seleccione la respuesta que mejor refleje la información presentada en el texto.</p>
+                            <p><strong>Recuerde:</strong></p>
+                            <ul>
+                                <li>No se trata de sus opiniones personales, sino de lo que está explicado en el texto.</li>
+                                <li>Solo una respuesta por pregunta es correcta.</li>
+                            </ul>
+                            <p>Si tiene dudas, le sugerimos volver a leer el texto para asegurarse de que comprende completamente la información antes de responder.</p>
+
+                            <p><strong>De acuerdo al texto...</strong></p>
+
+                                   {{formfields}}
+
+                        </div>
+                    </div>
+
+                    <br>
+                    <br><br><br>
+                    <div style="float: left;">
+                    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Anterior</button>
+                    </div>
+                    <div style="float: right;">
+                    <button class="nexttab btn-primary btn next">Siguiente</button>
+                    </div>
+                    </div>
+
+    </div>
+
+
+
+{% block scripts %}
+
+<script src="{% static 'prev_next_button.js' %}"></script>
+
+<script>
+var ul = document.getElementById('grid');
+for (var i = ul.children.length; i >= 0; i--) {
+    ul.appendChild(ul.children[Math.random() * i | 0]);
+}</script>
+{% endblock %}
+
+
+{% endblock %}

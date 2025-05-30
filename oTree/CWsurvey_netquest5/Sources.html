@@ -1,0 +1,290 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{{block styles }}
+   <style>
+
+.card {
+        font-size: 18px;
+    }
+
+  .likert-table td {
+    width: 80px;
+  }
+   </style>
+
+
+{{ endblock }}
+
+
+
+{% block title %}
+    Parte 4. Encuesta Final
+{% endblock %}
+
+{{ block content }}
+<h4>Memoria Histórica</h4>
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <p>Finalmente, le pedimos que responda a las siguientes preguntas antes de continuar.</p>
+                <br>
+            <p>1. En primer lugar, indique qué tan importante ha sido cada una de las siguientes fuentes en la formación de su opinión sobre la Guerra Civil Española y la época del Franquismo.
+            Por favor, utilice una escala que va desde "Nada importante" hasta "Muy importante".</p>
+
+
+             <div class="table-responsive my-4">
+  <table class="table table-bordered align-middle text-center likert-table">
+    <thead class="table-light">
+      <tr>
+        <th rowspan="2">Fuente</th>
+        <th colspan="5">Importancia asignada</th>
+      </tr>
+      <tr>
+        {% for i in range(5) %}
+          <th>
+            {% if i == 0 %}
+              <div style="font-size: 0.75rem;">Nada<br> Importante</div>
+              <div>{{ i }}</div>
+            {% elif i == 4 %}
+              <div style="font-size: 0.75rem;">Muy<br> Importante</div>
+              <div>{{ i }}</div>
+            {% else %}
+              {{ i }}
+            {% endif %}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{% form.transmission_family.label %}</th>
+        {% for choice in form.transmission_family %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">{% form.transmission_friends.label %}</th>
+        {% for choice in form.transmission_friends %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">{% form.transmission_school.label %}</th>
+        {% for choice in form.transmission_school %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row">{% form.transmission_media.label %}</th>
+        {% for choice in form.transmission_media %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th scope="row"> {% form.transmission_socialmedia.label %}</th>
+        {% for choice in form.transmission_socialmedia %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+          <tr>
+        <th scope="row"> {% form.transmission_books.label %}</th>
+        {% for choice in form.transmission_books %}
+          <td>{{ choice }}</td>
+        {% endfor %}
+      </tr>
+
+
+    </tbody>
+  </table>
+</div>
+
+
+
+    <div class="mb-4">
+      {{ form.emotional_connection_family.label }}
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.emotional_connection_family%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Nada
+
+                {% elif forloop.counter == 11 %}
+                  10<br> Mucho
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div></div>
+
+
+
+<div class="mb-4">
+  {{ form.credibility_family_vs_school.label }}
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+    {% for choice in form.credibility_family_vs_school %}
+      <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+        {{ choice }}
+        <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+          {% if player.random_number == 0 %}
+            {% if forloop.counter == 1 %}
+              0<br> Sólo a la<br> Familia
+            {% elif forloop.counter == 11 %}
+              10<br> Sólo a la<br> Educación Escolar
+            {% else %}
+              {{ choice.label }}
+            {% endif %}
+          {% else %}
+            {% if forloop.counter == 1 %}
+              0<br> Sólo a la<br> Educación Escolar
+            {% elif forloop.counter == 11 %}
+              10<br> Sólo a la<br> Familia
+            {% else %}
+              {{ choice.label }}
+            {% endif %}
+          {% endif %}
+        </div>
+      </label>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+            <div class="mb-4">
+                {{ form.family_closeness.label}}
+                            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.family_closeness%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Nada cercano
+
+                {% elif forloop.counter == 11 %}
+                  10<br> Muy cercano
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
+            </div>
+
+
+            <div class="mb-4">
+                {{ form.family_alignment.label}}
+                                            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.family_alignment%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Nada alineado
+                {% elif forloop.counter == 11 %}
+                  10<br> Completamente alineado
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
+            </div>
+
+
+    <div class="mb-4">
+      {{ form.political_participation_future.label }}
+                                                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.5em;">
+          {% for choice in  form.political_participation_future%}
+            <label style="display: flex; flex-direction: column; align-items: center; width: 60px; text-align: center;">
+              {{ choice }}
+              <div style="margin-top: 0.3em; font-size: 0.8em; line-height: 1.2;">
+                {% if forloop.counter == 1%}
+                      0<br> Nada dispuesto
+                {% elif forloop.counter == 11 %}
+                  10<br> Muy dispuesto
+                {% else %}
+                  {{ choice.label }}
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+    </div>
+    </div>
+
+
+            <br>
+
+        </div>
+      </div>
+    <br>
+ <button style="float: right;" type="button" onclick="validateForm()" class="btn btn-primary">Siguiente</button>
+
+<script>
+ function validateForm() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let allFilled = true;
+    let errorMessages = [];
+
+
+    // 2. Other required fields
+    const requiredFields = [
+        { name: 'transmission_school'},
+        { name:'transmission_family'},
+        { name: 'transmission_friends'},
+        { name:  'transmission_media'},
+        { name: 'transmission_books'},
+        { name: 'transmission_socialmedia'},
+        { name: 'emotional_connection_family'},
+        { name: 'transmission_socialmedia'},
+        { name: 'credibility_family_vs_school'},
+        { name: 'family_closeness'},
+        { name: 'family_alignment'},
+        { name:'political_participation_future'}
+    ];
+
+
+    requiredFields.forEach(field => {
+        const elements = form.querySelectorAll(`[name="${field.name}"]`);
+        let isValid = false;
+
+        if (elements.length > 1) {
+            // Probably radio group
+            isValid = Array.from(elements).some(el => el.checked);
+        } else if (elements.length === 1) {
+            const el = elements[0];
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                isValid = el.checked;
+            } else {
+                isValid = el.value.trim() !== '';
+            }
+        }
+
+        if (!isValid) {
+            errorMessages.push(`- ${field.label}`);
+            allFilled = false;
+        }
+    });
+
+    // 3. Final message
+    if (!allFilled) {
+        alert("Por favor, completa todas las preguntas antes de continuar" );
+        return false;
+    }
+
+    form.submit();
+
+}
+</script>
+{% endblock %}
+

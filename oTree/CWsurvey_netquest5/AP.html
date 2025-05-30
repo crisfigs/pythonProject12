@@ -1,0 +1,79 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{{ block styles }}
+<style>
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    table th[colspan="11"] + tr th,
+    tbody td {
+        width: 60px; /* or whatever width fits your layout */
+    }
+
+</style>
+{{ endblock }}
+{% block title %}
+    Parte 4. Encuesta Final
+{% endblock %}
+
+{{ block content }}
+<h4>Evaluación afectiva de partidos políticos </h4>
+
+<div class="card">
+  <div class="card-body">
+<p>
+Nos gustaría conocer qué sentimientos le generan los siguientes partidos políticos en la España actual.<br>
+Esta pregunta no busca conocer si está de acuerdo o no con sus ideas, sino cómo le hacen sentir.<br>
+Para cada uno, indique su valoración en una escala del 0 al 10, donde 0 significa que le desagrada mucho y 10 que le agrada mucho.
+</p>
+     <div class="table-responsive my-4">
+      <table class="table table-bordered align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th rowspan="2">Partido</th>
+            <th colspan="11">Escala de valoración</th>
+          </tr>
+          <tr>
+            {% for i in range(11) %}
+              <th>
+                {% if i == 0 %}
+                  <div style="font-size: 0.75rem;">Le desagrada<br>mucho</div>
+                  <div>{{ i }}</div>
+                {% elif i == 10 %}
+                  <div style="font-size: 0.75rem;">Le agrada<br>mucho</div>
+                  <div>{{ i }}</div>
+                {% else %}
+                  {{ i }}
+                {% endif %}
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for field in form %}
+            <tr>
+              <th scope="row">{{ field.label }}</th>
+              {% for choice in field %}
+                <td>{{ choice }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+
+    <p class="mt-4">
+      Una vez haya completado estas preguntas, por favor, pulse "Siguiente" para continuar.
+    </p>
+  </div>
+</div>
+
+<br>
+
+<div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
+</div>
+{{ endblock }}

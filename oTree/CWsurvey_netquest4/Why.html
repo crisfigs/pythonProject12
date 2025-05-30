@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+{% block styles%}
+    <style>
+        .card {
+        font-size: 18px;
+        }
+    </style>
+{% endblock %}
+{% block scripts%}
+
+{% endblock %}
+
+{%  block title %} {% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+           <div class="mb-4">
+                Usted eligió hacer una donación de <strong>AVANZA: {{ donation_avanza }} €</strong> y <strong>FAES: {{ donation_faes }} €</strong>.
+                ¿Podría contarnos brevemente por qué tomó esta decisión?
+
+            {{ formfield player.q_feedback_why }}
+                </div>
+
+
+
+    </div>
+      </div>
+<br>
+<br>
+ <div style="float: right;">
+<div style="float: right;">        <button type="submit" class="btn btn-primary">Siguiente</button>
+</div>
+ </div>
+{% endblock %}
