@@ -572,15 +572,15 @@ class Player(BasePlayer):
 
     ##Attention questions
     pregunta_1 = models.IntegerField(
-        label="1. ¿Cuál fue la causa principal de la Guerra Civil Española?", widget = widgets.RadioSelect)
+        label="1. ¿De qué está hecho el papel?", widget = widgets.RadioSelect)
 
     pregunta_2 = models.IntegerField(
-        label="2. ¿Qué bando fue el responsable de causar la mayoría de las muertes durante la guerra?", widget = widgets.RadioSelect)
+        label="2. ¿Quién se cree que inventó el papel en China?", widget = widgets.RadioSelect)
 
     pregunta_3 = models.IntegerField(
-        label="3. En términos de gobernanza, el régimen de Franco fue...", widget = widgets.RadioSelect)
+        label="3. ¿Por qué era mejor el papel que el bambú o la seda para escribir?", widget = widgets.RadioSelect)
     pregunta_4 = models.IntegerField(
-        label="4. ¿Cómo se caracteriza a la España de hoy en día en comparación con la época de Franco?", widget = widgets.RadioSelect)
+        label="4. ¿Qué innovaciones del siglo XIX marcaron el inicio de la producción moderna a gran escala de papel, haciéndolo más accesible?", widget = widgets.RadioSelect)
 
     ###Sources
     transmission_school = models.IntegerField(label="La educacion formal (escuela, colegio, universidad, etc.)",
