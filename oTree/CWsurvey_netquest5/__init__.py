@@ -405,20 +405,20 @@ class Player(BasePlayer):
                  [7, '7'], [8, '8'], [9, '9'], [10, '10 \n Derecha'],[ 99, 'Prefiero no responder']], widget=widgets.RadioSelectHorizontal
         )
 
-    political_spectrum_faes = models.IntegerField(
-        label='Organización FAES',
-        choices=[[0, '0 \n Izquierda'],
-                 [1, '1'],
-                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
-                 [7, '7'], [8, '8'], [9, '9'], [10, '10 \n Derecha']], widget=widgets.RadioSelectHorizontal
-    )
-    political_spectrum_avanza = models.IntegerField(
-        label='Organización AVANZA',
-        choices=[[0, '0 \n Izquierda'],
-                 [1, '1'],
-                 [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
-                 [7, '7'], [8, '8'], [9, '9'], [10, '10 \n Derecha']], widget=widgets.RadioSelectHorizontal
-    )
+   # political_spectrum_faes = models.IntegerField(
+    #    label='Organización FAES',
+     #   choices=[[0, '0 \n Izquierda'],
+      #           [1, '1'],
+       #          [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+        #         [7, '7'], [8, '8'], [9, '9'], [10, '10 \n Derecha']], widget=widgets.RadioSelectHorizontal
+    #)
+    #political_spectrum_avanza = models.IntegerField(
+     #   label='Organización AVANZA',
+      #  choices=[[0, '0 \n Izquierda'],
+       #          [1, '1'],
+        #         [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
+         #        [7, '7'], [8, '8'], [9, '9'], [10, '10 \n Derecha']], widget=widgets.RadioSelectHorizontal
+    #)
 
 
     #25 most voted
@@ -533,7 +533,7 @@ class Player(BasePlayer):
         max=100
     )
     stigma_nationalists = models.IntegerField(
-        label="4. ¿Cree usted que expresar apoyo al bando nacionalista está socialmente aceptado en la España actual?",
+        label="4. ¿Cree usted que expresar apoyo al bando nacional está socialmente aceptado en la España actual?",
         choices=[[0, '0: Nada'],
                  [1, '1'],
                  [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'],
@@ -909,20 +909,20 @@ class IntroChoice_Organizations(Page):
 
 
 
-class IntroChoice_Organizations_position(Page):
-    form_model = 'player'
-    form_fields = ['political_spectrum_faes', 'political_spectrum_avanza']
-    def vars_for_template(player: Player):
-        all_descriptions = {
-            'Fundación FAES': 'La Fundación FAES es un think tank liberal-conservador que promueve valores como la libertad, la economía de mercado y la unidad nacional. Defiende políticas públicas que refuercen la competitividad, el emprendimiento y el fortalecimiento de las instituciones en España.',
-            'Fundación AVANZA': 'Laboratorio de Ideas Avanza es un think tank progresista que fomenta el debate sobre los grandes retos sociales. Promueve valores como la democracia social, la igualdad y los derechos humanos, trabajando por una sociedad más inclusiva y justa.'
-        }
+#class IntroChoice_Organizations_position(Page):
+ #   form_model = 'player'
+  #  form_fields = ['political_spectrum_faes', 'political_spectrum_avanza']
+   # def vars_for_template(player: Player):
+    #    all_descriptions = {
+     #       'Fundación FAES': 'La Fundación FAES es un think tank liberal-conservador que promueve valores como la libertad, la economía de mercado y la unidad nacional. Defiende políticas públicas que refuercen la competitividad, el emprendimiento y el fortalecimiento de las instituciones en España.',
+      #      'Fundación AVANZA': 'Laboratorio de Ideas Avanza es un think tank progresista que fomenta el debate sobre los grandes retos sociales. Promueve valores como la democracia social, la igualdad y los derechos humanos, trabajando por una sociedad más inclusiva y justa.'
+       # }
 
         # Reconstruct order using the saved string from the previous page
-        order = player.organization_order.split(',')  # or from participant.vars['organization_order']
-        descriptions = [{'name': name, 'description': all_descriptions[name]} for name in order]
+        #order = player.organization_order.split(',')  # or from participant.vars['organization_order']
+        #descriptions = [{'name': name, 'description': all_descriptions[name]} for name in order]
 
-        return {'descriptions': descriptions}
+        #return {'descriptions': descriptions}
 
 class Choice(Page):
     form_model = 'player'
@@ -1022,7 +1022,6 @@ page_sequence = [Bienvenida,
                  Text2,
                  IntroChoice,
                  IntroChoice_Organizations,
-                 IntroChoice_Organizations_position,
                  Choice,
                  Why,
                  Emociones,
