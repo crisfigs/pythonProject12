@@ -146,8 +146,8 @@ SESSION_CONFIGS = [
 #     error_code="ECODE",
     # )
 dict(
-          name='Survey_',
-           app_sequence=['survey_'],
+          name='DWK_baseline',
+           app_sequence=['Welcome', 'DWK_baseline'],
           num_demo_participants=2,
           cc_code="CCCODE",
      error_code="ECODE",
